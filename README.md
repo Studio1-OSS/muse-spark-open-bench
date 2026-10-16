@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://dev.meta.ai/models/muse-spark-open"><img src="brand/muse.svg" alt="Muse Spark Open" width="88" height="88"></a> &nbsp;&nbsp; <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open"><img src="brand/nebius.svg" alt="Nebius Token Factory" height="56"></a>
+<a href="https://dev.meta.ai/models/muse-spark-open"><img src="brand/muse.svg" alt="Muse Spark Open" width="88" height="88"></a> &nbsp;&nbsp; <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open"><img src="brand/token-factory.svg" alt="Nebius Token Factory" width="88" height="88"></a>
 
 # Muse PR Review Bench
 
@@ -8,11 +8,10 @@
 
 **An open benchmark for Meta's [Muse Spark Open](https://dev.meta.ai/models/muse-spark-open) on [Nebius Token Factory](https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open). Muse reviews 50 real merged pull requests from popular open-source projects. 25 of them were later reverted or fixed because they broke something. Every review is graded against the fix the maintainers actually shipped, and the catches are checked by running the code.**
 
-Built with [Nebius Token Factory](https://dub.sh/aistudio) on **[Muse Spark Open](https://dev.meta.ai/models/muse-spark-open)** · [Results](#results) · [Repositories](#repositories-tested) · [How it works](#how-it-works) · [Proof](#proof-by-running-code) · [Get started](#get-started) · [Reproduce](#reproduce-the-benchmark) · [Deploy the results page](#deploy-the-results-page) · [Limits](#limits)
+Built with [Nebius Token Factory](https://dub.sh/aistudio) on **[Muse Spark Open](https://dev.meta.ai/models/muse-spark-open)** · [Results](#results) · [Repositories](#repositories-tested) · [How it works](#how-it-works) · [Proof](#proof-by-running-code) · [Get started](#get-started) · [Reproduce](#reproduce-the-benchmark) · [Limits](#limits)
 
 [![Muse Spark Open](https://img.shields.io/badge/model-Muse%20Spark%20Open-1a3a3a)](https://dev.meta.ai/models/muse-spark-open)
-[![Try on Token Factory](https://img.shields.io/badge/try%20it-Token%20Factory-ff4d8b)](https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open)
-[![Nebius Token Factory](https://img.shields.io/badge/models-Nebius%20Token%20Factory-e0ff4f?labelColor=0b0b0b)](https://dub.sh/aistudio)
+[![Nebius Token Factory](https://img.shields.io/badge/runs%20on-Nebius%20Token%20Factory-e0ff4f?labelColor=052b42)](https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open)
 ![Node.js 24](https://img.shields.io/badge/Node.js-24-339933?logo=nodedotjs&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Built by Studio1 team](https://img.shields.io/badge/built%20by-Studio1%20team-ff6b1a)](https://studio1hq.com)
@@ -48,7 +47,7 @@ _The results page, built from the files in [`results/`](results/). Every number 
 | Real bugs found in "clean" PRs, confirmed | **2** (Svelte, fixed upstream later; Prettier, still unfixed) |
 | Muse recognized the bug PRs from memory | 0 / 25 |
 | Median time / average cost per review | 58 s / $0.29 |
-| Total cost, 50 reviews + memory probe | $14.52 (451 + 27 model calls, usage reported on every one) |
+| Total cost | $14.52 for the 50 reviews and the memory probe |
 
 ### Repositories tested
 
@@ -95,19 +94,38 @@ flowchart LR
   B -. fix commits, never shown to Muse .-> E
 ```
 
-1. **Find PRs that shipped a bug.** [`scripts/mine-reviews.ts`](scripts/mine-reviews.ts) scans local clones for reverts and fix commits that name the commit that caused a regression. A case is kept only if the fix commit, issue or PR states the defect; reverts for release timing, dependency bumps or no stated reason are dropped. 25 bug PRs from Django, Vue, Svelte, tldraw, Tiptap, ant-design, Prettier, Recharts and Mantine.
+1. **Find PRs that shipped a bug.** [`scripts/mine-reviews.ts`](scripts/mine-reviews.ts) scans local clones for reverts and fix commits that name the commit that caused a regression. A case is kept only if the fix commit, issue or PR states the defect; reverts for release timing, dependency bumps or no stated reason are dropped. 25 bug PRs from Django, Vue, Svelte, tldraw, Tiptap, Ant Design, Prettier, Recharts and Mantine.
 2. **Pick clean PRs the same way, mechanically.** `--controls` picks merged fixes from the same repos and period that no later commit mentions, and whose added source lines are at least 90% unchanged today by `git blame`. [`benchmarks/controls-mining.json`](benchmarks/controls-mining.json) lists every candidate and why it was rejected.
 3. **Show Muse only what a reviewer has.** [`scripts/build-review-cases.ts`](scripts/build-review-cases.ts) exports the tree at the merged commit with `git archive` (no `.git`, so no later history), the diff, and the commit message as the description.
-4. **Review.** [`src/review/`](src/review/) runs a Mastra agent on Muse Spark Open with three read-only, path-confined tools: `list_files`, `search_repo`, `read_file`. Nothing can be executed. One prompt for every case, and it never says a bug exists. Muse returns `{verdict, summary, findings[]}` with a file, line and severity per finding.
+4. **Review.** A small TypeScript program ([`src/review/`](src/review/)) sends Muse the PR and lets it look around the code before answering. It uses [Mastra](https://mastra.ai), an open-source agent framework, to run that loop. There's no app or UI involved. One review looks like this:
+   - Muse gets the review prompt, the PR title and description, and the diff.
+   - It can call three read-only tools on the merged code: `list_files`, `search_repo` and `read_file`. Each call's result goes back to Muse, and it decides what to read next (median 14 tool calls per review).
+   - When it's done, it answers with JSON: a verdict (`approve` or `request_changes`) and findings, each with a file, line, severity and explanation.
+
+   Muse can't run or change anything. Every PR gets the same prompt, and it never says a bug exists.
 5. **Grade against the real fix,** by the [rubric](benchmarks/RUBRIC.md) written before the run: caught (same defect mechanism as the fix), partial (right code or symptom, wrong mechanism) or missed. Each grade has a written rationale in [`benchmarks/grades.json`](benchmarks/grades.json).
 6. **Run the code** for every catch that can run outside a full app build (below).
 7. **Ask Muse from memory first.** With no code and no tools, Muse was asked about each bug PR. It answered UNKNOWN to all 25.
 
-The model client ([`src/provider.ts`](src/provider.ts)) strips any `temperature`, `top_p`, `top_k` or `reasoning_effort` a framework might add, so Muse runs on Token Factory's defaults. Every request is written to a local SQLite ledger with its reported usage and a decimal cost from the live `/models?verbose=true` price list.
+Muse runs on Token Factory's default settings, with no temperature or reasoning overrides. Every request is logged with its token usage, and costs come from Token Factory's published prices.
+
+### Project layout
+
+```
+src/
+  provider.ts          Token Factory client, default-settings guard, usage capture
+  accounting.ts        Decimal cost, totals, Wilson intervals
+  store.ts             SQLite runs, events, requests, artifacts
+  review/              Cases, read-only tools, review runner, memory probe, CLI
+scripts/               Mining, case building, reproductions, report and site, preview server
+benchmarks/            Frozen selection, rubric, grades, clean-PR mining log, reproduction scripts
+results/               Reviews, requests, runs, usage, probe, reproduction logs, summary
+tests/                 Harness tests and checks on the saved results
+```
 
 ## Proof by running code
 
-A grade is a judgement. A failing test is not. For 8 of the 12 catches, the input Muse described was turned into a script ([`benchmarks/repro/`](benchmarks/repro/)) and run on three commits: just before the PR, the merged PR, and the maintainers' fix. Each one passes before, fails on the merged PR with the error Muse predicted, and passes again on the fix. The run logs are in [`results/repro/`](results/repro/).
+Grades are judgement calls, so the catches were also checked by running code. For 8 of the 12, the input Muse described was turned into a script ([`benchmarks/repro/`](benchmarks/repro/)) and run on three commits: just before the PR, the merged PR, and the maintainers' fix. Each one passes before, fails on the merged PR with the error Muse predicted, and passes again on the fix. The run logs are in [`results/repro/`](results/repro/).
 
 <div align="center">
 
@@ -119,7 +137,7 @@ A grade is a judgement. A failing test is not. For 8 of the 12 catches, the inpu
 
 </div>
 
-The other four catches (tldraw, two ant-design, Mantine) need a full app build or are design decisions confirmed by the maintainers' own revert message; [`benchmarks/repro/manifest.json`](benchmarks/repro/manifest.json) gives the reason for each. Repository code runs in temporary folders with only `PATH` and a scratch `HOME`, never with the API key.
+The other four catches (tldraw, two in Ant Design, Mantine) need a running app, or are design decisions the maintainers confirmed in their own revert. [`benchmarks/repro/manifest.json`](benchmarks/repro/manifest.json) gives the reason for each.
 
 ## Get started
 
@@ -137,14 +155,14 @@ Open **http://localhost:4320** for the results page. It is built from the saved 
 
 | Variable | What it does |
 | --- | --- |
-| `NEBIUS_API_KEY` | **Required for new reviews.** [Nebius Token Factory](https://tokenfactory.nebius.com) key. Never sent to repository code. |
+| `NEBIUS_API_KEY` | Your [Nebius Token Factory](https://tokenfactory.nebius.com) API key. Only needed to run new reviews. |
 | `NEBIUS_MODEL` | Default [`meta-models/muse-spark-open`](https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open). |
 | `NEBIUS_BASE_URL` | Default `https://api.tokenfactory.us-north1.nebius.com/v1/`. |
-| `DATA_DIR` | Local SQLite store for runs, requests and ground truth (default `./data`, gitignored). |
+| `DATA_DIR` | Local folder for run records (default `./data`). |
 | `REVIEW_CASES_DIR` | Where case folders go, about 1.3 GB for all 50 (default `data/cases`). |
 | `MAX_STEPS`, `MAX_OUTPUT_TOKENS` | Tool steps per review (40) and output tokens per request (16,384). |
 | `MAX_TASK_COST_USD`, `MAX_BATCH_COST_USD` | Spending caps, checked before every request ($5 and $100). |
-| `SITE_URL` | Absolute URL of the deployed page, for the X and Open Graph share image. |
+| `SITE_URL` | Public URL of the results page, used for link previews. |
 
 ### Tests
 
@@ -166,7 +184,7 @@ for r in django/django vuejs/core sveltejs/svelte tldraw/tldraw ueberdosis/tipta
 done
 cd ..
 
-# 2. Rebuild the 50 case folders and the private ground truth
+# 2. Rebuild the 50 case folders
 npm run cases -- repos
 
 # 3. Review every PR with Muse Spark Open (about $14.50, 50 minutes)
@@ -182,18 +200,6 @@ npm run site
 
 `npm run mine -- repos` lists bug-PR candidates and `npm run mine -- --controls repos 19` picks clean PRs; the frozen selection is [`benchmarks/selection.json`](benchmarks/selection.json). `npm run bench -- run <case ids>` reviews a subset, and `npm run bench -- export <benchmark ids>` combines runs into `results/`.
 
-## Deploy the results page
-
-The page is a static site in `site/`, built from `results/` by `npm run site`. [`vercel.json`](vercel.json) is ready:
-
-1. Import this repository in [Vercel](https://vercel.com). Framework preset: **Other**. It uses `npm ci`, `npm run site` and the `site` output folder from `vercel.json`.
-2. Add the environment variable `SITE_URL` with your deployment URL (for example `https://muse-pr-review.vercel.app`) so the share image resolves on X.
-3. Deploy. No API key is needed; the build makes no model calls.
-
-To deploy from the command line instead: `npm run site && npx vercel deploy --prod`.
-
-The raw data is served next to the page under `/data/`: every review, every request with its tokens, the grades, the rubric, the memory-probe answers and the reproduction logs.
-
 ## Limits
 
 - **Small sample.** 50 PRs, 11 of the bug PRs from Django. The 95% interval on the catch rate is 30–67%.
@@ -205,19 +211,7 @@ The raw data is served next to the page under `/data/`: every review, every requ
 
 ## Data and privacy
 
-Everything comes from public repositories. During reviews, Nebius Token Factory receives the PR title, description and diff, and the files Muse chooses to read. Ground truth (fix commits) is stored only in the gitignored `data/` folder and never sent to the model. The project sends no telemetry.
-
-```
-src/
-  provider.ts          Token Factory client, default-settings guard, usage capture
-  accounting.ts        Decimal cost, totals, Wilson intervals
-  store.ts             SQLite runs, events, requests, artifacts
-  review/              Cases, read-only tools, review runner, memory probe, CLI
-scripts/               Mining, case building, reproductions, report and site, preview server
-benchmarks/            Frozen selection, rubric, grades, clean-PR mining log, reproduction scripts
-results/               Reviews, requests, runs, usage, probe, reproduction logs, summary
-tests/                 Harness tests and checks on the saved results
-```
+Everything comes from public repositories. During reviews, Nebius Token Factory receives the PR title, description and diff, and the files Muse chooses to read. The later fix commits are used only for grading and are never shown to the model.
 
 ---
 

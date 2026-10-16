@@ -199,7 +199,7 @@ pre.cmd { min-width: 0; max-width: 100%; margin: 0; background: var(--teal); col
 pre.cmd .c { color: var(--mint); }
 footer { background: var(--surface-soft); padding-block: 56px; }
 .foot-brand { display: grid; gap: 16px; }
-.nebius { height: 28px; width: auto; display: block; }
+.nebius { height: 36px; width: 36px; display: block; border-radius: 8px; }
 .foot { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: space-between; font-size: 14px; color: var(--body); }
 .foot .mono { font-size: 12px; color: var(--muted); }
 
@@ -282,7 +282,7 @@ footer { background: var(--surface-soft); padding-block: 56px; }
     <div class="section-head">
       <div class="label">By ecosystem</div>
       <h2>Nine open-source projects, Django to Prettier</h2>
-      <p>Same prompt, same tools. Django bugs are mostly backend logic with crisp failing inputs. The JS/TS set has more rendering and event-handling regressions, which are harder to see in a diff.</p>
+      <p>Same prompt and tools for every PR. Most Django bugs are backend logic with a clear failing input; the JavaScript set has more rendering and event-handling bugs, which are harder to spot in a diff.</p>
     </div>
     <div class="features" id="groups"></div>
     <div class="panel table-wrap" style="margin-top:24px"><table id="repos"></table></div>
@@ -326,7 +326,7 @@ footer { background: var(--surface-soft); padding-block: 56px; }
   <section class="container" id="questions">
     <div class="section-head">
       <div class="label">Questions you might ask</div>
-      <h2>Why these numbers hold up</h2>
+      <h2>How the results were checked</h2>
     </div>
     <div class="faq" id="faqList"></div>
   </section>
@@ -335,7 +335,7 @@ footer { background: var(--surface-soft); padding-block: 56px; }
     <div class="section-head">
       <div class="label">Raw data</div>
       <h2>Every record behind this page</h2>
-      <p>Nothing here is summarized away. Each file is the exact output of the run.</p>
+      <p>The exact files this page is built from.</p>
     </div>
     <div class="files">
       <a class="btn btn-secondary" href="data/reviews.jsonl">Every review (JSONL)</a>
@@ -354,7 +354,7 @@ footer { background: var(--surface-soft); padding-block: 56px; }
       <h2>Run it on your own key</h2>
       <p>The cases, grades, reproduction scripts, every review and the per-request token ledger ship with the repository.</p>
     </div>
-    <pre class="cmd"><span class="c"># build the 31 case folders from local clones</span>
+    <pre class="cmd"><span class="c"># build the 50 case folders from local clones</span>
 node --import tsx scripts/build-review-cases.ts REPOS_DIR
 <span class="c"># run the bugs Muse described on before/merged/fix</span>
 node --import tsx scripts/pr-review-repro.ts REPOS_DIR
@@ -368,10 +368,9 @@ node --import tsx scripts/pr-review-report.ts</pre>
 <footer class="gutter">
   <div class="container foot">
     <div class="foot-brand">
-      <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener" aria-label="Muse Spark Open on Nebius Token Factory"><img src="/*NEBIUS*/" alt="Nebius" class="nebius"></a>
+      <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener" aria-label="Muse Spark Open on Nebius Token Factory"><img src="/*NEBIUS*/" alt="Nebius Token Factory" class="nebius"></a>
       <div>Built with <a href="https://dev.meta.ai/models/muse-spark-open" target="_blank" rel="noopener">Muse Spark Open</a>, served on <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener">Nebius Token Factory</a> · Built by the <a href="https://studio1hq.com" target="_blank" rel="noopener">Studio1 team</a><br>Costs are estimates from Nebius list prices and provider-reported usage, not invoiced amounts.</div>
     </div>
-    <div class="mono" id="ids"></div>
   </div>
 </footer>
 
@@ -461,7 +460,6 @@ renderCases();
 $('usageNote').textContent = `Reviews: ${S.tokens.calls} model calls and every one reported its token usage. Nebius lists Muse Spark Open at $1.25 per million input tokens and $4.25 per million output tokens; no cache discount is published, so cached input is priced at the full rate.`;
 $('usage').innerHTML = `<thead><tr><th>Per review</th><th class="r">Median</th><th class="r">Highest</th><th class="r">All ${DATA.cases.length}</th></tr></thead><tbody>${S.usageRows.map((r) => `<tr><td>${esc(r[0])}</td><td class="r">${esc(r[1])}</td><td class="r">${esc(r[2])}</td><td class="r">${esc(r[3])}</td></tr>`).join('')}</tbody>`;
 $('methodGrid').innerHTML = DATA.method.map((m) => `<article class="fcard fc-cream"><h3>${esc(m.title)}</h3>${m.items ? `<ul>${m.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>` : `<p>${esc(m.text)}</p>`}</article>`).join('');
-$('ids').textContent = `benchmark ${S.benchmarkId.slice(0, 8)} · prompt ${S.promptHash.slice(0, 12)}`;
 
 const proofCases = DATA.cases.filter((c) => c.repro?.reproduced);
 $('proofLede').textContent = `For ${proofCases.length} of the ${S.caught} catches, the failing input Muse wrote down was turned into a script and run on three commits: just before the PR, the merged PR, and the maintainers' fix. Each one passes before, fails after merge with the error Muse predicted, and passes again on the fix.`;

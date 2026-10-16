@@ -38,13 +38,13 @@
     "asked": 25,
     "answered": 25,
     "unknown": 25,
-    "attempts": 27,
-    "cost": 0.05231325
+    "attempts": 25,
+    "cost": 0.05032425
   },
   "medianSeconds": 57.840500000000006,
   "costPerReview": 0.2893518,
   "totalCost": 14.46759,
-  "totalSpend": 14.519903249999999,
+  "totalSpend": 14.517914249999999,
   "costPerCatch": 1.2056324999999999,
   "tokens": {
     "input": 10369741,

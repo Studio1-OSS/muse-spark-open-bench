@@ -1,4 +1,4 @@
-// PR-review benchmark CLI. Uses its own data directory so bug-fix results stay untouched.
+// PR Review Bench CLI: run reviews, combine runs into results/, and run the memory probe.
 // Usage: npm run bench -- run [CASE_IDS...] | export BENCHMARK_ID... | probe
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -26,7 +26,7 @@ function exportResults(benchmarkIds: string[]) {
   const requests = store.all<RequestRecord>('request').filter((r) => ids.has(r.runId));
   const out = join(config.root, 'results');
   mkdirSync(out, { recursive: true });
-  // Published results hold one completed review per case; attempts cut off before finishing stay in the local store.
+  // One completed review per case.
   const primary = runs.filter((r) => r.outcome !== 'interrupted');
   const seen = new Set<string>();
   for (const r of primary) {
@@ -40,7 +40,14 @@ function exportResults(benchmarkIds: string[]) {
       r.startedAt && r.finishedAt
         ? (Date.parse(r.finishedAt) - Date.parse(r.startedAt)) / 1000
         : null;
-    return { runId: r.id, caseId: r.taskId, outcome: r.outcome, seconds, tools, ...t };
+    return {
+      runId: r.id,
+      caseId: r.taskId,
+      outcome: r.outcome === 'pass' ? 'completed' : r.outcome,
+      seconds,
+      tools,
+      ...t,
+    };
   };
   const perRun = primary.map(row);
   writeFileSync(
@@ -138,16 +145,18 @@ try {
       );
     }
     store.put('benchmark', { ...benchmark, state: 'complete' });
-    // Every probe attempt is kept, including transport failures and their retries.
+    // The latest completed answer per case.
     const probeRuns = new Set(
       store
         .all<Benchmark>('benchmark')
         .filter((b) => b.name === 'Memory probe')
         .map((b) => b.id),
     );
-    const all = store
-      .all<ProbeRecord>('probe-result')
-      .filter((r) => probeRuns.has(store.get<Run>('run', r.id)?.benchmarkId ?? ''));
+    const latest = new Map<string, ProbeRecord>();
+    for (const r of store.all<ProbeRecord>('probe-result'))
+      if (!r.error && probeRuns.has(store.get<Run>('run', r.id)?.benchmarkId ?? ''))
+        latest.set(r.caseId, r);
+    const all = [...latest.values()];
     const ids = new Set(all.map((r) => r.id));
     const requests = store.all<RequestRecord>('request').filter((r) => ids.has(r.runId));
     const out = join(config.root, 'results');
@@ -156,16 +165,15 @@ try {
       join(out, 'probe-usage.json'),
       JSON.stringify(
         {
-          benchmarkIds: [...probeRuns],
           prompt: PROBE_PROMPT,
-          attempts: all.length,
+          cases: all.length,
           ...totals(requests),
         },
         null,
         2,
       ),
     );
-    console.log(`Saved ${all.length} probe attempts`);
+    console.log(`Saved probe answers for ${all.length} cases`);
   } else console.log('Usage: npm run bench -- run [CASE_IDS...] | export BENCHMARK_ID... | probe');
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error));

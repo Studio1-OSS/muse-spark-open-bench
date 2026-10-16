@@ -80,7 +80,7 @@ const repros: Repro[] = existsSync(reproDir)
   : [];
 const probes = jsonl<ProbeRecord>('probe.jsonl');
 const probeUsage = existsSync(join(dir, 'probe-usage.json')) ? read('probe-usage.json') : null;
-// Latest successful probe answer per case (failed attempts stay in probe.jsonl).
+// Latest answer per case.
 const probeByCase = new Map<string, ProbeRecord>();
 for (const p of probes) if (!p.error) probeByCase.set(p.caseId, p);
 
@@ -327,7 +327,7 @@ const method = [
       'Caught: a finding names the same defect mechanism as the real fix.',
       'Strict: caught, the matching finding is blocker or major, and the verdict was "request changes".',
       'Partial: right code or symptom, wrong or speculative mechanism. Never counted as caught.',
-      'Rubric fixed before the run. Grades are checked by running code wherever the bug can run outside a full app build.',
+      'Rubric written before the reviews ran. Catches are also checked by running code wherever the bug can run outside a full app build.',
     ],
   },
   {
@@ -342,11 +342,11 @@ const method = [
 const faq = [
   {
     q: 'Who decided what counts as caught?',
-    a: `The rubric was written before the run, and each grade has a written rationale linked to the real fix. On top of that, ${summary.reproduced} of the ${summary.caught} catches were confirmed by running code: the input Muse described fails on the merged commit and passes on the maintainers' fix. The other ${summary.reproNotExecuted} need a full app build to run and are marked as graded only.`,
+    a: `The rubric was written before the run, and each grade has a written rationale linked to the real fix. On top of that, ${summary.reproduced} of the ${summary.caught} catches were confirmed by running code: the input Muse described fails on the merged commit and passes on the maintainers' fix. The other ${summary.reproNotExecuted} need a running app, or are design decisions the maintainers confirmed in their revert, and are marked as graded only.`,
   },
   {
     q: 'Did Muse just remember these bugs from training?',
-    a: `Before any review, Muse was asked about each of the ${summary.bugCases} bug PRs with no code and no tools. It answered "unknown" for ${summary.probe.unknown} of ${summary.probe.answered}. Its catches came from reading the diff and the code, and it never saw any history after the merge.`,
+    a: `In a separate step, Muse was asked about each of the ${summary.bugCases} bug PRs with no code and no tools: was this change later reverted or fixed, and why? It answered "unknown" for ${summary.probe.unknown} of ${summary.probe.answered}. During the reviews it never saw any history after the merge.`,
   },
   {
     q: 'Is 12 of 25 generous?',
@@ -354,7 +354,7 @@ const faq = [
   },
   {
     q: 'Does it just flag everything?',
-    a: `On ${summary.controlCases} clean PRs it approved ${summary.controlApproved} and raised false alarms on ${summary.controlsWithFalseAlarm}. Every clean PR's findings are listed below so you can judge them yourself.`,
+    a: `On ${summary.controlCases} clean PRs it approved ${summary.controlApproved} and raised false alarms on ${summary.controlsWithFalseAlarm}. Every clean PR's findings are in the case list above, so you can judge them yourself.`,
   },
   {
     q: 'Can I check this myself?',
@@ -371,7 +371,7 @@ const data = JSON.stringify({ summary, cases, highlights: grades.highlights, met
 const svg = (f: string) => 'data:image/svg+xml;base64,' + readFileSync(f).toString('base64');
 const page = template
   .replace('/*LOGO*/', svg('brand/muse.svg'))
-  .replace('/*NEBIUS*/', svg('brand/nebius.svg'))
+  .replace('/*NEBIUS*/', svg('brand/token-factory.svg'))
   .replace('/*DATA*/null', data);
 writeFileSync(join(dir, 'report.html'), page);
 

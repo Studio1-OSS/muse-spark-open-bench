@@ -2,7 +2,7 @@
   "retrievedAt": "2026-10-16",
   "assets": [
     {
-      "file": "web/public/brand/muse.svg",
+      "file": "brand/muse.svg",
       "source": "https://upload.wikimedia.org/wikipedia/commons/8/88/Muse_icon.svg",
       "attribution": "Meta Platforms, Inc.",
       "sourcePage": "https://commons.wikimedia.org/wiki/File:Muse_icon.svg",
@@ -11,13 +11,11 @@
       "sha256": "73bdf6aed3c3a03b2181c69532672554fca8a1d303644c301abb1caf5300d703"
     },
     {
-      "file": "web/public/brand/nebius.svg",
-      "source": "https://assets.nebius.com/assets/2dd2ad13-45c1-4429-a47c-156bedd4d71d/NEBIUS-logos%2807.25%29%20%281%29.zip",
+      "file": "brand/token-factory.svg",
+      "source": "https://static.nebius.com/app/ai-studio-ui/assets/favicon.ade3d1245f2fbcbf.svg",
       "attribution": "Nebius",
-      "sourcePage": "https://nebius.com/media-kit",
-      "archiveEntry": "SVGs/NEBIUS-outline-deep-blue.svg",
-      "variant": "Official deep-blue outlined Nebius wordmark, unchanged SVG",
-      "sha256": "31d480b0225258d257e2df84ea63efa7f1e5019f0434ca0b86caec9d4d3267f5"
+      "sourcePage": "https://tokenfactory.nebius.com",
+      "variant": "Nebius Token Factory app icon, unchanged SVG"
     }
   ]
 }
