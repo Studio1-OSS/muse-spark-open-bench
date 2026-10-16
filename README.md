@@ -43,7 +43,7 @@ Muse Spark Open as an AI code reviewer, on real changes from real projects:
 - **Working in an unfamiliar codebase.** Each review starts from a large real repository; Muse finds the relevant code itself by searching and reading files.
 - **Being precise.** A catch only counts if it names the actual cause, specifically enough to turn into a failing test.
 
-It does not test writing fixes, running code, or how Muse compares with other models.
+It is text and code only: no images or screenshots are sent, so Muse's vision input is not tested. It also does not test writing fixes, running code, or how Muse compares with other models.
 
 ## Results
 
