@@ -222,7 +222,7 @@ npm run site
 
 ## Data and privacy
 
-Everything comes from public repositories. During reviews, Nebius Token Factory receives the PR title, description and diff, and the files Muse chooses to read. The later fix commits are used only for grading and are never shown to the model.
+Everything comes from public repositories. During reviews, Nebius Token Factory receives the PR title, description and diff, and the files Muse chooses to read. Muse never sees how the story ended: the code it reviews is a snapshot from the day the PR was merged, before any fix existed. The maintainers' later fix is the answer key, and it's used only afterwards, to grade the review.
 
 ---
 
