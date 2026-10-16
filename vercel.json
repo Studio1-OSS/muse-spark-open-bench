@@ -1,0 +1,32 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm ci",
+  "buildCommand": "npm run site",
+  "outputDirectory": "site",
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/data/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.jsonl",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/x-ndjson; charset=utf-8"
+        }
+      ]
+    }
+  ]
+}

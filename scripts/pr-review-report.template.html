@@ -1,0 +1,495 @@
+<title>Muse PR Review Bench</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Clay system (cream throughout, by design): 7/5 hero with a teal score card, saturated feature cards cycling
+   teal, lavender, peach, pink, ochre, then cream content cards and a cream footer. Single light theme on purpose. */
+:root {
+  color-scheme: light;
+  --canvas: #fffaf0;
+  --surface-soft: #faf5e8;
+  --surface-card: #f5f0e0;
+  --surface-strong: #ebe6d6;
+  --ink: #0a0a0a;
+  --body: #3a3a3a;
+  --muted: #6a6a6a;
+  --hairline: #e5e5e5;
+  --on-dark: #ffffff;
+  --on-dark-soft: #c9d4d4;
+  --pink: #ff4d8b;
+  --teal: #1a3a3a;
+  --lavender: #b8a4ed;
+  --peach: #ffb084;
+  --ochre: #e8b94a;
+  --mint: #a4d4c5;
+  --coral: #ff6b5a;
+  --display: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --text: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px;
+  --section: 96px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--canvas); color: var(--body); font: 400 16px/1.55 var(--text); -webkit-font-smoothing: antialiased; }
+a { color: var(--ink); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.container { width: 100%; max-width: 1280px; margin: 0 auto; }
+h1, h2, h3 { color: var(--ink); font-family: var(--display); font-weight: 500; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1; letter-spacing: -0.035em; }
+h2 { font-size: clamp(2rem, 4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.025em; }
+h3 { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+p { margin: 0; max-width: 64ch; }
+.label { font: 600 0.75rem/1.4 var(--text); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+.mono { font-family: var(--mono); }
+
+/* Top nav */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--canvas); border-bottom: 1px solid transparent; }
+.nav.scrolled { border-bottom-color: var(--hairline); }
+.nav-inner { height: 64px; display: flex; align-items: center; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 10px; font: 600 15px var(--text); color: var(--ink); text-decoration: none; margin-right: auto; }
+.brand img { width: 28px; height: 28px; }
+.nav-links { display: flex; gap: 24px; font: 500 14px var(--text); }
+.nav-links a { text-decoration: none; color: var(--body); }
+.nav-links a:hover { color: var(--ink); }
+.btn { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: var(--r-md); font: 600 14px/1 var(--text); text-decoration: none; cursor: pointer; border: 1px solid transparent; }
+.btn-primary { background: var(--ink); color: #ffffff; }
+.btn-primary:active { background: #1f1f1f; }
+.btn-secondary { background: var(--canvas); color: var(--ink); border-color: var(--hairline); }
+.btn-on-color { background: var(--canvas); color: var(--ink); }
+
+/* Sections */
+main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--section); padding-block: 56px var(--section); }
+.section-head { display: grid; gap: 12px; margin-bottom: 40px; }
+.section-head p { color: var(--body); font-size: 1.0625rem; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 48px; align-items: center; }
+.hero-copy { display: grid; gap: 24px; min-width: 0; }
+.hero-copy .lead { font-size: 1.125rem; color: var(--body-strong, #1a1a1a); }
+.lead-links { font-size: 15px; font-weight: 500; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.model { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge { text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: var(--surface-card); color: var(--ink); font: 500 13px/1.4 var(--text); padding: 4px 12px; border-radius: 999px; }
+.score-card { background: var(--teal); color: var(--on-dark); border-radius: var(--r-xl); padding: 32px; display: grid; gap: 20px; min-width: 0; }
+.score-card .label { color: var(--on-dark-soft); }
+.score-big { font: 500 clamp(5rem, 11vw, 8rem)/0.9 var(--display); letter-spacing: -0.05em; color: var(--on-dark); font-variant-numeric: tabular-nums; }
+.score-big span { font-size: 0.38em; letter-spacing: -0.02em; color: var(--on-dark-soft); }
+.waffle { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 5px; }
+.waffle i { aspect-ratio: 1; border-radius: 5px; display: block; max-width: 100%; }
+.w-caught { background: var(--mint); } .w-partial { background: var(--ochre); } .w-missed { background: rgba(255, 255, 255, 0.16); }
+.key { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--on-dark-soft); }
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+.key i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.score-card .ci { font-size: 14px; color: var(--on-dark-soft); }
+
+/* Stat cards */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.stat { background: var(--surface-card); border-radius: var(--r-lg); padding: 24px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+.stat b { font: 500 2.5rem/1.05 var(--display); letter-spacing: -0.03em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat .t { font-weight: 600; color: var(--ink); font-size: 15px; }
+.stat .d { font-size: 14px; color: var(--muted); }
+.minor { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.minor div { border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 16px 20px; display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.minor b { font: 500 1.375rem var(--display); color: var(--ink); letter-spacing: -0.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.minor span { font-size: 14px; color: var(--muted); }
+
+/* Feature cards */
+.features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.features.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fcard { border-radius: var(--r-xl); padding: 32px; display: grid; gap: 16px; align-content: start; min-width: 0; color: var(--ink); }
+.fcard p, .fcard li { color: inherit; }
+.fc-teal { background: var(--teal); color: var(--on-dark); }
+.fc-teal h3, .fc-pink h3 { color: var(--on-dark); }
+.fc-pink { background: var(--pink); color: var(--on-dark); }
+.fc-lavender { background: var(--lavender); }
+.fc-peach { background: var(--peach); }
+.fc-ochre { background: var(--ochre); }
+.fc-cream { background: var(--surface-card); }
+.fcard .big { font: 500 3.5rem/1 var(--display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.fcard .big span { font-size: 0.45em; opacity: 0.7; }
+.fragment { background: var(--canvas); color: var(--ink); border-radius: var(--r-lg); padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.fragment .row { display: grid; grid-template-columns: 5.5rem 1fr 2.5rem; gap: 10px; align-items: center; font-size: 13px; }
+.track { height: 10px; border-radius: 999px; background: var(--surface-strong); overflow: hidden; }
+.track div { height: 100%; border-radius: 999px; }
+.quote { background: var(--canvas); color: var(--ink); border-radius: var(--r-lg); padding: 16px 18px; display: grid; gap: 6px; font-size: 14px; overflow-wrap: anywhere; }
+.quote .qh { font: 500 12px/1.4 var(--mono); color: var(--muted); }
+.quote strong { color: var(--ink); }
+.fcard .truth { font-size: 14px; opacity: 0.92; }
+.pill { display: inline-flex; align-items: center; font: 600 12px/1 var(--text); letter-spacing: 0.04em; padding: 6px 10px; border-radius: 999px; white-space: nowrap; }
+.p-caught { background: var(--teal); color: var(--on-dark); }
+.p-partial { background: var(--ochre); color: var(--ink); }
+.p-missed { background: var(--coral); color: var(--ink); }
+.p-control { background: var(--lavender); color: var(--ink); }
+.p-onlight { background: var(--canvas); color: var(--ink); }
+
+/* Case list */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.tab { font: 500 14px/1.4 var(--text); color: var(--muted); background: transparent; border: 0; padding: 10px 16px; border-radius: 999px; cursor: pointer; min-height: 44px; }
+.tab[aria-pressed="true"] { background: var(--surface-card); color: var(--ink); }
+.tab span { margin-left: 4px; opacity: 0.7; }
+.cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+.case { background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--r-lg); min-width: 0; }
+.case summary { list-style: none; cursor: pointer; padding: 24px; display: grid; gap: 10px; }
+.case summary::-webkit-details-marker { display: none; }
+.case .top { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+.case .repo { font: 500 12px/1.4 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.case .title { color: var(--ink); font-weight: 600; font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; }
+.case .broke { font-size: 14px; color: var(--body); }
+.case .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
+.case .more { font: 600 13px var(--text); color: var(--ink); }
+.case[open] .more .o { display: none; }
+.case:not([open]) .more .c { display: none; }
+.case .body { padding: 0 24px 24px; display: grid; gap: 14px; }
+.case .why { font-size: 14px; background: var(--surface-soft); border-radius: var(--r-md); padding: 12px 14px; }
+.finding { border: 1px solid var(--hairline); border-radius: var(--r-md); padding: 12px 14px; display: grid; gap: 4px; min-width: 0; }
+.finding.match { border-color: var(--teal); box-shadow: inset 4px 0 0 var(--teal); }
+.finding.match.partial { border-color: var(--ochre); box-shadow: inset 4px 0 0 var(--ochre); }
+.finding .fh { font: 500 12px/1.4 var(--mono); color: var(--muted); overflow-wrap: anywhere; }
+.finding .ft { color: var(--ink); font-weight: 600; font-size: 14px; }
+.finding .fx { font-size: 14px; overflow-wrap: anywhere; }
+.finding .tag { font: 600 11px var(--text); letter-spacing: 0.06em; text-transform: uppercase; color: var(--teal); }
+.links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; font-weight: 500; }
+
+/* Proof */
+.proof { display: grid; gap: 16px; }
+.pcard { background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 24px; display: grid; gap: 14px; min-width: 0; }
+.pcard .top { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+.pcard .claim { color: var(--ink); font-weight: 600; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.step { border-radius: var(--r-md); padding: 12px 14px; display: grid; gap: 6px; min-width: 0; background: var(--surface-soft); }
+.step.fail { background: #ffe3de; }
+.step.pass { background: #e3f1ec; }
+.step .k { font: 600 12px/1.4 var(--text); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.step .v { font: 500 12px/1.5 var(--mono); color: var(--ink); overflow-wrap: anywhere; }
+.step .s { font-weight: 600; color: var(--ink); font-size: 14px; }
+.untested { background: var(--surface-card); border-radius: var(--r-lg); padding: 20px 24px; display: grid; gap: 10px; }
+.untested li { font-size: 14px; }
+.untested ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.p-repro { background: var(--mint); color: var(--ink); }
+.faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.faq .fcard { padding: 28px; }
+.faq p { font-size: 15px; color: var(--body); }
+.files { display: flex; flex-wrap: wrap; gap: 10px; }
+.files a { text-decoration: none; }
+
+/* Usage + method */
+.panel { background: var(--surface-card); border-radius: var(--r-lg); padding: 24px; min-width: 0; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--surface-strong); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+th { font: 600 12px/1.4 var(--text); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+td { color: var(--ink); }
+.r { text-align: right; font-variant-numeric: tabular-nums; }
+.method { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.method .fcard { padding: 28px; }
+.method p, .method li { font-size: 15px; color: var(--body); }
+.method ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+
+/* CTA + footer */
+.cta { background: var(--surface-soft); border-radius: var(--r-xl); padding: 64px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; align-items: center; }
+.cta .copy { display: grid; gap: 16px; }
+pre.cmd { min-width: 0; max-width: 100%; margin: 0; background: var(--teal); color: var(--on-dark); border-radius: var(--r-lg); padding: 24px; font: 400 13px/1.8 var(--mono); overflow-x: auto; }
+pre.cmd .c { color: var(--mint); }
+footer { background: var(--surface-soft); padding-block: 56px; }
+.foot-brand { display: grid; gap: 16px; }
+.nebius { height: 28px; width: auto; display: block; }
+.foot { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: space-between; font-size: 14px; color: var(--body); }
+.foot .mono { font-size: 12px; color: var(--muted); }
+
+@media (max-width: 1024px) {
+  .faq { grid-template-columns: minmax(0, 1fr); }
+  .stats, .minor { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .features.three, .method { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cta { grid-template-columns: minmax(0, 1fr); padding: 40px; }
+}
+@media (max-width: 768px) {
+  :root { --section: 64px; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .features, .features.three, .method, .cases { grid-template-columns: minmax(0, 1fr); }
+  .cta { padding: 28px; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .fcard { padding: 24px; }
+}
+@media (max-width: 480px) {
+  .nav .btn { display: none; }
+  .stats, .minor { grid-template-columns: minmax(0, 1fr); }
+  .score-card { padding: 24px; }
+  .waffle { gap: 4px; }
+}
+</style>
+
+<header class="nav gutter" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top"><img src="/*LOGO*/" alt="">Muse PR Review Bench</a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#results">Results</a><a href="#proof">Proof</a><a href="#examples">Examples</a><a href="#cases">Cases</a><a href="#questions">Questions</a>
+    </nav>
+    <a class="btn btn-primary" href="#cases">See all <span id="navCount"></span> PRs</a>
+  </div>
+</header>
+
+<main class="gutter" id="top">
+  <div class="container hero">
+    <div class="hero-copy">
+      <div class="model">
+        <a class="badge" href="https://dev.meta.ai/models/muse-spark-open" target="_blank" rel="noopener">Muse Spark Open ↗</a><a class="badge" href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener">Nebius Token Factory ↗</a><span class="badge" id="date"></span>
+      </div>
+      <h1>Did Muse catch the bug that actually shipped?</h1>
+      <p class="lead" id="lede"></p>
+      <p class="lead-links"><a href="https://dev.meta.ai/models/muse-spark-open" target="_blank" rel="noopener">About Muse Spark Open</a> · <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener">Try it on Token Factory</a></p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#examples">Read the reviews</a>
+        <a class="btn btn-secondary" href="#method">How it was tested</a>
+      </div>
+    </div>
+    <div class="score-card" aria-label="Score">
+      <div class="label">Shipped bugs caught</div>
+      <div class="score-big" id="big"></div>
+      <div class="waffle" id="waffle" role="img" aria-label="One square per bug PR"></div>
+      <div class="key"><span><i class="w-caught"></i>Caught</span><span><i class="w-partial"></i>Partial</span><span><i class="w-missed" style="outline:1px solid rgba(255,255,255,.35)"></i>Missed</span></div>
+      <div class="ci" id="ci"></div>
+      <div class="ci" id="ci2"></div>
+    </div>
+  </div>
+
+  <section class="container" id="results">
+    <div class="section-head">
+      <div class="label">Results</div>
+      <h2>What the reviews found</h2>
+    </div>
+    <div class="stats" id="stats"></div>
+    <div class="minor" id="minor"></div>
+  </section>
+
+  <section class="container" id="proof">
+    <div class="section-head">
+      <div class="label">Proof</div>
+      <h2>Catches confirmed by running code</h2>
+      <p id="proofLede"></p>
+    </div>
+    <div class="proof" id="proofList"></div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <div class="label">By ecosystem</div>
+      <h2>Nine open-source projects, Django to Prettier</h2>
+      <p>Same prompt, same tools. Django bugs are mostly backend logic with crisp failing inputs. The JS/TS set has more rendering and event-handling regressions, which are harder to see in a diff.</p>
+    </div>
+    <div class="features" id="groups"></div>
+    <div class="panel table-wrap" style="margin-top:24px"><table id="repos"></table></div>
+  </section>
+
+  <section class="container" id="examples">
+    <div class="section-head">
+      <div class="label">In Muse's words</div>
+      <h2>Three reviews worth reading</h2>
+    </div>
+    <div class="features three" id="spots"></div>
+  </section>
+
+  <section class="container" id="cases">
+    <div class="section-head">
+      <div class="label">Every case</div>
+      <h2 id="casesTitle">Every pull request, graded against the real fix</h2>
+      <p>Open a card to read Muse's full review. The finding that matched the real defect is marked.</p>
+    </div>
+    <div class="tabs" role="group" aria-label="Filter cases" id="tabs"></div>
+    <div class="cases" id="caseList"></div>
+  </section>
+
+  <section class="container">
+    <div class="section-head">
+      <div class="label">Usage</div>
+      <h2>What each review cost</h2>
+      <p id="usageNote"></p>
+    </div>
+    <div class="panel table-wrap"><table id="usage"></table></div>
+  </section>
+
+  <section class="container" id="method">
+    <div class="section-head">
+      <div class="label">Method</div>
+      <h2>How the benchmark works</h2>
+    </div>
+    <div class="method" id="methodGrid"></div>
+  </section>
+
+  <section class="container" id="questions">
+    <div class="section-head">
+      <div class="label">Questions you might ask</div>
+      <h2>Why these numbers hold up</h2>
+    </div>
+    <div class="faq" id="faqList"></div>
+  </section>
+
+  <section class="container" id="data">
+    <div class="section-head">
+      <div class="label">Raw data</div>
+      <h2>Every record behind this page</h2>
+      <p>Nothing here is summarized away. Each file is the exact output of the run.</p>
+    </div>
+    <div class="files">
+      <a class="btn btn-secondary" href="data/reviews.jsonl">Every review (JSONL)</a>
+      <a class="btn btn-secondary" href="data/requests.jsonl">Every model request and its tokens</a>
+      <a class="btn btn-secondary" href="data/grades.json">Grades and rationales</a>
+      <a class="btn btn-secondary" href="data/RUBRIC.md">Grading rubric</a>
+      <a class="btn btn-secondary" href="data/probe.jsonl">Memory probe answers</a>
+      <a class="btn btn-secondary" href="data/summary.json">Summary</a>
+      <a class="btn btn-secondary" href="data/cases.json">Case list</a>
+    </div>
+  </section>
+
+  <section class="container cta">
+    <div class="copy">
+      <div class="label">Reproduce</div>
+      <h2>Run it on your own key</h2>
+      <p>The cases, grades, reproduction scripts, every review and the per-request token ledger ship with the repository.</p>
+    </div>
+    <pre class="cmd"><span class="c"># build the 31 case folders from local clones</span>
+node --import tsx scripts/build-review-cases.ts REPOS_DIR
+<span class="c"># run the bugs Muse described on before/merged/fix</span>
+node --import tsx scripts/pr-review-repro.ts REPOS_DIR
+<span class="c"># review every PR with Muse Spark Open</span>
+npm run bench -- run
+<span class="c"># rebuild this page from the results</span>
+node --import tsx scripts/pr-review-report.ts</pre>
+  </section>
+</main>
+
+<footer class="gutter">
+  <div class="container foot">
+    <div class="foot-brand">
+      <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener" aria-label="Muse Spark Open on Nebius Token Factory"><img src="/*NEBIUS*/" alt="Nebius" class="nebius"></a>
+      <div>Built with <a href="https://dev.meta.ai/models/muse-spark-open" target="_blank" rel="noopener">Muse Spark Open</a>, served on <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener">Nebius Token Factory</a> · Built by the <a href="https://studio1hq.com" target="_blank" rel="noopener">Studio1 team</a><br>Costs are estimates from Nebius list prices and provider-reported usage, not invoiced amounts.</div>
+    </div>
+    <div class="mono" id="ids"></div>
+  </div>
+</footer>
+
+<script>
+const DATA = /*DATA*/null;
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const pct = (x) => Math.round(x * 100) + '%';
+const money = (x) => '$' + Number(x).toFixed(2);
+const S = DATA.summary;
+const LABEL = { caught: 'Caught', partial: 'Partial', missed: 'Missed', control: 'Clean PR' };
+
+$('date').textContent = 'Run on 16 Oct 2026';
+$('lede').textContent = `Muse Spark Open reviewed ${S.bugCases} merged pull requests from ${S.repos} open-source projects that were later reverted or fixed because they broke something, plus ${S.controlCases} clean PRs. It saw the diff and the code, never what happened next.`;
+$('big').innerHTML = `${S.caught}<span> / ${S.bugCases}</span>`;
+$('ci').textContent = `${pct(S.catchRate)} of shipped bugs named correctly · 95% interval ${pct(S.interval[0])} to ${pct(S.interval[1])}`;
+$('ci2').textContent = `${S.reproduced} catches confirmed by running code · strict count ${S.strictCaught}/${S.bugCases}`;
+$('navCount').textContent = DATA.cases.length;
+const order = ['caught', 'partial', 'missed'];
+$('waffle').innerHTML = DATA.cases.filter((c) => c.kind === 'bug').sort((a, b) => order.indexOf(a.grade) - order.indexOf(b.grade))
+  .map((c) => `<i class="w-${c.grade}" title="${esc(c.repo)}: ${LABEL[c.grade]}"></i>`).join('');
+
+$('stats').innerHTML = [
+  [`${S.caught}/${S.bugCases}`, 'Shipped bugs caught', 'A finding named the same defect the maintainers later fixed.'],
+  [`${S.reproduced}/${S.caught}`, 'Confirmed by running code', 'The input Muse described fails on the merged code and passes on the real fix.'],
+  [`${S.strictCaught}/${S.bugCases}`, 'Strict count', 'Matching finding is blocker or major, and the review requested changes.'],
+  [`${S.probe.answered - S.probe.unknown}/${S.probe.asked}`, 'Remembered from training', 'Asked with no code first, Muse knew none of these PRs.'],
+].map(([b, t, d]) => `<div class="stat"><b>${esc(b)}</b><div class="t">${esc(t)}</div><div class="d">${esc(d)}</div></div>`).join('');
+$('minor').innerHTML = [
+  [S.partial, 'more partial catches, not counted'],
+  [`${S.controlApproved}/${S.controlCases}`, 'clean PRs approved'],
+  [S.controlsWithFalseAlarm, `clean PR${S.controlsWithFalseAlarm === 1 ? '' : 's'} with a false alarm`],
+  [money(S.costPerReview), `per review · ${money(S.totalSpend)} total`],
+].map(([b, s]) => `<div><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
+const groupColors = ['fc-lavender', 'fc-peach'];
+$('groups').innerHTML = S.groups.map((g, i) => {
+  const row = (k, color) => `<div class="row"><span>${LABEL[k]}</span><div class="track"><div style="width:${(g[k] / g.total) * 100}%;background:${color}"></div></div><span class="num r">${g[k]}</span></div>`;
+  return `<article class="fcard ${groupColors[i]}"><div class="label" style="color:inherit;opacity:.75">${esc(g.detail)}</div><h3>${esc(g.name)}</h3><div class="big">${g.caught}<span> / ${g.total} caught</span></div>
+    <div class="fragment">${row('caught', 'var(--teal)')}${row('partial', 'var(--ochre)')}${row('missed', 'var(--coral)')}</div></article>`;
+}).join('');
+
+$('repos').innerHTML = `<thead><tr><th>Repository</th><th class="r">Bug PRs</th><th class="r">Caught</th><th class="r">Partial</th><th class="r">Clean PRs</th><th class="r">Clean approved</th></tr></thead><tbody>${S.byRepo.map((r) => `<tr><td><a href="https://github.com/${esc(r.repo)}" target="_blank" rel="noopener">${esc(r.repo)}</a></td><td class="r">${r.bug}</td><td class="r">${r.caught}</td><td class="r">${r.partial}</td><td class="r">${r.clean}</td><td class="r">${r.approved}</td></tr>`).join('')}<tr><td><strong>All ${S.byRepo.length} repositories</strong></td><td class="r"><strong>${S.bugCases}</strong></td><td class="r"><strong>${S.caught}</strong></td><td class="r"><strong>${S.partial}</strong></td><td class="r"><strong>${S.controlCases}</strong></td><td class="r"><strong>${S.controlApproved}</strong></td></tr></tbody>`;
+const byId = Object.fromEntries(DATA.cases.map((c) => [c.id, c]));
+const spotColors = ['fc-pink', 'fc-teal', 'fc-ochre'];
+$('spots').innerHTML = DATA.highlights.map((h, i) => {
+  const c = byId[h.id];
+  const f = c.review?.findings?.[h.finding ?? c.match ?? 0];
+  const quote = f
+    ? `<div class="quote"><div class="qh">${esc(f.severity)} · ${esc(f.file)}${f.line ? ':' + f.line : ''}</div><strong>${esc(f.title)}</strong><div>${esc(f.explanation)}</div></div>`
+    : `<div class="quote">${esc(c.review?.summary || 'No findings.')}</div>`;
+  const note = h.label === 'Miss' ? 'What Muse flagged instead' : 'What Muse wrote';
+  return `<article class="fcard ${spotColors[i % 3]}"><div><span class="pill p-onlight">${esc(h.label)}</span></div><div class="label" style="color:inherit;opacity:.8">${esc(c.repo)}</div><h3>${esc(c.title)}</h3>
+    <div class="label" style="color:inherit;opacity:.8">${note}</div>${quote}<p class="truth"><strong>What actually happened:</strong> ${esc(c.broke.replace(/^Control: /, ''))}</p></article>`;
+}).join('');
+
+const tabs = [['all', 'All'], ['caught', 'Caught'], ['partial', 'Partial'], ['missed', 'Missed'], ['control', 'Clean PRs'], ['repro', 'Reproduced']];
+let active = 'all';
+try { active = localStorage.getItem('prb-tab') || 'all'; } catch {}
+function renderCases() {
+  $('tabs').innerHTML = tabs.map(([k, l]) => `<button type="button" class="tab" id="tab-${k}" data-k="${k}" aria-pressed="${k === active}">${l}<span class="num">${k === 'all' ? DATA.cases.length : k === 'repro' ? DATA.cases.filter((c) => c.repro?.reproduced).length : DATA.cases.filter((c) => c.grade === k).length}</span></button>`).join('');
+  $('caseList').innerHTML = DATA.cases.filter((c) => active === 'all' || (active === 'repro' ? c.repro?.reproduced : c.grade === active)).map((c) => {
+    const findings = c.review?.findings ?? [];
+    const list = findings.length
+      ? findings.map((f, i) => {
+          const m = i === c.match && c.grade !== 'missed';
+          return `<div class="finding ${m ? 'match' : ''} ${m && c.grade === 'partial' ? 'partial' : ''}">${m ? `<div class="tag">${c.grade === 'control' ? 'Confirmed upstream' : c.grade === 'partial' ? 'Closest match' : 'Matches the real fix'}</div>` : ''}<div class="fh">${esc(f.severity)} · ${esc(f.file)}${f.line ? ':' + f.line : ''}</div><div class="ft">${esc(f.title)}</div><div class="fx">${esc(f.explanation)}</div></div>`;
+        }).join('')
+      : `<div class="finding"><div class="ft">No findings</div><div class="fx">${esc(c.review?.summary ?? '')}</div></div>`;
+    const verdict = c.review ? (c.review.verdict === 'request_changes' ? 'Requested changes' : 'Approved') : 'No valid review';
+    const fixLinks = (c.links ?? []).map((l, i) => `<a href="${esc(l)}" target="_blank" rel="noopener">${l.includes('/commit/') ? 'Later fix' + (i ? ' ' + (i + 1) : '') : 'Issue or PR'} ↗</a>`).join('');
+    return `<details class="case"><summary>
+        <div class="top"><span class="repo">${esc(c.repo)} · ${esc(c.sha.slice(0, 9))} · ${c.size?.lines ?? '?'} lines</span><span style="display:flex;gap:6px;flex-wrap:wrap">${c.repro?.reproduced ? '<span class="pill p-repro">Reproduced</span>' : ''}<span class="pill p-${c.grade}">${LABEL[c.grade]}</span></span></div>
+        <div class="title">${esc(c.title)}</div>
+        <div class="broke">${c.kind === 'bug' ? '<strong>What broke:</strong> ' + esc(c.broke) : esc(c.broke.replace(/^Control: /, ''))}</div>
+        <div class="meta"><span>${verdict} · ${findings.length} finding${findings.length === 1 ? '' : 's'}</span><span class="num">${money(c.cost)} · ${Math.round(c.seconds)}s · ${c.tools} tool calls</span></div>
+        <div class="more"><span class="o">Read the review ↓</span><span class="c">Hide the review ↑</span></div>
+      </summary><div class="body">
+        <div class="why"><strong>Grade:</strong> ${esc(c.rationale)}${c.repro?.reproduced ? ` <strong>Confirmed by running code:</strong> fails on the merged commit (${esc(c.repro.merged.line)}), passes on the fix. <a href="data/repro/${esc(c.id)}.json">Run log</a>` : ''}${c.grade === 'caught' && !c.repro?.reproduced && c.notExecuted ? ` <strong>Not executed:</strong> ${esc(c.notExecuted)}` : ''}${c.probe ? ` <strong>Memory probe:</strong> ${esc(c.probe.length > 160 ? c.probe.slice(0, 160) + '…' : c.probe)}` : ''}</div>
+        ${list}
+        <div class="links"><a href="https://github.com/${esc(c.repo)}/commit/${esc(c.sha)}" target="_blank" rel="noopener">Reviewed commit ↗</a>${fixLinks}</div>
+      </div></details>`;
+  }).join('');
+  for (const b of document.querySelectorAll('.tab')) b.onclick = () => { active = b.dataset.k; try { localStorage.setItem('prb-tab', active); } catch {} renderCases(); };
+}
+renderCases();
+
+$('usageNote').textContent = `Reviews: ${S.tokens.calls} model calls and every one reported its token usage. Nebius lists Muse Spark Open at $1.25 per million input tokens and $4.25 per million output tokens; no cache discount is published, so cached input is priced at the full rate.`;
+$('usage').innerHTML = `<thead><tr><th>Per review</th><th class="r">Median</th><th class="r">Highest</th><th class="r">All ${DATA.cases.length}</th></tr></thead><tbody>${S.usageRows.map((r) => `<tr><td>${esc(r[0])}</td><td class="r">${esc(r[1])}</td><td class="r">${esc(r[2])}</td><td class="r">${esc(r[3])}</td></tr>`).join('')}</tbody>`;
+$('methodGrid').innerHTML = DATA.method.map((m) => `<article class="fcard fc-cream"><h3>${esc(m.title)}</h3>${m.items ? `<ul>${m.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>` : `<p>${esc(m.text)}</p>`}</article>`).join('');
+$('ids').textContent = `benchmark ${S.benchmarkId.slice(0, 8)} · prompt ${S.promptHash.slice(0, 12)}`;
+
+const proofCases = DATA.cases.filter((c) => c.repro?.reproduced);
+$('proofLede').textContent = `For ${proofCases.length} of the ${S.caught} catches, the failing input Muse wrote down was turned into a script and run on three commits: just before the PR, the merged PR, and the maintainers' fix. Each one passes before, fails after merge with the error Muse predicted, and passes again on the fix.`;
+const cleanProof = DATA.cases.filter((c) => c.kind === 'control' && c.repro?.confirmed);
+const stepCard = (k, r, expectFail) => {
+  const ok = r.exit === 0;
+  return `<div class="step ${ok ? 'pass' : 'fail'}"><div class="k">${k}</div><div class="s">${ok ? 'Passes' : 'Fails'}${expectFail === !ok ? '' : ''}</div><div class="v">${esc(r.line)}</div></div>`;
+};
+$('proofList').innerHTML = proofCases.map((c) => `<article class="pcard">
+  <div class="top"><span class="repo mono" style="font-size:12px;color:var(--muted)">${esc(c.repo)} · ${esc(c.sha.slice(0, 9))}</span><span class="pill p-repro">Reproduced${c.repro.introduced ? ' · introduced by this PR' : ''}</span></div>
+  <div class="claim">${esc(c.repro.claim)}</div>
+  <div class="steps">${stepCard('Before the PR', c.repro.before)}${stepCard('Merged PR', c.repro.merged)}${stepCard('Maintainers\' fix', c.repro.fix)}</div>
+  <div class="links"><a href="https://github.com/${esc(c.repo)}/commit/${esc(c.sha)}" target="_blank" rel="noopener">Reviewed commit ↗</a><a href="https://github.com/${esc(c.repo)}/commit/${esc(c.repro.fix.sha)}" target="_blank" rel="noopener">Fix commit ↗</a><a href="data/repro/${esc(c.id)}.json">Run log</a></div>
+</article>`).join('') + (() => {
+  const rest = DATA.cases.filter((c) => c.grade === 'caught' && !c.repro?.reproduced);
+  return rest.length ? `<div class="untested"><h3>Graded from the fix, not executed (${rest.length})</h3><ul>${rest.map((c) => `<li><strong>${esc(c.repo)}</strong>: ${esc(c.notExecuted ?? 'Needs a full application build to run.')}</li>`).join('')}</ul></div>` : '';
+})() + cleanProof.map((c) => `<article class="pcard">
+  <div class="top"><span class="repo mono" style="font-size:12px;color:var(--muted)">${esc(c.repo)} · ${esc(c.sha.slice(0, 9))} · clean PR</span><span class="pill p-control">Bug found in a clean PR${c.repro.stillPresent ? ' · still unfixed' : ''}</span></div>
+  <div class="claim">${esc(c.repro.claim)}</div>
+  <div class="steps">${stepCard('Before the PR', c.repro.before)}${stepCard('Merged PR', c.repro.merged)}${stepCard('Latest code today', c.repro.fix)}</div>
+  <div class="links"><a href="https://github.com/${esc(c.repo)}/commit/${esc(c.sha)}" target="_blank" rel="noopener">Reviewed commit ↗</a><a href="data/repro/${esc(c.id)}.json">Run log</a></div>
+</article>`).join('');
+$('casesTitle').textContent = `${DATA.cases.length} pull requests, graded against the real fix`;
+const faqColors = ['fc-lavender', 'fc-peach', 'fc-cream', 'fc-cream', 'fc-lavender'];
+$('faqList').innerHTML = DATA.faq.map((f, i) => `<article class="fcard ${faqColors[i % faqColors.length]}"><h3>${esc(f.q)}</h3><p>${esc(f.a)}</p></article>`).join('');
+
+const nav = $('nav');
+const onScroll = () => nav.classList.toggle('scrolled', scrollY > 8);
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+</script>

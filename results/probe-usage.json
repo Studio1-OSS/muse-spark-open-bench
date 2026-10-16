@@ -1,0 +1,16 @@
+{
+  "benchmarkIds": [
+    "b7bcfa95-7b02-4bee-b9df-60d74da8af64",
+    "84ed1b0f-015f-48f3-a85f-2adb8899ae40"
+  ],
+  "prompt": "Answer from memory only. You have no tools and no access to the code. If you do not know, reply with exactly UNKNOWN.",
+  "attempts": 27,
+  "input": 7123,
+  "output": 10214,
+  "reasoning": 10032,
+  "cached": 3072,
+  "calls": 27,
+  "cost": "0.05231325",
+  "usageComplete": false,
+  "costComplete": false
+}

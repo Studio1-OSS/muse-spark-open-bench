@@ -1,0 +1,32 @@
+{
+  "case": "prettier-592721622",
+  "repo": "prettier/prettier",
+  "claim": "markdown with a line break next to CJK text crashes with a TypeError",
+  "script": "benchmarks/repro/prettier-592721622.mjs",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:33:21.842Z",
+  "runs": {
+    "parent": {
+      "sha": "43432349d41a61937ff1e719a025c17439b62d1f",
+      "exitCode": 0,
+      "ms": 3785,
+      "stdout": "OK: formatted -> \"**\u30d7\u30ea\u30c6\u30a3\u30a2** \u3067 **\u30d5\u30a9\u30fc\u30de\u30c3\u30c8**\\n\"",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "5927216227411bc2cdaf30d50559e0a475ab4832",
+      "exitCode": 1,
+      "ms": 4199,
+      "stdout": "BUG: [\u001b[31merror\u001b[39m] stdin: TypeError: Cannot read properties of undefined (reading 'kind')",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "ccdf5e4558206091a7a86ece76aa14065998e6a9",
+      "exitCode": 0,
+      "ms": 3805,
+      "stdout": "OK: formatted -> \"**\u30d7\u30ea\u30c6\u30a3\u30a2**\\n\u3067\\n**\u30d5\u30a9\u30fc\u30de\u30c3\u30c8**\\n\"",
+      "stderr": ""
+    }
+  }
+}

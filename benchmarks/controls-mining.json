@@ -1,0 +1,688 @@
+{
+  "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+  "picked": [
+    {
+      "repo": "ant-design/ant-design",
+      "sha": "2037fa783440334ea94c1935483f24dc31fe1ef4",
+      "mergedAt": "2025-11-09T16:09:41+08:00",
+      "subject": "fix(locale): add missing locale (#55656)",
+      "size": {
+        "files": 30,
+        "lines": 30
+      },
+      "survival": {
+        "added": 30,
+        "kept": 30,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "ant-design/ant-design",
+      "sha": "11370a274afc12156f25d83f7f2e9af468feba1a",
+      "mergedAt": "2026-04-22T00:06:55+08:00",
+      "subject": "fix(Card): avoid rendering empty body when content is absent (#57735)",
+      "size": {
+        "files": 7,
+        "lines": 122
+      },
+      "survival": {
+        "added": 24,
+        "kept": 23,
+        "ratio": 0.9583333333333334
+      }
+    },
+    {
+      "repo": "ant-design/ant-design",
+      "sha": "3c297da5e080505edc6f1f26d95315ad1a7d99d1",
+      "mergedAt": "2026-02-09T17:09:07+08:00",
+      "subject": "fix(List): legacy List design token not pass to content  (#56913)",
+      "size": {
+        "files": 19,
+        "lines": 290
+      },
+      "survival": {
+        "added": 43,
+        "kept": 42,
+        "ratio": 0.9767441860465116
+      }
+    },
+    {
+      "repo": "django/django",
+      "sha": "c1aa4a7a79a56fa46793d128bcf42795e2149595",
+      "mergedAt": "2025-08-08T09:52:16+02:00",
+      "subject": "Fixed #36525 -- Silenced individual deleted file messages in collectstatic --clear's default verbosity.",
+      "size": {
+        "files": 3,
+        "lines": 58
+      },
+      "survival": {
+        "added": 14,
+        "kept": 14,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "django/django",
+      "sha": "7732f942a98a709750fc1fed2c69741183844a3c",
+      "mergedAt": "2026-02-10T17:59:02-05:00",
+      "subject": "Fixed #36841 -- Made multipart parser class pluggable on HttpRequest.",
+      "size": {
+        "files": 4,
+        "lines": 117
+      },
+      "survival": {
+        "added": 17,
+        "kept": 17,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "django/django",
+      "sha": "bb7a7701b1a0e8fffe14dcebf5d5bac7f176c02a",
+      "mergedAt": "2025-08-29T15:33:44-04:00",
+      "subject": "Fixed #36431 -- Returned tuples for multi-column ForeignObject in values()/values_list().",
+      "size": {
+        "files": 3,
+        "lines": 37
+      },
+      "survival": {
+        "added": 15,
+        "kept": 15,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "4d2205926db1998c45013377f1eb3ff689ec5f66",
+      "mergedAt": "2025-10-30T22:00:28+08:00",
+      "subject": "Fix inconsistent printing of class method comment (#18147)",
+      "size": {
+        "files": 7,
+        "lines": 333
+      },
+      "survival": {
+        "added": 13,
+        "kept": 13,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "c45fef106ec4d1efdcd61a64c3dd3298272b3d99",
+      "mergedAt": "2025-12-01T11:25:11+08:00",
+      "subject": "Fix LWC attribute with `--embedded-language-formatting off` (#18383)",
+      "size": {
+        "files": 6,
+        "lines": 110
+      },
+      "survival": {
+        "added": 33,
+        "kept": 31,
+        "ratio": 0.9393939393939394
+      }
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "7d3ff5d2fccd825c16e9fff7f638be7dd5f4bc50",
+      "mergedAt": "2025-10-31T02:43:23+08:00",
+      "subject": "Fix comment around `as`/`satisfies` expression (#18162)",
+      "size": {
+        "files": 7,
+        "lines": 305
+      },
+      "survival": {
+        "added": 26,
+        "kept": 25,
+        "ratio": 0.9615384615384616
+      }
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "3b0ec866d0e4e7be41573058cdeb063df8aff4d1",
+      "mergedAt": "2026-03-07T19:03:53+09:00",
+      "subject": "fix: prevent tooltip flicker in syncMethod=\"value\" with mismatched data arrays (#7020)",
+      "size": {
+        "files": 3,
+        "lines": 247
+      },
+      "survival": {
+        "added": 91,
+        "kept": 91,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "0de2ec66c571dc099b044696d8227305c5200023",
+      "mergedAt": "2025-08-24T08:06:18-07:00",
+      "subject": "Fix exception when Scatter data has non-string type property (#6248)",
+      "size": {
+        "files": 9,
+        "lines": 112
+      },
+      "survival": {
+        "added": 13,
+        "kept": 13,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "3a7cf75f869bf02a973a108fd96150902f30946a",
+      "mergedAt": "2025-11-21T07:48:46-08:00",
+      "subject": "fix: active dot appearing outside graph (#6612)",
+      "size": {
+        "files": 10,
+        "lines": 260
+      },
+      "survival": {
+        "added": 101,
+        "kept": 92,
+        "ratio": 0.9108910891089109
+      }
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "8895bd44f5297c0c69b8bc081155fbf9bac9c00e",
+      "mergedAt": "2025-09-29T08:04:57-07:00",
+      "subject": "fix: coerce nullish `<title>` to empty string (#16863)",
+      "size": {
+        "files": 4,
+        "lines": 31
+      },
+      "survival": {
+        "added": 12,
+        "kept": 11,
+        "ratio": 0.9166666666666666
+      }
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "a23599a196380ce7fc3fb374dac4daee173776b7",
+      "mergedAt": "2025-07-13T15:20:29-07:00",
+      "subject": "fix: don't show adjusted error messages in boundaries (#16360)",
+      "size": {
+        "files": 4,
+        "lines": 60
+      },
+      "survival": {
+        "added": 29,
+        "kept": 28,
+        "ratio": 0.9655172413793104
+      }
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "68d4f9c3b68040c7e8e5260d399008c0ad43fa66",
+      "mergedAt": "2025-11-07T17:40:33-05:00",
+      "subject": "fix: wait on dependencies of async bindings (#17120)",
+      "size": {
+        "files": 27,
+        "lines": 325
+      },
+      "survival": {
+        "added": 125,
+        "kept": 113,
+        "ratio": 0.904
+      }
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "5212a87d6232821b8ca57ff4fdf05721baf15a27",
+      "mergedAt": "2026-03-17T17:32:20Z",
+      "subject": "fix(eraser): erase shapes inside groups when starting drag from within group bounds (#8054)",
+      "size": {
+        "files": 2,
+        "lines": 63
+      },
+      "survival": {
+        "added": 10,
+        "kept": 10,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "5221da51b0197f2fdc36344ff90ef957f00c15fa",
+      "mergedAt": "2026-01-09T10:00:01Z",
+      "subject": "fix sqlite double migration (#7655)",
+      "size": {
+        "files": 4,
+        "lines": 225
+      },
+      "survival": {
+        "added": 20,
+        "kept": 20,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "fed7148acf2db97184d36661668149b91b0ac41d",
+      "mergedAt": "2026-04-16T11:45:29Z",
+      "subject": "perf(shapes): skip CSS transform when dynamic size is not active (#8570)",
+      "size": {
+        "files": 3,
+        "lines": 34
+      },
+      "survival": {
+        "added": 21,
+        "kept": 21,
+        "ratio": 1
+      }
+    },
+    {
+      "repo": "ueberdosis/tiptap",
+      "sha": "526365a682d87a51522da0161a87da72fb58ed16",
+      "mergedAt": "2025-12-05T00:01:20+01:00",
+      "subject": "Fix/multimention markdown serialization (#7306)",
+      "size": {
+        "files": 6,
+        "lines": 242
+      },
+      "survival": {
+        "added": 58,
+        "kept": 56,
+        "ratio": 0.9655172413793104
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "repo": "ant-design/ant-design",
+      "sha": "37738e5c0ea03d858f657caf31f9f93463c240a2",
+      "subject": "fix: add missing Select semantic names (#56322)",
+      "reason": "survival 5/16"
+    },
+    {
+      "repo": "ant-design/ant-design",
+      "sha": "da79662278687139d6016abbcffca7587e094cd8",
+      "subject": "fix(Table): table pagination.align should be working (#55316)",
+      "reason": "survival 0/60"
+    },
+    {
+      "repo": "ant-design/ant-design",
+      "sha": "19a37a3780eeda939ac4ef0e2c13a06cdefa0321",
+      "subject": "fix(drawer): improve accessibility (aria-labelledby) (#55697)",
+      "reason": "survival 2/15"
+    },
+    {
+      "repo": "ant-design/ant-design",
+      "sha": "2d82b0ce914c1628109073fa9fca666b168969ad",
+      "subject": "fix: avoid native ellipsis measurement without tooltip (#57566)",
+      "reason": "survival 9/17"
+    },
+    {
+      "repo": "django/django",
+      "sha": "a33540b3e20b5d759aa8b2e4b9ca0e8edd285344",
+      "subject": "Fixed CVE-2026-1285 -- Mitigated potential DoS in django.utils.text.Truncator for HTML input.",
+      "reason": "survival 5/5"
+    },
+    {
+      "repo": "django/django",
+      "sha": "a5c49174b96302f39682cce48f82da67b3b08351",
+      "subject": "Fixed #12529 -- Fixed migrate --run-syncdb crash for existing model with truncated db_table names.",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "django/django",
+      "sha": "e27cff68a32a0183c6b8d110b359c1c858f68cd7",
+      "subject": "Fixed #36652 -- Increased determinism when loading migrations from disk.",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "django/django",
+      "sha": "4187da258fe212d494cb578a0bc2b52c4979ab95",
+      "subject": "Fixed #35892 -- Supported Widget.use_fieldset in admin forms.",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "mantinedev/mantine",
+      "sha": "fcdac700dbd666e5be6343df53f6a4e1170f93f2",
+      "subject": "[@mantine/core] Popover: fix autoUpdate triggering extra rerenders with `keepMounted` (#7983)",
+      "reason": "survival 7/33"
+    },
+    {
+      "repo": "mantinedev/mantine",
+      "sha": "af4122839802c329a6e445d5b3dcacbf9316bedb",
+      "subject": "[@mantine/dates] Add month and year switching with keyboard to Calendar-based components (#7959)",
+      "reason": "survival 70/92"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "f2f97751a1260f8a0c8a6bb208174158c6544bbc",
+      "subject": "Fix line comments jumping past member lookups in as expressions (#18522)",
+      "reason": "survival 8/8"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "29622cc4f7dd02caa55d0febe131da6a6fd0983a",
+      "subject": "Fix comments get duplicated in angular interpolation (#17862)",
+      "reason": "survival 11/15"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "5e93f1caa2b2a337314368ef09e8fe21f2b3c8f1",
+      "subject": "Fix crash on CSS custom properties (#17899)",
+      "reason": "survival 0/1"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "8b84f37de0fb3428b67b9b2da4ed597cd1e6000c",
+      "subject": "Fix `quoteProps` option check in enum (#18703)",
+      "reason": "survival 0/2"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "35718f2993df29feb45efba408ae81a794b9d641",
+      "subject": "Fix inconsistent call print between `CallExpression` and `NewExpression` (#18206)",
+      "reason": "survival 13/21"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "7a76a9b1192557eb1d7fd66f42679bfc9bdcc64a",
+      "subject": "Fix GraphQL dangling comment print (#18581)",
+      "reason": "survival 6/10"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "f2566527303dab480766bc6999bb6c5ab1229a37",
+      "subject": "Fix parentheses space problem in SCSS mixin argument (#17836)",
+      "reason": "survival 0/1"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "68861ae53172b8726dfac364f258e14e68ed3cd2",
+      "subject": "Fix dangling comment detection in function parameters and call arguments (#18540)",
+      "reason": "survival 11/27"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "48100c323db22d5eea36aa38dbe0db289333f76c",
+      "subject": "Fix duplicated comments on `prettier-ignored` super class (#18168)",
+      "reason": "survival 0/9"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "a8700e245038cd8cc0cf28ef06ffedbcb3fc2dfc",
+      "subject": "Update oxc-parser to v0.125.0",
+      "reason": "survival 0/0"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "599bad14158a7815430662f96ecdd6d2e1f0fe54",
+      "subject": "Fix parenthesis for optional function as return type (#11004)",
+      "reason": "survival 17/21"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "454a9cc45a94ca196cdad6cfb3c2236156daa69a",
+      "subject": "Fix Less variable name been lowercased incorrectly (#17820)",
+      "reason": "survival 9/9"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "2b6c9fe2e7f3a149cfbd40f6346f51589ed5ffa8",
+      "subject": "Fix range of `IfStatement` (#18735)",
+      "reason": "survival 3/12"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "d548a87684b998d92717d75302d9114a3879dd0b",
+      "subject": "Fix a miss used `willPrintOwnComments` (#18166)",
+      "reason": "survival 1/7"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "e1f0bdceb28a3503f1f9490efc31b8d1adaa7e07",
+      "subject": "Fix HTML attribute value in AST massage (#17944)",
+      "reason": "survival 0/32"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "276331902784c979bb7c87474a1a0c836df64458",
+      "subject": "Fix HTML format that tag name is an object prototype property (#17501)",
+      "reason": "survival 0/18"
+    },
+    {
+      "repo": "prettier/prettier",
+      "sha": "d49444352a85d60e5c8ff50446803ef3df3466e0",
+      "subject": "Fix plugin loading in `prettier.getFileInfo()` (#17548)",
+      "reason": "survival 10/17"
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "93539d4642869c820ea1dde6c782367fcc8b3d1d",
+      "subject": "Fix Line animation when Legend is present in the chart (#5961)",
+      "reason": "survival 0/30"
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "38df1dfde71baa9d0b19291a48eea06a3cfa306d",
+      "subject": "fix: unnecessary line breaks in Bar labels (#6214)",
+      "reason": "survival 10/12"
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "59d5d381110410d6ba44d13fee9dfe9abe816ca4",
+      "subject": "Fix stacked Bar animation (#6593)",
+      "reason": "survival 5/12"
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "32ec3c73f7883e61f4969723834ebee08c762353",
+      "subject": "fix: preserve valid falsy custom names (0, \"\") in tooltips (#7175)",
+      "reason": "survival 1/1"
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "ee0b17b8bbb066eb79f0467d56ed1adb525a1d85",
+      "subject": "Store ZIndexPortal refs instead of IDs to unblock shadow DOM (#6753)",
+      "reason": "survival 42/49"
+    },
+    {
+      "repo": "recharts/recharts",
+      "sha": "30e48ba54afec625817c3535fd1445ba65ba9073",
+      "subject": "ResponsiveContainer only shrinks in the dimensions where it needs to shrink (#6367)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "c2da1ebb85d65ef044766d3f920cb935df65e359",
+      "subject": "fix: keep effect in the graph if it has an abort controller (#16430)",
+      "reason": "survival 0/3"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "6046bbb4564cc3cc44332313a6293cf06f148227",
+      "subject": "fix: export `wait` function from internal client index (#17530)",
+      "reason": "survival 2/2"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "7fd2d8660fb0e9cc2f325f1cca2e99c94d418935",
+      "subject": "fix: parallelize async `@const`s in the template (#17165)",
+      "reason": "survival 63/128"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "9a52007785dd44c978ea56e2766e207e138401d1",
+      "subject": "fix: prevent batches from getting intertwined (#16446)",
+      "reason": "survival 1/29"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "d8c3f3d87e4f008ee902bb084f2820202d3f97c3",
+      "subject": "fix: emit `snippet_invalid_export` instead of `undefined_export` for exported snippets (#16539)",
+      "reason": "survival 9/9"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "53417ea8f785f2ec884b095ac1bacd08aa30da86",
+      "subject": "fix: preserve dirty status of deferred effects (#16487)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "1ff7dd6123e4a8d79e0f8336a24cc2db53aaa79c",
+      "subject": "fix: batch resolution of async work (#17511)",
+      "reason": "survival 20/32"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "f67d03df5b49e7c9c2e65ec66739f30c9d3d403a",
+      "subject": "fix: make string coercion consistent to `toString` (#17774)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "1dcced59e79dd04163ce4aa380948ca6eea777af",
+      "subject": "fix: properly catch top level await errors (#16619)",
+      "reason": "survival 10/45"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "cf2ff5e8dc908395853e3a7cc2022fe3552f7062",
+      "subject": "fix: abort and reschedule effect processing after state change in user effect (#16280)",
+      "reason": "survival 9/28"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "1892988074685064d4a2a6ea09c069eada7580de",
+      "subject": "fix: don't access inert block effects (#17882)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "45a796b32722878a03303eb389a637d5c6e047f7",
+      "subject": "fix: propagate `$effect` errors to `<svelte:boundary>` (#17684)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "4b32d6d8b30fdaf07e9bf4497c39283b5eb421d9",
+      "subject": "fix: make `$inspect` logs come from the callsite (#17001)",
+      "reason": "survival 44/55"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "6534aa08e32b3c2d09c2ffb06e4ae7a18fdffa30",
+      "subject": "fix: Add check for builtin custom elements in `set_custom_element_data` (#16592)",
+      "reason": "survival 3/5"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "0a404c986380f7a9880733864229c4be9e08e098",
+      "subject": "fix: prevent async render tag hydration mismatches (#17652)",
+      "reason": "survival 3/3"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "c7851789d71cc3d0b5d89ce9c759a39be6caa51a",
+      "subject": "fix: always mark props as stateful (#16504)",
+      "reason": "survival 4/4"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "438349eb88335fce7f199aac0b95ef05bfb7f453",
+      "subject": "fix: better `$inspect.trace()` output (#16131)",
+      "reason": "survival 56/76"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "558a3c963bca4423cdd7b93d9588d05546dfa629",
+      "subject": "fix: transform input defaults from spread (#16481)",
+      "reason": "survival 55/62"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "b7bc1309aa72cd942fabcf0aa29b9100c6cc7cf1",
+      "subject": "fix: preserve original boundary errors when keyed each rows are removed during async updates (#17843)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "ebe583f2bb1d341b9e0474374124796d0f035e5c",
+      "subject": "fix: only create async functions in SSR output when necessary (#17593)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "18dd45640b14873ea3485fd1c19b0efaaaccf05f",
+      "subject": "fix: send `$effect.pending` count to the correct boundary (#16732)",
+      "reason": "survival 26/55"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "6aa7b9c64a14a1e5f97510d7801c9d6173cb48e3",
+      "subject": "fix: update expressions on server deriveds (#17767)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "sha": "7c9ff8fc697a0723129d781e5bf116cf38e016f6",
+      "subject": "fix: resolve boundary in correct batch when hydrating (#17914)",
+      "reason": "referenced later"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "557fcf7e0f08751e55ec5d6c568780198cfd5797",
+      "subject": "fix(ui): save input on blur in link editor + alt text editor (#8037)",
+      "reason": "survival 48/56"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "5f8d98bccb389af04cee012f42dcfcdf56498d11",
+      "subject": "a11y: followup on minor issues (#6721)",
+      "reason": "survival 15/31"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "671472a0b122b2e071db4481e42f9c1c30784ed2",
+      "subject": "fix(dotcom): show color theme picker in anon editor preferences (#8695)",
+      "reason": "survival 51/57"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "712b19e5b522469bf0dd83a39c391b1af844bbcd",
+      "subject": "fix some e2e tests not running (#6822)",
+      "reason": "survival 1/1"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "a44859ffd3c7527344a0c0cd68cc83f3db788a9f",
+      "subject": "dynamic sizing: fix some svg exports and text creation bugs (#6269)",
+      "reason": "survival 3/12"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "a9c61811f065af699f863eaff9877d943111f99b",
+      "subject": "fix(dotcom): remove fairy teaser UI (#7625)",
+      "reason": "survival 0/3"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "8c74738e06fbc6498e7b88edb5244c4a495bc1f9",
+      "subject": "Fix: change handlers not passed to new room instance (#6549)",
+      "reason": "survival 1/10"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "b2e9b1218a6b712e33210e4e03018d8f3868d913",
+      "subject": "dotcom: fix gap between file/edit (#7305)",
+      "reason": "survival 5/23"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "dad82d0469d24670195bc1082b908d73dd04f5f4",
+      "subject": "fix(mcp-app): clean up type casts and align MCP SDK dependency (#8153)",
+      "reason": "survival 0/10"
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "sha": "1549219ed3f12fc442cfa3f1d2f197f0f06e2e81",
+      "subject": "clipboard: make sure pasting-at-cursor takes into account frames/parents (#7277)",
+      "reason": "survival 14/24"
+    }
+  ]
+}

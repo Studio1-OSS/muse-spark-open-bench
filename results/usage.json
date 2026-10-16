@@ -1,0 +1,20 @@
+{
+  "benchmarkIds": [
+    "18f50445-8ded-4911-a890-0813fe9e102b",
+    "61f75fb9-ded9-4e97-9014-f245aca725b2",
+    "6d1ed735-eddb-4c37-8c88-e6f943200b1b",
+    "bf329c24-84df-4c80-8e08-b4f6d7a593dc"
+  ],
+  "benchmarkId": "18f50445-8ded-4911-a890-0813fe9e102b",
+  "model": "meta-models/muse-spark-open",
+  "promptHash": "a5c545aa2637029d686df10e6e6a4cdc7a1d1332330679cc3dedef28f965b072",
+  "attempts": 50,
+  "input": 10369741,
+  "output": 354215,
+  "reasoning": 298214,
+  "cached": 9006592,
+  "calls": 451,
+  "cost": "14.46759000",
+  "usageComplete": true,
+  "costComplete": true
+}

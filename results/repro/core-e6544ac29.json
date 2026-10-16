@@ -1,0 +1,32 @@
+{
+  "case": "core-e6544ac29",
+  "repo": "vuejs/core",
+  "claim": "TS expressions lose leading and trailing text (`!`, `]`) when compiled",
+  "script": "benchmarks/repro/core-e6544ac29.mjs",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:31:07.991Z",
+  "runs": {
+    "parent": {
+      "sha": "75d44c718981f91843e197265cc68e82fe2532dd",
+      "exitCode": 0,
+      "ms": 360303,
+      "stdout": "OK: passed",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "e6544ac292b5b473274f87cdb83ebeac3e7e61a4",
+      "exitCode": 1,
+      "ms": 4472,
+      "stdout": "BUG: AssertionError\u001b[22m: expected 'const { openBlock: _openBlock, create\u2026' to match /!_ctx\\.foo/\u001b[39m | Expected:\u001b[39m  | Received:\u001b[39m",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "11ec51aa5a7914745fee10ed2b9f9464fab4d02c",
+      "exitCode": 0,
+      "ms": 4527,
+      "stdout": "OK: passed",
+      "stderr": ""
+    }
+  }
+}

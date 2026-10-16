@@ -1,0 +1,32 @@
+{
+  "case": "django-2ce5cb0f7",
+  "repo": "django/django",
+  "claim": "values().annotate().order_by('-x').count() raises FieldError",
+  "script": "benchmarks/repro/django-2ce5cb0f7.py",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:31:21.358Z",
+  "runs": {
+    "parent": {
+      "sha": "0174a85770356fd12e4c8daa42a4f1c752ae00e6",
+      "exitCode": 0,
+      "ms": 395,
+      "stdout": "OK: count() = 0",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "2ce5cb0f7a4618dfdc5f5c10e53e2e9b9543d298",
+      "exitCode": 1,
+      "ms": 403,
+      "stdout": "BUG: FieldError Cannot resolve keyword '-latest' into field. Choices are: date_joined, email, first_name, groups, id, is_active, is_staff, is_superuser, last_login, last_name, latest, password, user_permissions, username",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "a284a49153f005f2a7af087025e5112ba06cbd5f",
+      "exitCode": 0,
+      "ms": 392,
+      "stdout": "OK: count() = 0",
+      "stderr": ""
+    }
+  }
+}

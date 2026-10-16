@@ -1,0 +1,113 @@
+{
+  "note": "Each script exits non-zero when the defect Muse described occurs. A case counts as reproduced only if it fails on the merged commit and passes on the real fix commit.",
+  "python": [
+    "asgiref==3.9.1",
+    "sqlparse==0.5.3",
+    "PyYAML==6.0.2"
+  ],
+  "entries": [
+    {
+      "case": "django-714266734",
+      "repo": "django/django",
+      "runtime": "python",
+      "script": "django-714266734.py",
+      "claim": "yaml.dump() gets sort_keys twice and raises TypeError",
+      "merged": "7142667340f78403cbbcaa8f33703c494282b7b7",
+      "fix": "a269574f1bcf4716502b9ba8c3492abf15dc93eb"
+    },
+    {
+      "case": "django-78fac1b04",
+      "repo": "django/django",
+      "runtime": "python",
+      "script": "django-78fac1b04.py",
+      "claim": "PBKDF2 hasher rejects a non-UTF-8 bytes password",
+      "merged": "78fac1b0473ed8960ecd2a30aca4fa8420d150b8",
+      "fix": "356e5b0f5ddb473eec3ed96d8ad9a37f3f8585eb"
+    },
+    {
+      "case": "django-2ce5cb0f7",
+      "repo": "django/django",
+      "runtime": "python",
+      "script": "django-2ce5cb0f7.py",
+      "claim": "values().annotate().order_by('-x').count() raises FieldError",
+      "merged": "2ce5cb0f7a4618dfdc5f5c10e53e2e9b9543d298",
+      "fix": "a284a49153f005f2a7af087025e5112ba06cbd5f"
+    },
+    {
+      "case": "django-f920937c8",
+      "repo": "django/django",
+      "runtime": "python",
+      "script": "django-f920937c8.py",
+      "claim": "gettext_lazy() route breaks RoutePattern.match()",
+      "merged": "f920937c8a63df6bea220e4386f59cdb45b2e355",
+      "fix": "7bf3ac3ee255bcfe329e3203c7a2555b1275d506"
+    },
+    {
+      "case": "django-c075508b4",
+      "repo": "django/django",
+      "runtime": "python",
+      "script": "django-c075508b4.py",
+      "claim": "MediaType.params no longer contains q",
+      "merged": "c075508b4de8edf9db553b409f8a8ed2f26ecead",
+      "fix": "cf5f36bf903a2854f5e395149cee707115b83744"
+    },
+    {
+      "case": "django-821619aa8",
+      "repo": "django/django",
+      "runtime": "python",
+      "script": "django-821619aa8.py",
+      "claim": "custom Prefetch queryset loses the router instance hint",
+      "merged": "821619aa8771ef211c4c4922001efdf914201ca3",
+      "fix": "60a17fccf4f2fa31b823b0f938005897f2f3ef16"
+    },
+    {
+      "case": "prettier-592721622",
+      "repo": "prettier/prettier",
+      "runtime": "node",
+      "script": "prettier-592721622.mjs",
+      "claim": "markdown with a line break next to CJK text crashes with a TypeError",
+      "merged": "5927216227411bc2cdaf30d50559e0a475ab4832",
+      "fix": "ccdf5e4558206091a7a86ece76aa14065998e6a9"
+    },
+    {
+      "case": "core-e6544ac29",
+      "repo": "vuejs/core",
+      "runtime": "node",
+      "script": "core-e6544ac29.mjs",
+      "claim": "TS expressions lose leading and trailing text (`!`, `]`) when compiled",
+      "merged": "e6544ac292b5b473274f87cdb83ebeac3e7e61a4",
+      "fix": "11ec51aa5a7914745fee10ed2b9f9464fab4d02c"
+    },
+    {
+      "case": "prettier-4d2205926",
+      "kind": "control",
+      "repo": "prettier/prettier",
+      "runtime": "node",
+      "script": "prettier-4d2205926.mjs",
+      "claim": "a private class method comment prints differently with the babel and acorn parsers",
+      "merged": "4d2205926"
+    }
+  ],
+  "notExecuted": [
+    {
+      "case": "tldraw-67f5b0896",
+      "reason": "The crash happens in DrawShapeUtil.getGeometry inside a running editor; reproducing it needs the full tldraw monorepo build and a browser-like environment."
+    },
+    {
+      "case": "ant-design-e81da48f8",
+      "reason": "Scroll-animation behavior in a React component; needs the ant-design jest/DOM test setup and timers."
+    },
+    {
+      "case": "ant-design-2b12ef528",
+      "reason": "The defect is a design decision (errors swallowed by try/catch), confirmed by the maintainers' revert message rather than a failing input."
+    },
+    {
+      "case": "mantine-ddde2b0ce",
+      "reason": "Breaking public API renames; confirmed by the maintainers' follow-up release that restored the old names."
+    },
+    {
+      "case": "svelte-a9d8439ad",
+      "reason": "Clean-PR finding. Upstream fixed the line in #18117 and #18263 but wrote that they could not build a failing test, because the effect is extra re-runs rather than wrong output."
+    }
+  ]
+}

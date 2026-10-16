@@ -1,0 +1,32 @@
+{
+  "case": "django-78fac1b04",
+  "repo": "django/django",
+  "claim": "PBKDF2 hasher rejects a non-UTF-8 bytes password",
+  "script": "benchmarks/repro/django-78fac1b04.py",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:31:17.036Z",
+  "runs": {
+    "parent": {
+      "sha": "e709301000edddc48ebfe9535e2e2177d3bcedb1",
+      "exitCode": 0,
+      "ms": 345,
+      "stdout": "OK: non-UTF-8 bytes password hashed",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "78fac1b0473ed8960ecd2a30aca4fa8420d150b8",
+      "exitCode": 1,
+      "ms": 371,
+      "stdout": "BUG: DjangoUnicodeDecodeError 'utf-8' codec can't decode byte 0x80 in position 0: invalid start byte. You passed in b'\\x80password' (<class 'bytes'>)",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "356e5b0f5ddb473eec3ed96d8ad9a37f3f8585eb",
+      "exitCode": 0,
+      "ms": 341,
+      "stdout": "OK: non-UTF-8 bytes password hashed",
+      "stderr": ""
+    }
+  }
+}

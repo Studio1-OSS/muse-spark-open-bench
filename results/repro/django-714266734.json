@@ -1,0 +1,32 @@
+{
+  "case": "django-714266734",
+  "repo": "django/django",
+  "claim": "yaml.dump() gets sort_keys twice and raises TypeError",
+  "script": "benchmarks/repro/django-714266734.py",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:31:12.822Z",
+  "runs": {
+    "parent": {
+      "sha": "1b0d46f715849de53563aaf6912b4ded7d61641d",
+      "exitCode": 0,
+      "ms": 798,
+      "stdout": "OK: serialize('yaml', sort_keys=True) works",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "7142667340f78403cbbcaa8f33703c494282b7b7",
+      "exitCode": 1,
+      "ms": 363,
+      "stdout": "BUG: yaml.dump() got multiple values for keyword argument 'sort_keys'",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "a269574f1bcf4716502b9ba8c3492abf15dc93eb",
+      "exitCode": 0,
+      "ms": 375,
+      "stdout": "OK: serialize('yaml', sort_keys=True) works",
+      "stderr": ""
+    }
+  }
+}

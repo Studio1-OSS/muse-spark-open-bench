@@ -1,0 +1,32 @@
+{
+  "case": "django-c075508b4",
+  "repo": "django/django",
+  "claim": "MediaType.params no longer contains q",
+  "script": "benchmarks/repro/django-c075508b4.py",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:31:30.626Z",
+  "runs": {
+    "parent": {
+      "sha": "26313bc21932d0d3af278ab387549d63b1f64575",
+      "exitCode": 0,
+      "ms": 340,
+      "stdout": "OK: params = {'q': '0.5'}",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "c075508b4de8edf9db553b409f8a8ed2f26ecead",
+      "exitCode": 1,
+      "ms": 336,
+      "stdout": "BUG: MediaType('text/html; q=0.5').params = {}",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "cf5f36bf903a2854f5e395149cee707115b83744",
+      "exitCode": 0,
+      "ms": 352,
+      "stdout": "OK: params = {'q': '0.5'}",
+      "stderr": ""
+    }
+  }
+}

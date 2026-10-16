@@ -1,0 +1,32 @@
+{
+  "case": "django-f920937c8",
+  "repo": "django/django",
+  "claim": "gettext_lazy() route breaks RoutePattern.match()",
+  "script": "benchmarks/repro/django-f920937c8.py",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:31:26.444Z",
+  "runs": {
+    "parent": {
+      "sha": "f66c79e93d41d2cd32be244170b54080c0796584",
+      "exitCode": 0,
+      "ms": 430,
+      "stdout": "OK: lazy route matched, remaining path = page/",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "f920937c8a63df6bea220e4386f59cdb45b2e355",
+      "exitCode": 1,
+      "ms": 507,
+      "stdout": "BUG: startswith first arg must be str or a tuple of str, not __proxy__",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "7bf3ac3ee255bcfe329e3203c7a2555b1275d506",
+      "exitCode": 0,
+      "ms": 399,
+      "stdout": "OK: lazy route matched, remaining path = page/",
+      "stderr": ""
+    }
+  }
+}

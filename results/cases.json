@@ -1,0 +1,1025 @@
+{
+  "version": "muse-pr-review-v1.1",
+  "frozenAt": "2026-10-16",
+  "selection": "Merged commits later reverted or named as a regression cause (bug), plus unreferenced merged fixes (control). Window 2025-06..2026-05.",
+  "cases": [
+    {
+      "id": "django-714266734",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "7142667340f78403cbbcaa8f33703c494282b7b7",
+      "mergedAt": "2026-04-19T00:30:37+03:00",
+      "subject": "Replaced yaml serializer workaround to preserve dict order with PyYAML's sort_keys=False.",
+      "size": {
+        "files": 1,
+        "lines": 11
+      },
+      "evidence": {
+        "fixShas": [
+          "a269574f1bcf4716502b9ba8c3492abf15dc93eb"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/a269574f1bcf4716502b9ba8c3492abf15dc93eb"
+        ]
+      }
+    },
+    {
+      "id": "django-7b54ddd5e",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "7b54ddd5e64c96c641b70bb5f0e958a9e2035fb2",
+      "mergedAt": "2025-12-10T17:45:51-05:00",
+      "subject": "Refs #36025 -- Made get_prep_lookup() pass output_field when wrapping direct values in Value.",
+      "size": {
+        "files": 2,
+        "lines": 57
+      },
+      "evidence": {
+        "fixShas": [
+          "0751d5fed159fd9ff7edba522ece13c8c9d2a0d0"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/0751d5fed159fd9ff7edba522ece13c8c9d2a0d0"
+        ]
+      }
+    },
+    {
+      "id": "django-821619aa8",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "821619aa8771ef211c4c4922001efdf914201ca3",
+      "mergedAt": "2025-10-16T14:52:22-04:00",
+      "subject": "Refs #28586 -- Simplified related descriptor get_queryset() methods.",
+      "size": {
+        "files": 1,
+        "lines": 22
+      },
+      "evidence": {
+        "fixShas": [
+          "60a17fccf4f2fa31b823b0f938005897f2f3ef16"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/60a17fccf4f2fa31b823b0f938005897f2f3ef16"
+        ]
+      }
+    },
+    {
+      "id": "django-8096b5251",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "8096b5251090bf7539c59956e398b027c7525529",
+      "mergedAt": "2026-05-07T11:49:12-03:00",
+      "subject": "Fixed #37085 -- Added support for object-based form media stylesheet assets.",
+      "size": {
+        "files": 4,
+        "lines": 130
+      },
+      "evidence": {
+        "fixShas": [
+          "99d56e5cf15839995f62f24294584f1e2976b1ea"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/99d56e5cf15839995f62f24294584f1e2976b1ea"
+        ]
+      }
+    },
+    {
+      "id": "django-a2348c85f",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "a2348c85fc6c20087935c74cd99340dd4ef2dcdc",
+      "mergedAt": "2026-06-05T12:10:10+02:00",
+      "subject": "Fixed #37139 -- Fixed inlines crash on parent models with db_default on primary key.",
+      "size": {
+        "files": 7,
+        "lines": 66
+      },
+      "evidence": {
+        "fixShas": [
+          "9465349120ef8a0b0689e12bcbfd05f3d173ebdf"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/9465349120ef8a0b0689e12bcbfd05f3d173ebdf"
+        ]
+      }
+    },
+    {
+      "id": "django-7d9aab8da",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "7d9aab8da0a06787d649762a702e1a518d843a63",
+      "mergedAt": "2025-03-26T09:55:09+01:00",
+      "subject": "Refs #36260 -- Moved _is_pk_set checks into _prepare_for_bulk_create().",
+      "size": {
+        "files": 1,
+        "lines": 21
+      },
+      "evidence": {
+        "fixShas": [
+          "c9ff757a55392b1f50968eb89fe775f6155168d8"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/c9ff757a55392b1f50968eb89fe775f6155168d8"
+        ]
+      }
+    },
+    {
+      "id": "django-78fac1b04",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "78fac1b0473ed8960ecd2a30aca4fa8420d150b8",
+      "mergedAt": "2025-07-22T12:15:10+02:00",
+      "subject": "Fixed #36226 -- Accepted str or bytes for password and salt in password hashers.",
+      "size": {
+        "files": 3,
+        "lines": 70
+      },
+      "evidence": {
+        "fixShas": [
+          "356e5b0f5ddb473eec3ed96d8ad9a37f3f8585eb"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/356e5b0f5ddb473eec3ed96d8ad9a37f3f8585eb"
+        ]
+      }
+    },
+    {
+      "id": "django-2ce5cb0f7",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "2ce5cb0f7a4618dfdc5f5c10e53e2e9b9543d298",
+      "mergedAt": "2025-12-15T15:23:51-05:00",
+      "subject": "Fixed #26434 -- Removed faulty clearing of ordering field when missing from explicit grouping.",
+      "size": {
+        "files": 2,
+        "lines": 48
+      },
+      "evidence": {
+        "fixShas": [
+          "a284a49153f005f2a7af087025e5112ba06cbd5f"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/a284a49153f005f2a7af087025e5112ba06cbd5f"
+        ]
+      }
+    },
+    {
+      "id": "django-f920937c8",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "f920937c8a63df6bea220e4386f59cdb45b2e355",
+      "mergedAt": "2025-05-13T12:05:58+01:00",
+      "subject": "Fixed #35518 -- Optimized RoutePattern by using string operations for converter-less routes.",
+      "size": {
+        "files": 2,
+        "lines": 36
+      },
+      "evidence": {
+        "fixShas": [
+          "7bf3ac3ee255bcfe329e3203c7a2555b1275d506"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/7bf3ac3ee255bcfe329e3203c7a2555b1275d506"
+        ]
+      }
+    },
+    {
+      "id": "django-c075508b4",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "c075508b4de8edf9db553b409f8a8ed2f26ecead",
+      "mergedAt": "2025-06-03T16:10:41-03:00",
+      "subject": "Fixed #36411 -- Made HttpRequest.get_preferred_type() consider media type parameters.",
+      "size": {
+        "files": 4,
+        "lines": 231
+      },
+      "evidence": {
+        "fixShas": [
+          "12c1557060fc94fe5e1fbddc4578a4e29d38f77c",
+          "cf5f36bf903a2854f5e395149cee707115b83744"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/12c1557060fc94fe5e1fbddc4578a4e29d38f77c",
+          "https://github.com/django/django/commit/cf5f36bf903a2854f5e395149cee707115b83744"
+        ]
+      }
+    },
+    {
+      "id": "django-c1fa3fdd0",
+      "kind": "bug",
+      "repo": "django/django",
+      "sha": "c1fa3fdd040718356e5a3b9a0fe699d73f47a940",
+      "mergedAt": "2025-06-06T17:40:35+02:00",
+      "subject": "Fixed #36419 -- Ensured for_save was propagated when resolving expressions.",
+      "size": {
+        "files": 3,
+        "lines": 23
+      },
+      "evidence": {
+        "fixShas": [
+          "104cbfd44b9eff010daf0ef0e1ce434385855b13"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/django/django/commit/104cbfd44b9eff010daf0ef0e1ce434385855b13"
+        ]
+      }
+    },
+    {
+      "id": "recharts-19c7abceb",
+      "kind": "bug",
+      "repo": "recharts/recharts",
+      "sha": "19c7abcebcd5d84c50defdb6eca0492e543e9bc6",
+      "mergedAt": "2026-02-15T16:24:27+09:00",
+      "subject": "Rendered ticks in hooks (#6990)",
+      "size": {
+        "files": 37,
+        "lines": 444
+      },
+      "evidence": {
+        "fixShas": [
+          "ca5f9ec705b03a41a8c79020259500140e40362b"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/recharts/recharts/commit/ca5f9ec705b03a41a8c79020259500140e40362b"
+        ]
+      }
+    },
+    {
+      "id": "svelte-9521b9f3d",
+      "kind": "bug",
+      "repo": "sveltejs/svelte",
+      "sha": "9521b9f3dcd4a2c214cad6733717ed78fb046a07",
+      "mergedAt": "2026-04-29T16:47:11-04:00",
+      "subject": "fix: don't rebase just-created batches (#18117)",
+      "size": {
+        "files": 11,
+        "lines": 331
+      },
+      "evidence": {
+        "fixShas": [
+          "5e054574db2bd9f96176626a604046b6db13af09"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/sveltejs/svelte/commit/5e054574db2bd9f96176626a604046b6db13af09"
+        ]
+      }
+    },
+    {
+      "id": "svelte-3937ec03b",
+      "kind": "bug",
+      "repo": "sveltejs/svelte",
+      "sha": "3937ec03bdaae8d9c097f4f015560ee4b9e32cf3",
+      "mergedAt": "2026-04-09T14:21:47-04:00",
+      "subject": "fix: correctly calculate `@const` blockers (#18039)",
+      "size": {
+        "files": 11,
+        "lines": 182
+      },
+      "evidence": {
+        "fixShas": [
+          "0ed8c282f96960f52eaf077ffbe6e53c181b3774"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/sveltejs/svelte/commit/0ed8c282f96960f52eaf077ffbe6e53c181b3774"
+        ]
+      }
+    },
+    {
+      "id": "tldraw-7375c872f",
+      "kind": "bug",
+      "repo": "tldraw/tldraw",
+      "sha": "7375c872f51d6e56f1d23745f08a640deac53bc0",
+      "mergedAt": "2026-04-16T20:32:03Z",
+      "subject": "feat(editor): right-click and drag to pan the camera (#8501)",
+      "size": {
+        "files": 11,
+        "lines": 662
+      },
+      "evidence": {
+        "fixShas": [
+          "b01f99f12d7e51550cb6853a9178c8a201ff717d"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/tldraw/tldraw/commit/b01f99f12d7e51550cb6853a9178c8a201ff717d"
+        ]
+      }
+    },
+    {
+      "id": "tldraw-67f5b0896",
+      "kind": "bug",
+      "repo": "tldraw/tldraw",
+      "sha": "67f5b0896cc3710974d2d58d61e11ae424f8d75f",
+      "mergedAt": "2025-05-31T23:30:32Z",
+      "subject": "Geometry bug fixes (#6162)",
+      "size": {
+        "files": 20,
+        "lines": 465
+      },
+      "evidence": {
+        "fixShas": [
+          "7be18509d9b903621406f89888ed776c3dbe1830"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/tldraw/tldraw/commit/7be18509d9b903621406f89888ed776c3dbe1830",
+          "https://github.com/tldraw/tldraw/pull/6239"
+        ]
+      }
+    },
+    {
+      "id": "tiptap-404c68334",
+      "kind": "bug",
+      "repo": "ueberdosis/tiptap",
+      "sha": "404c68334774b8567a3b339c8ed731c6d9e26027",
+      "mergedAt": "2026-04-04T10:35:28+02:00",
+      "subject": "Fix/7562 (core): toggle list correctly when document selection is AllSelection (#7683)",
+      "size": {
+        "files": 3,
+        "lines": 334
+      },
+      "evidence": {
+        "fixShas": [
+          "64f36b8d93b437f2230d8538a8ecdb504842d5f8"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/ueberdosis/tiptap/commit/64f36b8d93b437f2230d8538a8ecdb504842d5f8"
+        ]
+      }
+    },
+    {
+      "id": "tiptap-c0190bdc3",
+      "kind": "bug",
+      "repo": "ueberdosis/tiptap",
+      "sha": "c0190bdc3ec19e84a0e2024d8d55cb4fc5491cab",
+      "mergedAt": "2025-09-25T16:47:32+02:00",
+      "subject": "fix: more accurate typing for `element` option (#6972)",
+      "size": {
+        "files": 7,
+        "lines": 45
+      },
+      "evidence": {
+        "fixShas": [
+          "383145efcd4a4f2959bf88ffdc1b80f4dd0d02b7"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/ueberdosis/tiptap/commit/383145efcd4a4f2959bf88ffdc1b80f4dd0d02b7"
+        ]
+      }
+    },
+    {
+      "id": "prettier-592721622",
+      "kind": "bug",
+      "repo": "prettier/prettier",
+      "sha": "5927216227411bc2cdaf30d50559e0a475ab4832",
+      "mergedAt": "2026-10-04T11:20:28+08:00",
+      "subject": "fix(markdown): preserve newline around Chinese/Japanese characters not around Korean letters in all proseWrap settings (#20143)",
+      "size": {
+        "files": 7,
+        "lines": 194
+      },
+      "evidence": {
+        "fixShas": [
+          "ccdf5e4558206091a7a86ece76aa14065998e6a9"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/prettier/prettier/commit/ccdf5e4558206091a7a86ece76aa14065998e6a9",
+          "https://github.com/prettier/prettier/pull/20257"
+        ]
+      }
+    },
+    {
+      "id": "core-3b561db4a",
+      "kind": "bug",
+      "repo": "vuejs/core",
+      "sha": "3b561db4ab42d06166b002f13c0e97cb2bd4a061",
+      "mergedAt": "2026-03-25T17:06:26+08:00",
+      "subject": "fix(types): prevent shallowReactive marker from leaking into value unions (#14493)",
+      "size": {
+        "files": 3,
+        "lines": 24
+      },
+      "evidence": {
+        "fixShas": [
+          "302c47a4994bc8b47b8a2af6693d8cb6bbd4b06b"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/vuejs/core/commit/302c47a4994bc8b47b8a2af6693d8cb6bbd4b06b"
+        ]
+      }
+    },
+    {
+      "id": "core-862f11ee0",
+      "kind": "bug",
+      "repo": "vuejs/core",
+      "sha": "862f11ee017d51cb9573a8c0642055b3b17cace8",
+      "mergedAt": "2026-03-25T14:28:21+08:00",
+      "subject": "fix(server-renderer): cleanup component effect scopes after SSR render (#14548)",
+      "size": {
+        "files": 5,
+        "lines": 181
+      },
+      "evidence": {
+        "fixShas": [
+          "219d83bd305ce6fc052941acaaf02e7bc70616a4"
+        ],
+        "kind": "revert",
+        "links": [
+          "https://github.com/vuejs/core/commit/219d83bd305ce6fc052941acaaf02e7bc70616a4",
+          "https://github.com/vuejs/core/issues/14669"
+        ]
+      }
+    },
+    {
+      "id": "core-e6544ac29",
+      "kind": "bug",
+      "repo": "vuejs/core",
+      "sha": "e6544ac292b5b473274f87cdb83ebeac3e7e61a4",
+      "mergedAt": "2025-11-05T17:17:49+08:00",
+      "subject": "fix(compiler-core): correctly handle ts type assertions in expressions (#13397)",
+      "size": {
+        "files": 3,
+        "lines": 30
+      },
+      "evidence": {
+        "fixShas": [
+          "11ec51aa5a7914745fee10ed2b9f9464fab4d02c"
+        ],
+        "kind": "revert",
+        "links": [
+          "https://github.com/vuejs/core/commit/11ec51aa5a7914745fee10ed2b9f9464fab4d02c",
+          "https://github.com/vuejs/core/issues/14060"
+        ]
+      }
+    },
+    {
+      "id": "ant-design-e81da48f8",
+      "kind": "bug",
+      "repo": "ant-design/ant-design",
+      "sha": "e81da48f8465c76cef39c6674158dfcbc64fbe09",
+      "mergedAt": "2025-11-24T14:58:33+08:00",
+      "subject": "fix(Anchor): resolve scroll animation conflict when clicking links ra… (#55814)",
+      "size": {
+        "files": 4,
+        "lines": 132
+      },
+      "evidence": {
+        "fixShas": [
+          "da2ddb99553bb942865078d9b902dc5afc9992d3"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/ant-design/ant-design/commit/da2ddb99553bb942865078d9b902dc5afc9992d3",
+          "https://github.com/ant-design/ant-design/pull/55865"
+        ]
+      }
+    },
+    {
+      "id": "ant-design-2b12ef528",
+      "kind": "bug",
+      "repo": "ant-design/ant-design",
+      "sha": "2b12ef528d167a05d60923579ed2c6fd0249f1b3",
+      "mergedAt": "2025-11-08T00:07:19+08:00",
+      "subject": "fix: clicking does nothing after occur error in actionFn (#55519)",
+      "size": {
+        "files": 2,
+        "lines": 131
+      },
+      "evidence": {
+        "fixShas": [
+          "a4b8185a74840a4d2334abbfecbe17af96ba931b"
+        ],
+        "kind": "revert",
+        "links": [
+          "https://github.com/ant-design/ant-design/commit/a4b8185a74840a4d2334abbfecbe17af96ba931b",
+          "https://github.com/ant-design/ant-design/pull/55651"
+        ]
+      }
+    },
+    {
+      "id": "mantine-ddde2b0ce",
+      "kind": "bug",
+      "repo": "mantinedev/mantine",
+      "sha": "ddde2b0ce4b10f02ebb9fcbc02b18af04f2f2624",
+      "mergedAt": "2025-11-15T13:28:17+03:00",
+      "subject": "[@mantine/modals] Improve types of context modals (#8439)",
+      "size": {
+        "files": 9,
+        "lines": 206
+      },
+      "evidence": {
+        "fixShas": [
+          "4023dc07dc44cc9be456c66139856f8c27efb467"
+        ],
+        "kind": "regression-fix",
+        "links": [
+          "https://github.com/mantinedev/mantine/commit/4023dc07dc44cc9be456c66139856f8c27efb467",
+          "https://github.com/mantinedev/mantine/pull/8476"
+        ]
+      }
+    },
+    {
+      "id": "django-8c8b833d3",
+      "kind": "control",
+      "repo": "django/django",
+      "sha": "8c8b833d32c02d3ae6f43b04bb1e45968796b402",
+      "evidence": {
+        "note": "No later revert or regression fix references this commit (checked 2026-10-16)."
+      },
+      "subject": "Fixed #36919 -- Allowed Task and TaskResult to be pickled.",
+      "size": {
+        "files": 3,
+        "lines": 48
+      }
+    },
+    {
+      "id": "core-6a61f4452",
+      "kind": "control",
+      "repo": "vuejs/core",
+      "sha": "6a61f4452ba1a31fc929cadf8abe3337ac4d3a46",
+      "evidence": {
+        "note": "No later revert or regression fix references this commit (checked 2026-10-16)."
+      },
+      "subject": "fix(teleport): don't move teleport children if not mounted (#14702)",
+      "size": {
+        "files": 2,
+        "lines": 49
+      }
+    },
+    {
+      "id": "svelte-a9d8439ad",
+      "kind": "control",
+      "repo": "sveltejs/svelte",
+      "sha": "a9d8439ad1eecde5c4a91dca1eb1f034abfe7d81",
+      "evidence": {
+        "note": "No later revert or regression fix references this commit (checked 2026-10-16)."
+      },
+      "subject": "fix: reschedule new effects in prior batches (#18021)",
+      "size": {
+        "files": 10,
+        "lines": 80
+      }
+    },
+    {
+      "id": "tldraw-79c550bd6",
+      "kind": "control",
+      "repo": "tldraw/tldraw",
+      "sha": "79c550bd614226f8dcb5872c981fe521b088e130",
+      "evidence": {
+        "note": "No later revert or regression fix references this commit (checked 2026-10-16)."
+      },
+      "subject": "fix(arrows): offset binding hint stub to cross's corner distance (#8716)",
+      "size": {
+        "files": 2,
+        "lines": 50
+      }
+    },
+    {
+      "id": "prettier-3031cd3b8",
+      "kind": "control",
+      "repo": "prettier/prettier",
+      "sha": "3031cd3b841fbba26df9ba3e5a20b6b8334c5911",
+      "evidence": {
+        "note": "No later revert or regression fix references this commit (checked 2026-10-16)."
+      },
+      "subject": "Fix duplicate dangling comments in experimental ternaries (#18963)",
+      "size": {
+        "files": 4,
+        "lines": 202
+      }
+    },
+    {
+      "id": "tiptap-d2ad165b7",
+      "kind": "control",
+      "repo": "ueberdosis/tiptap",
+      "sha": "d2ad165b7d145452a5cf4c7a027f2f80d9e02488",
+      "evidence": {
+        "note": "No later revert or regression fix references this commit (checked 2026-10-16)."
+      },
+      "subject": "fix(extension-table): update colgroup for non-resizable tables",
+      "size": {
+        "files": 3,
+        "lines": 205
+      }
+    },
+    {
+      "id": "ant-design-2037fa783",
+      "kind": "control",
+      "repo": "ant-design/ant-design",
+      "sha": "2037fa783440334ea94c1935483f24dc31fe1ef4",
+      "mergedAt": "2025-11-09T16:09:41+08:00",
+      "subject": "fix(locale): add missing locale (#55656)",
+      "size": {
+        "files": 30,
+        "lines": 30
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 30/30 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 30,
+          "kept": 30,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "ant-design-11370a274",
+      "kind": "control",
+      "repo": "ant-design/ant-design",
+      "sha": "11370a274afc12156f25d83f7f2e9af468feba1a",
+      "mergedAt": "2026-04-22T00:06:55+08:00",
+      "subject": "fix(Card): avoid rendering empty body when content is absent (#57735)",
+      "size": {
+        "files": 7,
+        "lines": 122
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 23/24 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 24,
+          "kept": 23,
+          "ratio": 0.9583333333333334
+        }
+      }
+    },
+    {
+      "id": "ant-design-3c297da5e",
+      "kind": "control",
+      "repo": "ant-design/ant-design",
+      "sha": "3c297da5e080505edc6f1f26d95315ad1a7d99d1",
+      "mergedAt": "2026-02-09T17:09:07+08:00",
+      "subject": "fix(List): legacy List design token not pass to content  (#56913)",
+      "size": {
+        "files": 19,
+        "lines": 290
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 42/43 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 43,
+          "kept": 42,
+          "ratio": 0.9767441860465116
+        }
+      }
+    },
+    {
+      "id": "django-c1aa4a7a7",
+      "kind": "control",
+      "repo": "django/django",
+      "sha": "c1aa4a7a79a56fa46793d128bcf42795e2149595",
+      "mergedAt": "2025-08-08T09:52:16+02:00",
+      "subject": "Fixed #36525 -- Silenced individual deleted file messages in collectstatic --clear's default verbosity.",
+      "size": {
+        "files": 3,
+        "lines": 58
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 14/14 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 14,
+          "kept": 14,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "django-7732f942a",
+      "kind": "control",
+      "repo": "django/django",
+      "sha": "7732f942a98a709750fc1fed2c69741183844a3c",
+      "mergedAt": "2026-02-10T17:59:02-05:00",
+      "subject": "Fixed #36841 -- Made multipart parser class pluggable on HttpRequest.",
+      "size": {
+        "files": 4,
+        "lines": 117
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 17/17 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 17,
+          "kept": 17,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "django-bb7a7701b",
+      "kind": "control",
+      "repo": "django/django",
+      "sha": "bb7a7701b1a0e8fffe14dcebf5d5bac7f176c02a",
+      "mergedAt": "2025-08-29T15:33:44-04:00",
+      "subject": "Fixed #36431 -- Returned tuples for multi-column ForeignObject in values()/values_list().",
+      "size": {
+        "files": 3,
+        "lines": 37
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 15/15 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 15,
+          "kept": 15,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "prettier-4d2205926",
+      "kind": "control",
+      "repo": "prettier/prettier",
+      "sha": "4d2205926db1998c45013377f1eb3ff689ec5f66",
+      "mergedAt": "2025-10-30T22:00:28+08:00",
+      "subject": "Fix inconsistent printing of class method comment (#18147)",
+      "size": {
+        "files": 7,
+        "lines": 333
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 13/13 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 13,
+          "kept": 13,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "prettier-c45fef106",
+      "kind": "control",
+      "repo": "prettier/prettier",
+      "sha": "c45fef106ec4d1efdcd61a64c3dd3298272b3d99",
+      "mergedAt": "2025-12-01T11:25:11+08:00",
+      "subject": "Fix LWC attribute with `--embedded-language-formatting off` (#18383)",
+      "size": {
+        "files": 6,
+        "lines": 110
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 31/33 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 33,
+          "kept": 31,
+          "ratio": 0.9393939393939394
+        }
+      }
+    },
+    {
+      "id": "prettier-7d3ff5d2f",
+      "kind": "control",
+      "repo": "prettier/prettier",
+      "sha": "7d3ff5d2fccd825c16e9fff7f638be7dd5f4bc50",
+      "mergedAt": "2025-10-31T02:43:23+08:00",
+      "subject": "Fix comment around `as`/`satisfies` expression (#18162)",
+      "size": {
+        "files": 7,
+        "lines": 305
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 25/26 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 26,
+          "kept": 25,
+          "ratio": 0.9615384615384616
+        }
+      }
+    },
+    {
+      "id": "recharts-3b0ec866d",
+      "kind": "control",
+      "repo": "recharts/recharts",
+      "sha": "3b0ec866d0e4e7be41573058cdeb063df8aff4d1",
+      "mergedAt": "2026-03-07T19:03:53+09:00",
+      "subject": "fix: prevent tooltip flicker in syncMethod=\"value\" with mismatched data arrays (#7020)",
+      "size": {
+        "files": 3,
+        "lines": 247
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 91/91 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 91,
+          "kept": 91,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "recharts-0de2ec66c",
+      "kind": "control",
+      "repo": "recharts/recharts",
+      "sha": "0de2ec66c571dc099b044696d8227305c5200023",
+      "mergedAt": "2025-08-24T08:06:18-07:00",
+      "subject": "Fix exception when Scatter data has non-string type property (#6248)",
+      "size": {
+        "files": 9,
+        "lines": 112
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 13/13 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 13,
+          "kept": 13,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "recharts-3a7cf75f8",
+      "kind": "control",
+      "repo": "recharts/recharts",
+      "sha": "3a7cf75f869bf02a973a108fd96150902f30946a",
+      "mergedAt": "2025-11-21T07:48:46-08:00",
+      "subject": "fix: active dot appearing outside graph (#6612)",
+      "size": {
+        "files": 10,
+        "lines": 260
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 92/101 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 101,
+          "kept": 92,
+          "ratio": 0.9108910891089109
+        }
+      }
+    },
+    {
+      "id": "svelte-8895bd44f",
+      "kind": "control",
+      "repo": "sveltejs/svelte",
+      "sha": "8895bd44f5297c0c69b8bc081155fbf9bac9c00e",
+      "mergedAt": "2025-09-29T08:04:57-07:00",
+      "subject": "fix: coerce nullish `<title>` to empty string (#16863)",
+      "size": {
+        "files": 4,
+        "lines": 31
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 11/12 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 12,
+          "kept": 11,
+          "ratio": 0.9166666666666666
+        }
+      }
+    },
+    {
+      "id": "svelte-a23599a19",
+      "kind": "control",
+      "repo": "sveltejs/svelte",
+      "sha": "a23599a196380ce7fc3fb374dac4daee173776b7",
+      "mergedAt": "2025-07-13T15:20:29-07:00",
+      "subject": "fix: don't show adjusted error messages in boundaries (#16360)",
+      "size": {
+        "files": 4,
+        "lines": 60
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 28/29 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 29,
+          "kept": 28,
+          "ratio": 0.9655172413793104
+        }
+      }
+    },
+    {
+      "id": "svelte-68d4f9c3b",
+      "kind": "control",
+      "repo": "sveltejs/svelte",
+      "sha": "68d4f9c3b68040c7e8e5260d399008c0ad43fa66",
+      "mergedAt": "2025-11-07T17:40:33-05:00",
+      "subject": "fix: wait on dependencies of async bindings (#17120)",
+      "size": {
+        "files": 27,
+        "lines": 325
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 113/125 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 125,
+          "kept": 113,
+          "ratio": 0.904
+        }
+      }
+    },
+    {
+      "id": "tldraw-5212a87d6",
+      "kind": "control",
+      "repo": "tldraw/tldraw",
+      "sha": "5212a87d6232821b8ca57ff4fdf05721baf15a27",
+      "mergedAt": "2026-03-17T17:32:20Z",
+      "subject": "fix(eraser): erase shapes inside groups when starting drag from within group bounds (#8054)",
+      "size": {
+        "files": 2,
+        "lines": 63
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 10/10 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 10,
+          "kept": 10,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "tldraw-5221da51b",
+      "kind": "control",
+      "repo": "tldraw/tldraw",
+      "sha": "5221da51b0197f2fdc36344ff90ef957f00c15fa",
+      "mergedAt": "2026-01-09T10:00:01Z",
+      "subject": "fix sqlite double migration (#7655)",
+      "size": {
+        "files": 4,
+        "lines": 225
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 20/20 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 20,
+          "kept": 20,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "tldraw-fed7148ac",
+      "kind": "control",
+      "repo": "tldraw/tldraw",
+      "sha": "fed7148acf2db97184d36661668149b91b0ac41d",
+      "mergedAt": "2026-04-16T11:45:29Z",
+      "subject": "perf(shapes): skip CSS transform when dynamic size is not active (#8570)",
+      "size": {
+        "files": 3,
+        "lines": 34
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 21/21 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 21,
+          "kept": 21,
+          "ratio": 1
+        }
+      }
+    },
+    {
+      "id": "tiptap-526365a68",
+      "kind": "control",
+      "repo": "ueberdosis/tiptap",
+      "sha": "526365a682d87a51522da0161a87da72fb58ed16",
+      "mergedAt": "2025-12-05T00:01:20+01:00",
+      "subject": "Fix/multimention markdown serialization (#7306)",
+      "size": {
+        "files": 6,
+        "lines": 242
+      },
+      "rule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)",
+      "evidence": {
+        "note": "Mechanical control rule; 56/58 added source lines unchanged at HEAD (2026-10-16).",
+        "survival": {
+          "added": 58,
+          "kept": 56,
+          "ratio": 0.9655172413793104
+        }
+      }
+    }
+  ],
+  "controlRule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)"
+}

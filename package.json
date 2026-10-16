@@ -1,0 +1,38 @@
+{
+  "name": "muse-spark-open-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Muse Spark Open reviews 50 real merged pull requests; every review is graded against the fix the maintainers shipped and checked by running code.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "bench": "NODE_USE_ENV_PROXY=1 node --import tsx src/review/cli.ts",
+    "mine": "node --import tsx scripts/mine-reviews.ts",
+    "cases": "node --import tsx scripts/build-review-cases.ts",
+    "repro": "node --import tsx scripts/pr-review-repro.ts",
+    "report": "node --import tsx scripts/pr-review-report.ts",
+    "site": "node --import tsx scripts/pr-review-report.ts",
+    "preview": "node scripts/serve.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write src scripts tests"
+  },
+  "dependencies": {
+    "@ai-sdk/openai-compatible": "3.0.70",
+    "@mastra/core": "1.78.0",
+    "decimal.js": "10.6.0",
+    "dotenv": "18.0.8",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.5",
+    "prettier": "3.9.10",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

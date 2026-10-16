@@ -1,0 +1,32 @@
+{
+  "case": "django-821619aa8",
+  "repo": "django/django",
+  "claim": "custom Prefetch queryset loses the router instance hint",
+  "script": "benchmarks/repro/django-821619aa8.py",
+  "reproduced": true,
+  "introduced": true,
+  "at": "2026-10-16T09:31:35.756Z",
+  "runs": {
+    "parent": {
+      "sha": "a321d961b03d47b7f0c2e21a2370fc9e74c1889b",
+      "exitCode": 0,
+      "ms": 577,
+      "stdout": "OK: router received the instance hint",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "821619aa8771ef211c4c4922001efdf914201ca3",
+      "exitCode": 1,
+      "ms": 422,
+      "stdout": "BUG: router saw no instance hint for the custom Prefetch queryset; calls: [False]",
+      "stderr": ""
+    },
+    "fix": {
+      "sha": "60a17fccf4f2fa31b823b0f938005897f2f3ef16",
+      "exitCode": 0,
+      "ms": 420,
+      "stdout": "OK: router received the instance hint",
+      "stderr": ""
+    }
+  }
+}

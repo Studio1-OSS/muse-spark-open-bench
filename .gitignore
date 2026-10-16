@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+!.env.example
+data/
+site/
+results/report.html
+__pycache__/
+.venv/
+*.log
+.DS_Store

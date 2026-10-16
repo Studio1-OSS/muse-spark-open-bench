@@ -1,0 +1,188 @@
+{
+  "date": "2026-10-16",
+  "model": "meta-models/muse-spark-open",
+  "benchmarkId": "18f50445-8ded-4911-a890-0813fe9e102b",
+  "benchmarkIds": [
+    "18f50445-8ded-4911-a890-0813fe9e102b",
+    "61f75fb9-ded9-4e97-9014-f245aca725b2",
+    "6d1ed735-eddb-4c37-8c88-e6f943200b1b",
+    "bf329c24-84df-4c80-8e08-b4f6d7a593dc"
+  ],
+  "promptHash": "a5c545aa2637029d686df10e6e6a4cdc7a1d1332330679cc3dedef28f965b072",
+  "bugCases": 25,
+  "controlCases": 25,
+  "repos": 9,
+  "caught": 12,
+  "partial": 3,
+  "missed": 10,
+  "catchRate": 0.48,
+  "interval": [
+    0.30031003928960015,
+    0.6650178204685269
+  ],
+  "strictCaught": 11,
+  "strictInterval": [
+    0.2666537494700257,
+    0.6293298298043557
+  ],
+  "reproduced": 8,
+  "introducedByPr": 8,
+  "reproNotExecuted": 4,
+  "blocked": 16,
+  "controlApproved": 18,
+  "controlsWithFalseAlarm": 2,
+  "falseAlarms": 2,
+  "plausibleOnControls": 7,
+  "confirmedOnControls": 2,
+  "probe": {
+    "asked": 25,
+    "answered": 25,
+    "unknown": 25,
+    "attempts": 27,
+    "cost": 0.05231325
+  },
+  "medianSeconds": 57.840500000000006,
+  "costPerReview": 0.2893518,
+  "totalCost": 14.46759,
+  "totalSpend": 14.519903249999999,
+  "costPerCatch": 1.2056324999999999,
+  "tokens": {
+    "input": 10369741,
+    "output": 354215,
+    "reasoning": 298214,
+    "cached": 9006592,
+    "calls": 451
+  },
+  "usageComplete": true,
+  "costComplete": true,
+  "byRepo": [
+    {
+      "repo": "django/django",
+      "bug": 11,
+      "caught": 6,
+      "partial": 0,
+      "clean": 4,
+      "approved": 2
+    },
+    {
+      "repo": "sveltejs/svelte",
+      "bug": 2,
+      "caught": 0,
+      "partial": 1,
+      "clean": 4,
+      "approved": 2
+    },
+    {
+      "repo": "tldraw/tldraw",
+      "bug": 2,
+      "caught": 1,
+      "partial": 0,
+      "clean": 4,
+      "approved": 4
+    },
+    {
+      "repo": "ant-design/ant-design",
+      "bug": 2,
+      "caught": 2,
+      "partial": 0,
+      "clean": 3,
+      "approved": 3
+    },
+    {
+      "repo": "prettier/prettier",
+      "bug": 1,
+      "caught": 1,
+      "partial": 0,
+      "clean": 4,
+      "approved": 3
+    },
+    {
+      "repo": "recharts/recharts",
+      "bug": 1,
+      "caught": 0,
+      "partial": 0,
+      "clean": 3,
+      "approved": 2
+    },
+    {
+      "repo": "ueberdosis/tiptap",
+      "bug": 2,
+      "caught": 0,
+      "partial": 2,
+      "clean": 2,
+      "approved": 1
+    },
+    {
+      "repo": "vuejs/core",
+      "bug": 3,
+      "caught": 1,
+      "partial": 0,
+      "clean": 1,
+      "approved": 1
+    },
+    {
+      "repo": "mantinedev/mantine",
+      "bug": 1,
+      "caught": 1,
+      "partial": 0,
+      "clean": 0,
+      "approved": 0
+    }
+  ],
+  "groups": [
+    {
+      "name": "Django",
+      "detail": "Python · 11 PRs",
+      "total": 11,
+      "caught": 6,
+      "partial": 0,
+      "missed": 5
+    },
+    {
+      "name": "JS / TS libraries",
+      "detail": "8 repos · 14 PRs",
+      "total": 14,
+      "caught": 6,
+      "partial": 3,
+      "missed": 5
+    }
+  ],
+  "usageRows": [
+    [
+      "Wall time per review",
+      "58s",
+      "186s",
+      "53 min"
+    ],
+    [
+      "Cost per review",
+      "$0.18",
+      "$1.27",
+      "$14.47"
+    ],
+    [
+      "Model calls",
+      "7",
+      "25",
+      "451"
+    ],
+    [
+      "Tool calls",
+      "14",
+      "44",
+      "795"
+    ],
+    [
+      "Input tokens",
+      "120,098",
+      "972,860",
+      "10,369,741"
+    ],
+    [
+      "Output tokens",
+      "6,848",
+      "15,003",
+      "354,215"
+    ]
+  ]
+}

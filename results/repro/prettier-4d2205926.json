@@ -1,0 +1,35 @@
+{
+  "case": "prettier-4d2205926",
+  "kind": "control",
+  "repo": "prettier/prettier",
+  "claim": "a private class method comment prints differently with the babel and acorn parsers",
+  "script": "benchmarks/repro/prettier-4d2205926.mjs",
+  "reproduced": false,
+  "confirmed": true,
+  "stillPresent": true,
+  "introduced": false,
+  "at": "2026-10-16T10:29:16.937Z",
+  "runs": {
+    "parent": {
+      "sha": "e5118b26506c0f1d61ca122b9950615886005051",
+      "exitCode": 0,
+      "ms": 16728,
+      "stdout": "OK: both parsers print \"class A {\\n  #foo() {} // c\\n}\\n\"",
+      "stderr": ""
+    },
+    "merged": {
+      "sha": "4d2205926db1998c45013377f1eb3ff689ec5f66",
+      "exitCode": 1,
+      "ms": 4368,
+      "stdout": "BUG: babel and acorn disagree: \"class A {\\n  #foo() {} // c\\n}\\n\" vs \"class A {\\n  #foo() {\\n    // c\\n  }\\n}\\n\"",
+      "stderr": ""
+    },
+    "head": {
+      "sha": "344d6dc42c8057fbf5573326b52dbc8a43635e7e",
+      "exitCode": 1,
+      "ms": 9127,
+      "stdout": "BUG: babel and acorn disagree: \"class A {\\n  #foo() {} // c\\n}\\n\" vs \"class A {\\n  #foo() {\\n    // c\\n  }\\n}\\n\"",
+      "stderr": ""
+    }
+  }
+}

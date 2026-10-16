@@ -1,0 +1,374 @@
+{
+  "rubric": "benchmarks/pr-review/RUBRIC.md",
+  "grader": "Claude Code (tool-assisted), compared against fix commits and linked issues",
+  "cases": {
+    "django-714266734": {
+      "grade": "caught",
+      "broke": "Hard-coded sort_keys=False in yaml.dump() crashed with TypeError when a caller also passed sort_keys.",
+      "match": 0,
+      "rationale": "Blocker finding names the exact duplicate-keyword TypeError the fix (#37405) removes."
+    },
+    "django-7b54ddd5e": {
+      "grade": "missed",
+      "broke": "get_prep_lookup() ran any() over the rhs, consuming iterator/generator values before they were used.",
+      "match": null,
+      "rationale": "Only finding is about None wrapping in IN lists; iterator consumption not mentioned."
+    },
+    "django-821619aa8": {
+      "grade": "caught",
+      "broke": "Custom Prefetch querysets lost the parent-instance router hint after the descriptor refactor.",
+      "match": 1,
+      "rationale": "Major finding: 'Missing instance hint when querysets supplied' is exactly the dropped _add_hints() the fix restores."
+    },
+    "django-8096b5251": {
+      "grade": "missed",
+      "broke": "mark_safe() script/link tags in form Media were treated as asset paths and percent-encoded instead of rendered verbatim.",
+      "match": null,
+      "rationale": "Finding concerns an explicit rel kwarg; SafeString normalization not noticed."
+    },
+    "django-a2348c85f": {
+      "grade": "missed",
+      "broke": "A primary key with db_default fell back to the Python-side default on save.",
+      "match": null,
+      "rationale": "Approved with no findings."
+    },
+    "django-7d9aab8da": {
+      "grade": "missed",
+      "broke": "bulk_create() partitioned objects before preparing related fields, so PKs from late-saved related objects tripped an assertion.",
+      "match": null,
+      "rationale": "Finding is about a DatabaseDefault check, not the ordering of _prepare_related_fields_for_save()."
+    },
+    "django-78fac1b04": {
+      "grade": "caught",
+      "broke": "force_str() on the password made PBKDF2 and MD5 hashers raise UnicodeDecodeError for non-UTF-8 bytes passwords.",
+      "match": 1,
+      "rationale": "Major findings on PBKDF2 and MD5 force_str() with a non-UTF-8 reproducer match the fix exactly."
+    },
+    "django-2ce5cb0f7": {
+      "grade": "caught",
+      "broke": "orderby_issubset_groupby resolved '-field' and '?' as field names, crashing count() on descending or random ordering.",
+      "match": 0,
+      "rationale": "Blocker finding gives the '-field' FieldError crash on count(); a minor finding also flags '?'."
+    },
+    "django-f920937c8": {
+      "grade": "caught",
+      "broke": "The string fast path in RoutePattern.match() broke for gettext_lazy() routes.",
+      "match": 0,
+      "rationale": "Blocker finding: lazy Promise routes fail str.startswith()/removeprefix(), the exact fix."
+    },
+    "django-c075508b4": {
+      "grade": "caught",
+      "broke": "MediaType.params stopped including 'q' (broke Zulip), and preference ordering used specificity instead of quality.",
+      "match": 0,
+      "rationale": "Minor finding flags params now excluding q as a breaking change, matching fix #36446. Ordering bug #36447 was not found. Verdict was approve."
+    },
+    "django-c1fa3fdd0": {
+      "grade": "missed",
+      "broke": "When.condition was resolved with for_save=True, so Value(None, JSONField()) became SQL NULL instead of JSON null.",
+      "match": null,
+      "rationale": "Approved with no findings."
+    },
+    "recharts-19c7abceb": {
+      "grade": "missed",
+      "broke": "A user-provided textAnchor on XAxis/YAxis was overridden by the computed anchor.",
+      "match": null,
+      "rationale": "Five findings on fontSize wiring, panorama ticks and hook shapes; textAnchor not mentioned."
+    },
+    "svelte-9521b9f3d": {
+      "grade": "missed",
+      "broke": "Moving #commit() earlier let current_batch be nulled or overridden during the commit.",
+      "match": null,
+      "rationale": "Approved with no findings."
+    },
+    "svelte-3937ec03b": {
+      "grade": "partial",
+      "broke": "Awaiting @const blockers shared a $.run entry, so component context was not restored afterwards.",
+      "match": 1,
+      "rationale": "Nit points at the declaration_count/thunk index sync the fix changes, but only as future brittleness; the context-restore failure is not identified."
+    },
+    "tldraw-7375c872f": {
+      "grade": "missed",
+      "broke": "preventDefault on every trusted contextmenu broke macOS ctrl+click and Android long-press menus.",
+      "match": null,
+      "rationale": "Findings are on pan gating, pointer capture and the synthetic event type; native contextmenu suppression not flagged."
+    },
+    "tldraw-67f5b0896": {
+      "grade": "caught",
+      "broke": "New geometry constructors throw for too few points, so closed draw shapes with 2 points crashed.",
+      "match": 4,
+      "rationale": "Major finding: Polyline2d/Polygon2d now throw for <2/<3 points and existing shapes will crash, the failure the fix guards."
+    },
+    "tiptap-404c68334": {
+      "grade": "partial",
+      "broke": "Whole-doc list toggle built a TextSelection from structural positions 1..nodeSize-1, which collapsed after lifting the list.",
+      "match": 2,
+      "rationale": "Nit names exactly from=1/to=list.nodeSize-1 and questions their validity, but concludes it is safe; selection collapse not identified."
+    },
+    "tiptap-c0190bdc3": {
+      "grade": "partial",
+      "broke": "Adapters moved only view.dom instead of the wrapper's children, leaving siblings such as the drag handle detached.",
+      "match": 6,
+      "rationale": "Findings note the switch from the wrapper element to view.dom changes what is moved and cloned, but do not say sibling elements get left behind."
+    },
+    "prettier-592721622": {
+      "grade": "caught",
+      "broke": "isLineBreakAmbiguous read previous.kind/next.kind without optional chaining, a runtime TypeError at text boundaries.",
+      "match": 0,
+      "rationale": "Blocker finding is the exact null-access TypeError the fix addresses."
+    },
+    "core-3b561db4a": {
+      "grade": "missed",
+      "broke": "The ShallowReactive marker property leaked into keyof and assignability, causing type regressions.",
+      "match": null,
+      "rationale": "Approved with no findings."
+    },
+    "core-862f11ee0": {
+      "grade": "missed",
+      "broke": "Stopping component scopes after SSR fired onScopeDispose on the server, breaking libraries (issue #14669).",
+      "match": null,
+      "rationale": "Findings cover error masking, a concurrency race and a stale provide; onScopeDispose firing during SSR not identified."
+    },
+    "core-e6544ac29": {
+      "grade": "caught",
+      "broke": "With a TypeScript node at the expression root, the compiler dropped the text before the first and after the last identifier, so data[key!] compiled to data[key.value (issue #14060).",
+      "match": 0,
+      "rationale": "Major finding: leading/trailing text is discarded whenever the root is a TS node. That is the mechanism behind the missing ']' in #14060."
+    },
+    "ant-design-e81da48f8": {
+      "grade": "caught",
+      "broke": "Removing the early return let a click on the already-active link restart the scroll animation.",
+      "match": 1,
+      "rationale": "Major finding: same-link click during animation still starts a duplicate scroll; an early return is needed when activeLinkRef.current === link. This is the fix."
+    },
+    "ant-design-2b12ef528": {
+      "grade": "caught",
+      "broke": "A new try/catch swallowed errors thrown in onConfirm, hiding them from error monitoring. Maintainers reverted it for that reason.",
+      "match": 1,
+      "rationale": "Major finding: synchronous errors are swallowed and hidden from callers. This matches the maintainers' revert reason."
+    },
+    "mantine-ddde2b0ce": {
+      "grade": "caught",
+      "broke": "A 'types improvement' patch renamed public modal APIs (modal to modalKey, closeAll to closeAllModals), breaking existing users.",
+      "match": 0,
+      "rationale": "Three major findings list the exact breaking renames that the follow-up release reverted."
+    },
+    "django-8c8b833d3": {
+      "grade": "control",
+      "broke": "Clean PR: no later revert or fix references this PR (Task pickling).",
+      "match": null,
+      "falseAlarms": 1,
+      "plausible": 0,
+      "rationale": "One major finding: _reconstruct does not check isinstance(Task). True, but its security premise fails because unpickling untrusted data is already unsafe. Counted as a false alarm. Verdict: changes requested."
+    },
+    "core-6a61f4452": {
+      "grade": "control",
+      "broke": "Clean PR: no later revert or fix references this PR (Teleport inside Suspense).",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "svelte-a9d8439ad": {
+      "grade": "control",
+      "broke": "Clean PR: no later commit referenced this PR, but Muse found a real bug in it (see below).",
+      "match": 0,
+      "falseAlarms": 0,
+      "plausible": 3,
+      "confirmed": 1,
+      "rationale": "First major finding is real: the filter compared a stored value with the source object itself (`[0] !== c`). Upstream changed this line in #18117 and again in #18263, which says 'we were not comparing the correct values'; that fix is essentially Muse's suggestion. The other two majors (new_effects never cleared, rescheduling into later batches) are plausible but unverified."
+    },
+    "tldraw-79c550bd6": {
+      "grade": "control",
+      "broke": "Clean PR: no later revert or fix references this PR (arrow binding hint).",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved; two minor findings and one nit only."
+    },
+    "prettier-3031cd3b8": {
+      "grade": "control",
+      "broke": "Clean PR: no later revert or fix references this PR (ternary dangling comments).",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "tiptap-d2ad165b7": {
+      "grade": "control",
+      "broke": "Clean PR: no later revert or fix references this PR (table colgroup).",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 2,
+      "rationale": "Two major findings describe real behavior changes: the NodeView choice is frozen on an isEditable snapshot, and non-resizable tables now always get a div.tableWrapper despite renderWrapper:false. No upstream fix was found, so both are counted as plausible, not confirmed."
+    },
+    "ant-design-2037fa783": {
+      "grade": "control",
+      "broke": "Clean PR: fix(locale): add missing locale (#55656)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "ant-design-11370a274": {
+      "grade": "control",
+      "broke": "Clean PR: fix(Card): avoid rendering empty body when content is absent (#57735)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved; 2 minor or nit findings only, no blocker or major."
+    },
+    "ant-design-3c297da5e": {
+      "grade": "control",
+      "broke": "Clean PR: fix(List): legacy List design token not pass to content  (#56913)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved; 3 minor or nit findings only, no blocker or major."
+    },
+    "django-c1aa4a7a7": {
+      "grade": "control",
+      "broke": "Clean PR: Fixed #36525 -- Silenced individual deleted file messages in collectstatic --clear's default verbosity.",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "django-7732f942a": {
+      "grade": "control",
+      "broke": "Clean PR: Fixed #36841 -- Made multipart parser class pluggable on HttpRequest.",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 1,
+      "rationale": "One major finding, plausible but minor: assigning multipart_parser_class on a subclass replaces the property and its guard against changing the parser after the body was read. True as described; overriding by subclass is the supported use, so the impact is small."
+    },
+    "django-bb7a7701b": {
+      "grade": "control",
+      "broke": "Clean PR: Fixed #36431 -- Returned tuples for multi-column ForeignObject in values()/values_list().",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "prettier-4d2205926": {
+      "grade": "control",
+      "broke": "Clean PR: Fix inconsistent printing of class method comment (#18147)",
+      "match": 0,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "confirmed": 1,
+      "rationale": "Major finding confirmed by running code: Babel's ClassPrivateMethod was left out of the fix, so `#foo() // c {}` still prints differently with the babel and acorn parsers. The same check passes on public methods. No later commit has fixed it."
+    },
+    "prettier-c45fef106": {
+      "grade": "control",
+      "broke": "Clean PR: Fix LWC attribute with `--embedded-language-formatting off` (#18383)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "prettier-7d3ff5d2f": {
+      "grade": "control",
+      "broke": "Clean PR: Fix comment around `as`/`satisfies` expression (#18162)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "recharts-3b0ec866d": {
+      "grade": "control",
+      "broke": "Clean PR: fix: prevent tooltip flicker in syncMethod=\"value\" with mismatched data arrays (#7020)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "recharts-0de2ec66c": {
+      "grade": "control",
+      "broke": "Clean PR: Fix exception when Scatter data has non-string type property (#6248)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "recharts-3a7cf75f8": {
+      "grade": "control",
+      "broke": "Clean PR: fix: active dot appearing outside graph (#6612)",
+      "match": null,
+      "falseAlarms": 1,
+      "plausible": 0,
+      "rationale": "Two major findings, both false alarms. The first says the domain guard does not suppress the active dot when allowDataOverflow is false, but the PR ships a test that checks exactly that case for both true and false, and it passed at merge. The second only applies if the first were true."
+    },
+    "svelte-8895bd44f": {
+      "grade": "control",
+      "broke": "Clean PR: fix: coerce nullish `<title>` to empty string (#16863)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved; 1 minor or nit finding only, no blocker or major."
+    },
+    "svelte-a23599a19": {
+      "grade": "control",
+      "broke": "Clean PR: fix: don't show adjusted error messages in boundaries (#16360)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 1,
+      "rationale": "One major finding, plausible: a creation-time error with no enclosing boundary is rethrown before apply_adjustments runs, so dev-mode stack adjustments are lost for it. Matches the code; not executed."
+    },
+    "svelte-68d4f9c3b": {
+      "grade": "control",
+      "broke": "Clean PR: fix: wait on dependencies of async bindings (#17120)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved; 3 minor or nit findings only, no blocker or major."
+    },
+    "tldraw-5212a87d6": {
+      "grade": "control",
+      "broke": "Clean PR: fix(eraser): erase shapes inside groups when starting drag from within group bounds (#8054)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "tldraw-5221da51b": {
+      "grade": "control",
+      "broke": "Clean PR: fix sqlite double migration (#7655)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved; 2 minor or nit findings only, no blocker or major."
+    },
+    "tldraw-fed7148ac": {
+      "grade": "control",
+      "broke": "Clean PR: perf(shapes): skip CSS transform when dynamic size is not active (#8570)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    },
+    "tiptap-526365a68": {
+      "grade": "control",
+      "broke": "Clean PR: Fix/multimention markdown serialization (#7306)",
+      "match": null,
+      "falseAlarms": 0,
+      "plausible": 0,
+      "rationale": "Approved with no findings."
+    }
+  },
+  "highlights": [
+    {
+      "id": "django-2ce5cb0f7",
+      "label": "Clean catch"
+    },
+    {
+      "id": "svelte-a9d8439ad",
+      "label": "Bug found in a clean PR",
+      "finding": 0
+    },
+    {
+      "id": "tldraw-7375c872f",
+      "label": "Miss",
+      "finding": 0
+    }
+  ]
+}
