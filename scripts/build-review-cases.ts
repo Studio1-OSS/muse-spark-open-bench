@@ -2,7 +2,7 @@
 // Ground truth (later fix/revert commits) goes to the trusted directory, never into a case folder.
 // Usage: node --import tsx scripts/build-review-cases.ts REPOS_DIR [CASE_IDS...]
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { casesDir, trustedDir, type ReviewCase } from '../src/review/cases.js';
 import { hash } from '../src/domain.js';
@@ -64,7 +64,28 @@ for (const c of selection.cases) {
     join(dir, 'case.json'),
     JSON.stringify({ id: c.id, diffHash: hash(diff), prHash: hash(pr) }, null, 2),
   );
-  if (c.kind === 'bug') {
+  if (c.kind === 'visual') {
+    // Only the screenshots from the bug report are kept; the report's text is never stored in the case.
+    mkdirSync(join(dir, 'images'), { recursive: true });
+    for (const [i, url] of (c.screenshots ?? []).entries()) {
+      const tmp = join(dir, 'images', `${i + 1}.download`);
+      execFileSync('curl', ['-sSL', '-A', 'Mozilla/5.0', '-o', tmp, url]);
+      const head = readFileSync(tmp).subarray(0, 12);
+      const ext =
+        head[0] === 0x89 && head[1] === 0x50
+          ? 'png'
+          : head[0] === 0xff && head[1] === 0xd8
+            ? 'jpg'
+            : head.subarray(0, 3).toString() === 'GIF'
+              ? 'gif'
+              : head.subarray(8, 12).toString() === 'WEBP'
+                ? 'webp'
+                : '';
+      if (!ext) throw new Error(`${c.id}: screenshot ${i + 1} is not an image`);
+      renameSync(tmp, join(dir, 'images', `${i + 1}.${ext}`));
+    }
+  }
+  if (c.kind === 'bug' || c.kind === 'visual') {
     mkdirSync(trustedDir(), { recursive: true });
     const fixes = (c.evidence.fixShas ?? []).map((sha) => ({
       sha,

@@ -2,7 +2,7 @@
   "name": "muse-spark-open-tests",
   "version": "1.0.0",
   "private": true,
-  "description": "Muse Spark Open reviews 50 real merged pull requests; every review is graded against the fix the maintainers shipped and checked by running code.",
+  "description": "Muse Spark Open reviews 60 real merged pull requests (50 code-only, 10 with the user's screenshot); every review is graded against the fix the maintainers shipped, and catches are checked by running code.",
   "license": "MIT",
   "type": "module",
   "engines": {

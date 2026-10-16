@@ -28,6 +28,13 @@ Clean PRs are "no known follow-up fix", not proven bug-free.
 
 Minor and nit findings are counted but not individually adjudicated.
 
+## Visual PRs (10)
+
+Same caught / partial / missed rules as the bug PRs, against the fix for the bug shown in the
+screenshot. The strict count is computed the same way. Muse is told that a user saw a problem
+after the change and gets the screenshot(s) from the report, never the report text, so these
+results are reported separately from the 25 bug PRs above.
+
 ## Reviews without a valid answer
 
 A review with no valid JSON after one repair turn counts as **missed**.

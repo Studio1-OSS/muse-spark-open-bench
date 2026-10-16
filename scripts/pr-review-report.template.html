@@ -92,6 +92,8 @@ main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--section)
 .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .stat { background: var(--surface-card); border-radius: var(--r-lg); padding: 24px; display: grid; gap: 6px; align-content: start; min-width: 0; }
 .stat b { font: 500 2.5rem/1.05 var(--display); letter-spacing: -0.03em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.stat b small { font-size: 0.5em; font-weight: 500; margin-left: 8px; color: var(--muted); letter-spacing: 0; }
+.muted-pc { color: var(--muted); font-size: 0.85em; }
 .stat .t { font-weight: 600; color: var(--ink); font-size: 15px; }
 .stat .d { font-size: 14px; color: var(--muted); }
 .minor { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
@@ -178,6 +180,15 @@ main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--section)
 .files { display: flex; flex-wrap: wrap; gap: 10px; }
 .files a { text-decoration: none; }
 
+/* Visual track */
+.vcases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+.vcard { background: var(--canvas); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.vshots { display: flex; gap: 8px; overflow-x: auto; }
+.vshots a { flex: 0 0 auto; max-width: 100%; }
+.vshots img { display: block; max-height: 200px; max-width: 100%; border-radius: var(--r-sm); border: 1px solid var(--hairline); background: var(--surface-soft); }
+.vcard .top { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: space-between; }
+@media (max-width: 768px) { .vcases { grid-template-columns: minmax(0, 1fr); } }
+
 /* Usage + method */
 .panel { background: var(--surface-card); border-radius: var(--r-lg); padding: 24px; min-width: 0; }
 .table-wrap { overflow-x: auto; }
@@ -230,9 +241,9 @@ footer { background: var(--surface-soft); padding-block: 56px; }
   <div class="container nav-inner">
     <a class="brand" href="#top"><img src="/*LOGO*/" alt="">Muse PR Review Bench</a>
     <nav class="nav-links" aria-label="Sections">
-      <a href="#results">Results</a><a href="#proof">Proof</a><a href="#examples">Examples</a><a href="#cases">Cases</a><a href="#questions">Questions</a>
+      <a href="#results">Results</a><a href="#visual">Visual</a><a href="#proof">Proof</a><a href="#examples">Examples</a><a href="#cases">Cases</a><a href="#questions">Questions</a>
     </nav>
-    <a class="btn btn-primary" href="#cases">See all <span id="navCount"></span> PRs</a>
+    <a class="btn btn-primary" href="https://github.com/Studio1-OSS/muse-spark-open-tests" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>
   </div>
 </header>
 
@@ -247,7 +258,7 @@ footer { background: var(--surface-soft); padding-block: 56px; }
       <p class="lead-links"><a href="https://dev.meta.ai/models/muse-spark-open" target="_blank" rel="noopener">About Muse Spark Open</a> · <a href="https://tokenfactory.nebius.com/?modals=endpoint-details&amp;model-id=meta-models/muse-spark-open" target="_blank" rel="noopener">Try it on Token Factory</a></p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#examples">Read the reviews</a>
-        <a class="btn btn-secondary" href="#method">How it was tested</a>
+        <a class="btn btn-secondary" href="https://github.com/Studio1-OSS/muse-spark-open-tests" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Code and raw data on GitHub</a>
       </div>
     </div>
     <div class="score-card" aria-label="Score">
@@ -267,6 +278,16 @@ footer { background: var(--surface-soft); padding-block: 56px; }
     </div>
     <div class="stats" id="stats"></div>
     <div class="minor" id="minor"></div>
+  </section>
+
+  <section class="container" id="visual" hidden>
+    <div class="section-head">
+      <div class="label">Vision</div>
+      <h2>Visual bugs: reading the user's screenshot</h2>
+      <p id="visualLede"></p>
+    </div>
+    <div class="stats" id="vstats"></div>
+    <div class="vcases" id="vcases"></div>
   </section>
 
   <section class="container" id="proof">
@@ -352,16 +373,15 @@ footer { background: var(--surface-soft); padding-block: 56px; }
     <div class="copy">
       <div class="label">Reproduce</div>
       <h2>Run it on your own key</h2>
-      <p>The cases, grades, reproduction scripts, every review and the per-request token ledger ship with the repository.</p>
+      <p>The cases, grades, reproduction scripts, every review and the per-request token ledger are in the repository. Clone it, add a Token Factory key, and rerun everything.</p>
+      <div><a class="btn btn-primary" href="https://github.com/Studio1-OSS/muse-spark-open-tests" target="_blank" rel="noopener"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>Studio1-OSS/muse-spark-open-tests</a></div>
     </div>
-    <pre class="cmd"><span class="c"># build the 50 case folders from local clones</span>
-node --import tsx scripts/build-review-cases.ts REPOS_DIR
-<span class="c"># run the bugs Muse described on before/merged/fix</span>
-node --import tsx scripts/pr-review-repro.ts REPOS_DIR
-<span class="c"># review every PR with Muse Spark Open</span>
-npm run bench -- run
-<span class="c"># rebuild this page from the results</span>
-node --import tsx scripts/pr-review-report.ts</pre>
+    <pre class="cmd">git clone https://github.com/Studio1-OSS/muse-spark-open-tests
+npm ci &amp;&amp; cp .env.example .env   <span class="c"># add NEBIUS_API_KEY</span>
+npm run cases -- repos   <span class="c"># build the case folders</span>
+npm run bench -- run     <span class="c"># Muse reviews every PR</span>
+npm run repro -- repos   <span class="c"># before / merged / fix runs</span>
+npm run site             <span class="c"># rebuild this page</span></pre>
   </section>
 </main>
 
@@ -380,39 +400,41 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const pct = (x) => Math.round(x * 100) + '%';
 const money = (x) => '$' + Number(x).toFixed(2);
+const pc = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '–');
+const frac = (a, b) => `${a}/${b}<small>${pc(a, b)}</small>`;
 const S = DATA.summary;
 const LABEL = { caught: 'Caught', partial: 'Partial', missed: 'Missed', control: 'Clean PR' };
 
 $('date').textContent = 'Run on 16 Oct 2026';
-$('lede').textContent = `Muse Spark Open reviewed ${S.bugCases} merged pull requests from ${S.repos} open-source projects that were later reverted or fixed because they broke something, plus ${S.controlCases} clean PRs. It saw the diff and the code, never what happened next.`;
+$('lede').textContent = `Muse Spark Open reviewed ${S.bugCases} merged pull requests from ${S.repos} open-source projects that were later reverted or fixed because they broke something, plus ${S.controlCases} clean PRs${S.visual ? ` and ${S.visual.cases} visual bugs where it also saw the user's screenshot` : ''}. It saw the diff and the code, never what happened next.`;
 $('big').innerHTML = `${S.caught}<span> / ${S.bugCases}</span>`;
 $('ci').textContent = `${pct(S.catchRate)} of shipped bugs named correctly · 95% interval ${pct(S.interval[0])} to ${pct(S.interval[1])}`;
 $('ci2').textContent = `${S.reproduced} catches confirmed by running code · strict count ${S.strictCaught}/${S.bugCases}`;
-$('navCount').textContent = DATA.cases.length;
+
 const order = ['caught', 'partial', 'missed'];
 $('waffle').innerHTML = DATA.cases.filter((c) => c.kind === 'bug').sort((a, b) => order.indexOf(a.grade) - order.indexOf(b.grade))
   .map((c) => `<i class="w-${c.grade}" title="${esc(c.repo)}: ${LABEL[c.grade]}"></i>`).join('');
 
 $('stats').innerHTML = [
-  [`${S.caught}/${S.bugCases}`, 'Shipped bugs caught', 'A finding named the same defect the maintainers later fixed.'],
-  [`${S.reproduced}/${S.caught}`, 'Confirmed by running code', 'The input Muse described fails on the merged code and passes on the real fix.'],
-  [`${S.strictCaught}/${S.bugCases}`, 'Strict count', 'Matching finding is blocker or major, and the review requested changes.'],
-  [`${S.probe.answered - S.probe.unknown}/${S.probe.asked}`, 'Remembered from training', 'Asked with no code first, Muse knew none of these PRs.'],
-].map(([b, t, d]) => `<div class="stat"><b>${esc(b)}</b><div class="t">${esc(t)}</div><div class="d">${esc(d)}</div></div>`).join('');
+  [frac(S.caught, S.bugCases), 'Shipped bugs caught', 'A finding named the same defect the maintainers later fixed.'],
+  [frac(S.reproduced, S.caught), 'Confirmed by running code', 'The input Muse described fails on the merged code and passes on the real fix.'],
+  [frac(S.strictCaught, S.bugCases), 'Strict count', 'Matching finding is blocker or major, and the review requested changes.'],
+  [frac(S.probe.answered - S.probe.unknown, S.probe.asked), 'Remembered from training', 'Asked with no code first, Muse knew none of these PRs.'],
+].map(([b, t, d]) => `<div class="stat"><b>${b}</b><div class="t">${esc(t)}</div><div class="d">${esc(d)}</div></div>`).join('');
 $('minor').innerHTML = [
-  [S.partial, 'more partial catches, not counted'],
-  [`${S.controlApproved}/${S.controlCases}`, 'clean PRs approved'],
-  [S.controlsWithFalseAlarm, `clean PR${S.controlsWithFalseAlarm === 1 ? '' : 's'} with a false alarm`],
+  [`${S.partial}`, 'more partial catches, not counted'],
+  [`${S.controlApproved}/${S.controlCases} · ${pc(S.controlApproved, S.controlCases)}`, 'clean PRs approved'],
+  [`${S.controlsWithFalseAlarm}/${S.controlCases} · ${pc(S.controlsWithFalseAlarm, S.controlCases)}`, 'clean PRs with a false alarm'],
   [money(S.costPerReview), `per review · ${money(S.totalSpend)} total`],
 ].map(([b, s]) => `<div><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
 const groupColors = ['fc-lavender', 'fc-peach'];
 $('groups').innerHTML = S.groups.map((g, i) => {
   const row = (k, color) => `<div class="row"><span>${LABEL[k]}</span><div class="track"><div style="width:${(g[k] / g.total) * 100}%;background:${color}"></div></div><span class="num r">${g[k]}</span></div>`;
-  return `<article class="fcard ${groupColors[i]}"><div class="label" style="color:inherit;opacity:.75">${esc(g.detail)}</div><h3>${esc(g.name)}</h3><div class="big">${g.caught}<span> / ${g.total} caught</span></div>
+  return `<article class="fcard ${groupColors[i]}"><div class="label" style="color:inherit;opacity:.75">${esc(g.detail)}</div><h3>${esc(g.name)}</h3><div class="big">${pc(g.caught, g.total)}<span> · ${g.caught} of ${g.total} caught</span></div>
     <div class="fragment">${row('caught', 'var(--teal)')}${row('partial', 'var(--ochre)')}${row('missed', 'var(--coral)')}</div></article>`;
 }).join('');
 
-$('repos').innerHTML = `<thead><tr><th>Repository</th><th class="r">Bug PRs</th><th class="r">Caught</th><th class="r">Partial</th><th class="r">Clean PRs</th><th class="r">Clean approved</th></tr></thead><tbody>${S.byRepo.map((r) => `<tr><td><a href="https://github.com/${esc(r.repo)}" target="_blank" rel="noopener">${esc(r.repo)}</a></td><td class="r">${r.bug}</td><td class="r">${r.caught}</td><td class="r">${r.partial}</td><td class="r">${r.clean}</td><td class="r">${r.approved}</td></tr>`).join('')}<tr><td><strong>All ${S.byRepo.length} repositories</strong></td><td class="r"><strong>${S.bugCases}</strong></td><td class="r"><strong>${S.caught}</strong></td><td class="r"><strong>${S.partial}</strong></td><td class="r"><strong>${S.controlCases}</strong></td><td class="r"><strong>${S.controlApproved}</strong></td></tr></tbody>`;
+$('repos').innerHTML = `<thead><tr><th>Repository</th><th class="r">Bug PRs</th><th class="r">Caught</th><th class="r">Partial</th><th class="r">Clean PRs</th><th class="r">Clean approved</th></tr></thead><tbody>${S.byRepo.map((r) => `<tr><td><a href="https://github.com/${esc(r.repo)}" target="_blank" rel="noopener">${esc(r.repo)}</a></td><td class="r">${r.bug}</td><td class="r">${r.caught} <span class="muted-pc">${r.bug ? pc(r.caught, r.bug) : ''}</span></td><td class="r">${r.partial}</td><td class="r">${r.clean}</td><td class="r">${r.approved} <span class="muted-pc">${r.clean ? pc(r.approved, r.clean) : ''}</span></td></tr>`).join('')}<tr><td><strong>All ${S.byRepo.length} repositories</strong></td><td class="r"><strong>${S.bugCases}</strong></td><td class="r"><strong>${S.caught} <span class="muted-pc">${pc(S.caught, S.bugCases)}</span></strong></td><td class="r"><strong>${S.partial}</strong></td><td class="r"><strong>${S.controlCases}</strong></td><td class="r"><strong>${S.controlApproved} <span class="muted-pc">${pc(S.controlApproved, S.controlCases)}</span></strong></td></tr></tbody>`;
 const byId = Object.fromEntries(DATA.cases.map((c) => [c.id, c]));
 const spotColors = ['fc-pink', 'fc-teal', 'fc-ochre'];
 $('spots').innerHTML = DATA.highlights.map((h, i) => {
@@ -461,6 +483,29 @@ $('usageNote').textContent = `Reviews: ${S.tokens.calls} model calls and every o
 $('usage').innerHTML = `<thead><tr><th>Per review</th><th class="r">Median</th><th class="r">Highest</th><th class="r">All ${DATA.cases.length}</th></tr></thead><tbody>${S.usageRows.map((r) => `<tr><td>${esc(r[0])}</td><td class="r">${esc(r[1])}</td><td class="r">${esc(r[2])}</td><td class="r">${esc(r[3])}</td></tr>`).join('')}</tbody>`;
 $('methodGrid').innerHTML = DATA.method.map((m) => `<article class="fcard fc-cream"><h3>${esc(m.title)}</h3>${m.items ? `<ul>${m.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>` : `<p>${esc(m.text)}</p>`}</article>`).join('');
 
+const V = S.visual;
+if (V) {
+  $('visual').hidden = false;
+  $('visualLede').textContent = `Muse Spark Open is a vision model, so ${V.cases} more bug PRs come with a picture. Each one shipped a visual bug: a layout, colour or rendering problem. Muse got the PR and the code as before, plus the screenshot a user posted in the bug report (only the image, never the report text), and had to find what in the change causes it. Graded against the maintainers' fix with the same rubric.`;
+  $('vstats').innerHTML = [
+    [frac(V.caught, V.cases), 'Visual bugs caught', 'A finding named the change that causes what the screenshot shows.'],
+    [frac(V.strictCaught, V.cases), 'Strict count', 'Matching finding is blocker or major, and the review requested changes.'],
+    [`${V.partial}`, 'Partial', 'Right code or symptom, wrong or vague cause. Not counted.'],
+    [money(V.totalCost), 'Total cost', `${V.cases} reviews, median ${Math.round(V.medianSeconds)}s each.`],
+  ].map(([b, t, d]) => `<div class="stat"><b>${b}</b><div class="t">${esc(t)}</div><div class="d">${esc(d)}</div></div>`).join('');
+  $('vcases').innerHTML = DATA.visualCases.map((c) => {
+    const f = c.match !== null && c.review ? c.review.findings[c.match] : null;
+    const shots = c.shots.map((s) => `<a href="data/visual/${esc(c.id)}/${esc(s)}" target="_blank" rel="noopener"><img src="data/visual/${esc(c.id)}/${esc(s)}" alt="Screenshot from the bug report" loading="lazy"></a>`).join('');
+    const quote = f ? `<div class="finding match ${c.grade === 'partial' ? 'partial' : ''}"><div class="tag">${c.grade === 'partial' ? 'Closest match' : 'Matches the real fix'}</div><div class="fh">${esc(f.severity)} · ${esc(f.file)}${f.line ? ':' + f.line : ''}</div><div class="ft">${esc(f.title)}</div><div class="fx">${esc(f.explanation)}</div></div>` : `<div class="finding"><div class="ft">No matching finding</div><div class="fx">${esc(c.review?.summary ?? '')}</div></div>`;
+    return `<article class="vcard"><div class="top"><span class="repo mono" style="font-size:12px;color:var(--muted)">${esc(c.repo)} · ${esc(c.sha.slice(0, 9))}</span><span class="pill p-${c.grade}">${LABEL[c.grade]}</span></div>
+      <div class="title" style="color:var(--ink);font-weight:600">${esc(c.title)}</div>
+      <div class="vshots">${shots}</div>
+      <div class="broke" style="font-size:14px"><strong>What broke:</strong> ${esc(c.broke)}</div>
+      ${quote}
+      <div class="links"><a href="https://github.com/${esc(c.repo)}/commit/${esc(c.sha)}" target="_blank" rel="noopener">Reviewed commit ↗</a>${c.issue ? `<a href="${esc(c.issue)}" target="_blank" rel="noopener">Bug report ↗</a>` : ''}${c.links.filter((l) => l.includes('/commit/')).map((l) => `<a href="${esc(l)}" target="_blank" rel="noopener">Fix ↗</a>`).join('')}</div>
+    </article>`;
+  }).join('');
+}
 const proofCases = DATA.cases.filter((c) => c.repro?.reproduced);
 $('proofLede').textContent = `For ${proofCases.length} of the ${S.caught} catches, the failing input Muse wrote down was turned into a script and run on three commits: just before the PR, the merged PR, and the maintainers' fix. Each one passes before, fails after merge with the error Muse predicted, and passes again on the fix.`;
 const cleanProof = DATA.cases.filter((c) => c.kind === 'control' && c.repro?.confirmed);

@@ -4,12 +4,14 @@ import { config } from '../config.js';
 
 export interface ReviewCase {
   id: string;
-  kind: 'bug' | 'control';
+  // visual: a bug PR whose bug report includes a screenshot; Muse gets the screenshot (not the report text).
+  kind: 'bug' | 'control' | 'visual';
   repo: string;
   sha: string;
   mergedAt?: string;
   subject?: string;
-  evidence: { fixShas?: string[]; kind?: string; links?: string[]; note?: string };
+  evidence: { fixShas?: string[]; kind?: string; links?: string[]; note?: string; issue?: string };
+  screenshots?: string[];
 }
 export interface Finding {
   file: string;

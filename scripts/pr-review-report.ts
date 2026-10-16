@@ -305,12 +305,16 @@ const method = [
     text: `${controls.length} merged fixes from the same repos and period. ${newControls.length ? `${newControls.length} were picked by a mechanical rule: no later commit mentions their SHA or PR number, and at least 90% of the source lines they added are still unchanged today (git blame). ` : ''}The first ${controls.length - newControls.length} only required that no later commit references them. "No known follow-up fix" does not prove a PR is bug-free.`,
   },
   {
+    title: 'Visual PRs',
+    text: '10 more bug PRs whose bug report includes a screenshot of the broken UI: layout, colour and rendering regressions in Excalidraw, Ant Design, Mantine, Recharts and tldraw. Muse gets the PR and the code as usual, plus only the screenshot (never the report text), and has to find the change that causes it. Each cause was confirmed by the fix commit or the report naming the PR, or by SZZ (git blame of the lines the fix changed). Bug reports with only videos were excluded.',
+  },
+  {
     title: 'What Muse saw',
     items: [
       'PR title, the commit message as description, and the full diff.',
       'The repository as it was right after the merge, with no git history.',
       'Three read-only tools: list files, search, read a file range. No code execution.',
-      'One prompt for every case, which does not say a bug exists.',
+      'One prompt for every case. For the 50 code-only PRs it does not say a bug exists; the visual PRs add one line about the screenshot.',
     ],
   },
   {
@@ -361,13 +365,81 @@ const faq = [
     a: 'Yes. Every review, grade, reproduction log and per-request token record is in the raw data below and in the repository, with the commands to rerun it.',
   },
 ];
+// Visual track: bug PRs where Muse also saw the screenshot from the bug report.
+const vdir = join(dir, 'visual');
+let visualCases: Record<string, unknown>[] = [];
+let visualSummary: Record<string, unknown> | null = null;
+if (existsSync(join(vdir, 'runs.json'))) {
+  const vsel = JSON.parse(readFileSync(join(vdir, 'cases.json'), 'utf8')) as typeof selection;
+  const vruns = JSON.parse(readFileSync(join(vdir, 'runs.json'), 'utf8')) as typeof runs;
+  const vusage = JSON.parse(readFileSync(join(vdir, 'usage.json'), 'utf8'));
+  const vreviews = readFileSync(join(vdir, 'reviews.jsonl'), 'utf8')
+    .trim()
+    .split('\n')
+    .filter(Boolean)
+    .map((l) => JSON.parse(l) as ReviewRecord);
+  visualCases = vsel.cases.map((c) => {
+    const g = grades.cases[c.id];
+    if (!g) throw new Error(`Missing grade for ${c.id}`);
+    const run = vruns.find((r) => r.caseId === c.id);
+    if (!run) throw new Error(`Missing run for ${c.id}`);
+    const review = vreviews.find((r) => r.caseId === c.id)?.review ?? null;
+    const match = g.match !== null && review ? review.findings[g.match] : null;
+    const shotDir = join('benchmarks', 'visual', c.id);
+    const shots = existsSync(shotDir)
+      ? readdirSync(shotDir)
+          .filter((f) => /\.(png|jpe?g|gif|webp)$/i.test(f))
+          .sort()
+      : [];
+    return {
+      id: c.id,
+      repo: c.repo,
+      sha: c.sha,
+      title: c.subject ?? c.id,
+      links: c.evidence.links ?? [],
+      issue: c.evidence.issue ?? null,
+      grade: g.grade,
+      broke: g.broke,
+      match: g.match,
+      rationale: g.rationale,
+      review,
+      shots,
+      strict:
+        g.grade === 'caught' &&
+        !!match &&
+        ['blocker', 'major'].includes(match.severity) &&
+        review?.verdict === 'request_changes',
+      cost: Number(run.cost),
+      seconds: run.seconds,
+      tools: run.tools,
+    };
+  });
+  const n = (k: string) => visualCases.filter((c) => c.grade === k).length;
+  visualSummary = {
+    cases: visualCases.length,
+    caught: n('caught'),
+    partial: n('partial'),
+    missed: n('missed'),
+    strictCaught: visualCases.filter((c) => c.strict).length,
+    interval: wilson(n('caught'), visualCases.length),
+    totalCost: Number(vusage.cost),
+    calls: vusage.calls,
+    medianSeconds: median(visualCases.map((c) => c.seconds as number)),
+    repos: new Set(visualCases.map((c) => c.repo)).size,
+  };
+}
+(summary as Record<string, unknown>).visual = visualSummary;
 writeFileSync(join(dir, 'summary.json'), JSON.stringify(summary, null, 2));
 writeFileSync(join(dir, 'grades.json'), JSON.stringify(grades, null, 2));
 const template = readFileSync('scripts/pr-review-report.template.html', 'utf8');
-const data = JSON.stringify({ summary, cases, highlights: grades.highlights, method, faq }).replace(
-  /</g,
-  '\\u003c',
-);
+const data = JSON.stringify({
+  summary,
+  cases,
+  visualCases,
+  highlights: grades.highlights,
+  method,
+  faq,
+}).replace(/</g, '\\u003c');
 const svg = (f: string) => 'data:image/svg+xml;base64,' + readFileSync(f).toString('base64');
 const page = template
   .replace('/*LOGO*/', svg('brand/muse.svg'))
@@ -394,6 +466,19 @@ for (const f of [
 for (const r of repros)
   writeFileSync(join(site, 'data', 'repro', `${r.case}.json`), JSON.stringify(r, null, 2));
 copyFileSync('benchmarks/RUBRIC.md', join(site, 'data', 'RUBRIC.md'));
+if (visualSummary) {
+  mkdirSync(join(site, 'data', 'visual'), { recursive: true });
+  for (const f of ['cases.json', 'reviews.jsonl', 'requests.jsonl', 'runs.json', 'usage.json'])
+    if (existsSync(join(vdir, f))) copyFileSync(join(vdir, f), join(site, 'data', 'visual', f));
+  for (const c of visualCases) {
+    mkdirSync(join(site, 'data', 'visual', c.id as string), { recursive: true });
+    for (const f of c.shots as string[])
+      copyFileSync(
+        join('benchmarks', 'visual', c.id as string, f),
+        join(site, 'data', 'visual', c.id as string, f),
+      );
+  }
+}
 const base = (process.env.SITE_URL ?? '').replace(/\/$/, '');
 const description = `Muse Spark Open reviewed ${summary.bugCases} real merged PRs that later shipped bugs, plus ${summary.controlCases} clean PRs. It named ${summary.caught} of the ${summary.bugCases} bugs; ${summary.reproduced} catches were confirmed by running code.`;
 const headEnd = page.indexOf('</style>') + '</style>'.length;

@@ -353,6 +353,66 @@
       "falseAlarms": 0,
       "plausible": 0,
       "rationale": "Approved with no findings."
+    },
+    "visual-excalidraw-63e114828": {
+      "grade": "caught",
+      "broke": "Hex colours with alpha (8-digit hex) render as solid black after the dark-mode change.",
+      "match": 0,
+      "rationale": "Blocker finding: normalizeInputColor adds \"#\" only for 6-digit hex, so 8-digit hex becomes an invalid colour and canvas falls back to black. The fix (#10773) adds hex8 to that check."
+    },
+    "visual-mantine-a6808dbe1": {
+      "grade": "caught",
+      "broke": "Lists with listStyleType=\"none\" get unwanted left padding.",
+      "match": 2,
+      "rationale": "Major finding: listStyleType none still reserves the marker gap. The fix (#8393) sets --list-marker-gap to 0 for listStyleType none."
+    },
+    "visual-ant-design-de9c67987": {
+      "grade": "caught",
+      "broke": "The Upload list progress bar is thick and overlaps the file name.",
+      "match": 0,
+      "rationale": "Major finding: mergedProgress becomes {} instead of undefined, which bypasses UploadList's thin default. The fix (#58126) returns undefined when neither progress is set."
+    },
+    "visual-excalidraw-0642e72cf": {
+      "grade": "caught",
+      "broke": "Arrow labels lose the background underneath them in PNG export.",
+      "match": 0,
+      "rationale": "Major finding: the arrow is drawn directly onto the export context and the label area is then cleared or filled, erasing what is underneath. The fix (#11637) cuts the hole with an even-odd clip instead."
+    },
+    "visual-ant-design-1d36dfec5": {
+      "grade": "caught",
+      "broke": "The Notification close button overlaps the description when there is no title.",
+      "match": 0,
+      "rationale": "Blocker finding: the &:first-child rule never matches because the icon is rendered first, so no space is reserved for the close button. The fix (#57821) replaces that rule with explicit selectors."
+    },
+    "visual-tldraw-52ddccb88": {
+      "grade": "caught",
+      "broke": "The following-indicator border is drawn behind the UI panels.",
+      "match": 0,
+      "rationale": "Major finding: canvas-in-front was lowered below the UI layer, and the following indicator lives inside it, so it can never appear above the panels. The fix (#9210) moves the indicator out of that layer."
+    },
+    "visual-recharts-156519846": {
+      "grade": "caught",
+      "broke": "Stacked bars with stackOffset=\"sign\" have wrong heights and stop short of the total.",
+      "match": 0,
+      "rationale": "Blocker finding: offsetSign sets positive = series1 instead of accumulating the value, resetting the baseline for each layer. The fix (#6807) changes it to positive += value."
+    },
+    "visual-excalidraw-63e114828-10599": {
+      "grade": "caught",
+      "broke": "Grid lines in dark mode are bright white instead of subtle.",
+      "match": 0,
+      "rationale": "Major finding: GridLineColor is hard-coded to light-theme values and the CSS filter that used to darken them was removed. The fix (#10600) adds dark-theme grid colours."
+    },
+    "visual-ant-design-18ac3e39d": {
+      "grade": "partial",
+      "broke": "Form.Item with help={false} shows the validation error again.",
+      "match": 0,
+      "rationale": "Points at the exact line the fix changes (hasHelp = isNonNullable(help) && help !== false) but argues about empty strings; the real problem is that help={false} no longer counts as help. Partial."
+    },
+    "visual-ant-design-c7a7f474c": {
+      "grade": "missed",
+      "broke": "Default solid buttons get the wrong text colour on hover.",
+      "match": null,
+      "rationale": "Three findings on other Button changes (fallback variables, ghost buttons, legacy classes); the missing hover/active text colour for solid default buttons is not mentioned. Missed."
     }
   },
   "highlights": [

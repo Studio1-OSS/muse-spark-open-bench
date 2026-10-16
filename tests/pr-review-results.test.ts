@@ -36,7 +36,11 @@ describe.runIf(ready)('PR Review Bench saved results', () => {
       ).toHaveLength(1);
       expect(grades[c.id], c.id).toBeDefined();
     }
-    expect(Object.keys(grades).sort()).toEqual(cases.map((c) => c.id).sort());
+    expect(
+      Object.keys(grades)
+        .filter((k) => !k.startsWith('visual-'))
+        .sort(),
+    ).toEqual(cases.map((c) => c.id).sort());
   });
 
   it('points every caught or partial grade at a finding that exists', () => {
@@ -117,5 +121,54 @@ describe.runIf(ready)('PR Review Bench saved results', () => {
     expect(html).toContain(`"caught":${summary.caught}`);
     for (const f of ['reviews.jsonl', 'requests.jsonl', 'grades.json', 'summary.json', 'RUBRIC.md'])
       expect(existsSync(join('site/data', f)), f).toBe(true);
+  });
+
+  describe.runIf(existsSync(join(dir, 'visual', 'runs.json')))('visual track', () => {
+    const vcases = json('visual/cases.json').cases as { id: string; kind: string }[];
+    const vreviews = jsonl('visual/reviews.jsonl') as {
+      caseId: string;
+      review: { findings: unknown[] };
+    }[];
+    const vruns = json('visual/runs.json') as { caseId: string; cost: string }[];
+
+    it('has one review, run, grade and at least one screenshot per visual case', () => {
+      expect(vcases.length).toBe(10);
+      for (const c of vcases) {
+        expect(c.kind).toBe('visual');
+        expect(
+          vreviews.filter((r) => r.caseId === c.id),
+          c.id,
+        ).toHaveLength(1);
+        expect(
+          vruns.filter((r) => r.caseId === c.id),
+          c.id,
+        ).toHaveLength(1);
+        expect(grades[c.id], c.id).toBeDefined();
+        expect(readdirSync(join('benchmarks', 'visual', c.id)).length, c.id).toBeGreaterThan(0);
+      }
+    });
+
+    it('points every caught or partial visual grade at a finding that exists', () => {
+      for (const c of vcases) {
+        const g = grades[c.id];
+        if (g.grade === 'missed') continue;
+        const n = vreviews.find((r) => r.caseId === c.id)!.review.findings.length;
+        expect(g.match, c.id).toBeGreaterThanOrEqual(0);
+        expect(g.match, c.id).toBeLessThan(n);
+      }
+    });
+
+    it('summary and costs match the visual records', () => {
+      const v = summary.visual;
+      const n = (k: string) => vcases.filter((c) => grades[c.id].grade === k).length;
+      expect([v.caught, v.partial, v.missed]).toEqual([n('caught'), n('partial'), n('missed')]);
+      const requests = jsonl('visual/requests.jsonl') as { cost: string; complete: boolean }[];
+      expect(requests.every((r) => r.complete)).toBe(true);
+      const ledger = requests.reduce((s, r) => s.add(r.cost), new Decimal(0));
+      expect(ledger.toFixed(8)).toBe(new Decimal(json('visual/usage.json').cost).toFixed(8));
+      expect(vruns.reduce((s, r) => s.add(r.cost), new Decimal(0)).toFixed(8)).toBe(
+        ledger.toFixed(8),
+      );
+    });
   });
 });

@@ -1,0 +1,260 @@
+{
+  "version": "muse-pr-review-v1.2",
+  "frozenAt": "2026-10-16",
+  "selection": "Merged commits later reverted or named as a regression cause (bug), plus unreferenced merged fixes (control). Window 2025-06..2026-05.",
+  "cases": [
+    {
+      "id": "visual-excalidraw-63e114828",
+      "kind": "visual",
+      "repo": "excalidraw/excalidraw",
+      "sha": "63e1148280163a36326b7efb5fdfeefebabdb3e4",
+      "mergedAt": "2026-01-04T15:16:35+01:00",
+      "subject": "feat: stop using CSS filters for dark mode (static canvas) (#10578)",
+      "size": {
+        "lines": 1457
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/e2c97112-28f3-46eb-94fa-1284c35e228f"
+      ],
+      "evidence": {
+        "fixShas": [
+          "8b3e149db6a46039a8231a0f82bac5a5cfda8ef3"
+        ],
+        "issue": "https://github.com/excalidraw/excalidraw/issues/10772",
+        "links": [
+          "https://github.com/excalidraw/excalidraw/commit/8b3e149db6a46039a8231a0f82bac5a5cfda8ef3",
+          "https://github.com/excalidraw/excalidraw/issues/10772"
+        ],
+        "cause": "Bug report: \"Regression: Hex colors with Alpha broken since #10578\". Fix commit: \"fix: hex8 regression #10578\"."
+      }
+    },
+    {
+      "id": "visual-mantine-a6808dbe1",
+      "kind": "visual",
+      "repo": "mantinedev/mantine",
+      "sha": "a6808dbe1ff2f5717651629913b0160b2a0d7ea9",
+      "mergedAt": "2025-09-16T12:23:19+03:00",
+      "subject": "[@mantine/core] List: Fix nested list items overflowing parent list container (#8269)",
+      "size": {
+        "lines": 8
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/dd4f871d-84df-46c7-ab8e-b78c41bc6425"
+      ],
+      "evidence": {
+        "fixShas": [
+          "1f45d2bd1445cb9b869dba9d7f9892a95491b404"
+        ],
+        "issue": "https://github.com/mantinedev/mantine/issues/8393",
+        "links": [
+          "https://github.com/mantinedev/mantine/commit/1f45d2bd1445cb9b869dba9d7f9892a95491b404",
+          "https://github.com/mantinedev/mantine/issues/8393"
+        ],
+        "cause": "Bug report names https://github.com/mantinedev/mantine/pull/8269 as the change that caused it; SZZ on the fix agrees."
+      }
+    },
+    {
+      "id": "visual-ant-design-de9c67987",
+      "kind": "visual",
+      "repo": "ant-design/ant-design",
+      "sha": "de9c6798730fccf428f006970f28d96cee3e68fb",
+      "mergedAt": "2026-03-13T16:58:18+08:00",
+      "subject": "feat(ConfigProvider,Upload): support progress config (#57283)",
+      "size": {
+        "lines": 61
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/c2254f22-c25b-4012-b5c9-fa6268e573ed"
+      ],
+      "evidence": {
+        "fixShas": [
+          "7835883d664bde514b50bed8f879c1a30c9965c5"
+        ],
+        "issue": "https://github.com/ant-design/ant-design/issues/58125",
+        "links": [
+          "https://github.com/ant-design/ant-design/commit/7835883d664bde514b50bed8f879c1a30c9965c5",
+          "https://github.com/ant-design/ant-design/issues/58125"
+        ],
+        "cause": "SZZ: the fix (#58126) changes lines added by #57283; the report says earlier 6.x versions were fine."
+      }
+    },
+    {
+      "id": "visual-excalidraw-0642e72cf",
+      "kind": "visual",
+      "repo": "excalidraw/excalidraw",
+      "sha": "0642e72cfa2d9a71198200e52f37399384610ee3",
+      "mergedAt": "2026-06-22T18:22:26+02:00",
+      "subject": "fix(editor): Arrows with text are rendered blurry in PNG export with larger scale (#11492)",
+      "size": {
+        "lines": 91
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/7a49bd88-7212-4b77-a600-086d835bf7fe",
+        "https://github.com/user-attachments/assets/c3c53c55-5ab6-45e5-bceb-abd6c8fb550f"
+      ],
+      "evidence": {
+        "fixShas": [
+          "063e0256f5f8654aec1c88a2822caedcd3bab4f3"
+        ],
+        "issue": "https://github.com/excalidraw/excalidraw/issues/11591",
+        "links": [
+          "https://github.com/excalidraw/excalidraw/commit/063e0256f5f8654aec1c88a2822caedcd3bab4f3",
+          "https://github.com/excalidraw/excalidraw/issues/11591"
+        ],
+        "cause": "SZZ: the fix (#11637) changes lines added by #11492, merged days before the report (\"started within the last week\")."
+      }
+    },
+    {
+      "id": "visual-ant-design-1d36dfec5",
+      "kind": "visual",
+      "repo": "ant-design/ant-design",
+      "sha": "1d36dfec5be5174376fe54f34a7abd1a7a128e38",
+      "mergedAt": "2026-04-07T20:46:23+08:00",
+      "subject": "fix(Notification): reserve close button spacing for description-only notices (#57590)",
+      "size": {
+        "lines": 16
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/821d1630-b208-4c69-ac80-997ba8eb46b1",
+        "https://github.com/user-attachments/assets/d274c645-4bda-40a8-8e86-91fb0e9261fb"
+      ],
+      "evidence": {
+        "fixShas": [
+          "53b114742a77b117172f83c695e5904dc4fa0be5"
+        ],
+        "issue": "https://github.com/ant-design/ant-design/issues/57817",
+        "links": [
+          "https://github.com/ant-design/ant-design/commit/53b114742a77b117172f83c695e5904dc4fa0be5",
+          "https://github.com/ant-design/ant-design/issues/57817"
+        ],
+        "cause": "Bug report: the overlap was \"supposed to be fixed in\" #57590 but is still present; SZZ on the fix (#57821) points to #57590."
+      }
+    },
+    {
+      "id": "visual-tldraw-52ddccb88",
+      "kind": "visual",
+      "repo": "tldraw/tldraw",
+      "sha": "52ddccb887295953d3df1e331cb582d9963c043c",
+      "mergedAt": "2026-02-11T11:35:50Z",
+      "subject": "Fix canvas-in-front z-index layering and add documentation (#7865)",
+      "size": {
+        "lines": 37
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/0dc48d4e-dc65-4a97-985e-405c0fec90b3"
+      ],
+      "evidence": {
+        "fixShas": [
+          "6421dbe4e25a481f85e70814e96aaa4bf44a4a94"
+        ],
+        "issue": "https://github.com/tldraw/tldraw/issues/8821",
+        "links": [
+          "https://github.com/tldraw/tldraw/commit/6421dbe4e25a481f85e70814e96aaa4bf44a4a94",
+          "https://github.com/tldraw/tldraw/issues/8821"
+        ],
+        "cause": "SZZ on the fix (#9210) points to #7865, which moved the canvas-in-front layer (where the following border lives) below the UI layer."
+      }
+    },
+    {
+      "id": "visual-recharts-156519846",
+      "kind": "visual",
+      "repo": "recharts/recharts",
+      "sha": "1565198468bec83b859e0f356e32134321771bae",
+      "mergedAt": "2025-12-07T21:07:58-08:00",
+      "subject": "Ts strict (#6750)",
+      "size": {
+        "lines": 472
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/75265219-0cec-46d9-af00-320ec7bcde78"
+      ],
+      "evidence": {
+        "fixShas": [
+          "381f2569dec835979beb22b5a36863ee8bf3b74b"
+        ],
+        "issue": "https://github.com/recharts/recharts/issues/6803",
+        "links": [
+          "https://github.com/recharts/recharts/commit/381f2569dec835979beb22b5a36863ee8bf3b74b",
+          "https://github.com/recharts/recharts/issues/6803"
+        ],
+        "cause": "Fix commit (#6807): \"Caused by an unfortunate typescript refactor\", i.e. #6750; SZZ agrees (7 of 8 blamed lines)."
+      }
+    },
+    {
+      "id": "visual-ant-design-18ac3e39d",
+      "kind": "visual",
+      "repo": "ant-design/ant-design",
+      "sha": "18ac3e39d71a23d288d87a3f7c03e526c72678a3",
+      "mergedAt": "2026-05-28T18:59:01+08:00",
+      "subject": "fix: treat empty string as non-renderable content (#58160)",
+      "size": {
+        "lines": 37
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/f4893333-2848-4010-9508-9633e0150c91"
+      ],
+      "evidence": {
+        "fixShas": [
+          "00b94bdf7517422eba089e8588eccb1b3806e1f4"
+        ],
+        "issue": "https://github.com/ant-design/ant-design/issues/58557",
+        "links": [
+          "https://github.com/ant-design/ant-design/commit/00b94bdf7517422eba089e8588eccb1b3806e1f4",
+          "https://github.com/ant-design/ant-design/issues/58557"
+        ],
+        "cause": "Fix \"restore Form.Item help false behavior\" (#58558); SZZ points to #58160, released in 6.5.0 as the report says."
+      }
+    },
+    {
+      "id": "visual-ant-design-c7a7f474c",
+      "kind": "visual",
+      "repo": "ant-design/ant-design",
+      "sha": "c7a7f474c6d2720a4df68651fc2a5237eb9ca3bc",
+      "mergedAt": "2025-06-17T10:48:32+08:00",
+      "subject": "refactor: Button use css var instead of for loop generate style (#54100)",
+      "size": {
+        "lines": 934
+      },
+      "screenshots": [
+        "https://klzdl3.csb.app/current.png"
+      ],
+      "evidence": {
+        "fixShas": [
+          "ef52e15a937e02ddc45567b9dda81f99a1174b11"
+        ],
+        "issue": "https://github.com/ant-design/ant-design/issues/55822",
+        "links": [
+          "https://github.com/ant-design/ant-design/commit/ef52e15a937e02ddc45567b9dda81f99a1174b11",
+          "https://github.com/ant-design/ant-design/issues/55822"
+        ],
+        "cause": "The fix (#55825) adds the hover/active text colour that #54100 dropped when Button moved to CSS variables; the report shows 5.29 correct and 6.0 wrong."
+      }
+    },
+    {
+      "id": "visual-excalidraw-63e114828-10599",
+      "kind": "visual",
+      "repo": "excalidraw/excalidraw",
+      "sha": "63e1148280163a36326b7efb5fdfeefebabdb3e4",
+      "mergedAt": "2026-01-04T15:16:35+01:00",
+      "subject": "feat: stop using CSS filters for dark mode (static canvas) (#10578)",
+      "size": {
+        "lines": 1457
+      },
+      "screenshots": [
+        "https://github.com/user-attachments/assets/e28563fe-a42e-494b-8b58-2db54499ff60"
+      ],
+      "evidence": {
+        "fixShas": [
+          "c158187f20e9eb60c7b0dd5256f0030594883867"
+        ],
+        "issue": "https://github.com/excalidraw/excalidraw/issues/10599",
+        "links": [
+          "https://github.com/excalidraw/excalidraw/commit/c158187f20e9eb60c7b0dd5256f0030594883867",
+          "https://github.com/excalidraw/excalidraw/issues/10599"
+        ],
+        "cause": "Bug report names #10578; that PR stopped applying the CSS dark-mode filter to the static canvas where the grid is drawn, and the fix (#10600) landed the same day. Same PR as the hex8 case, different bug."
+      }
+    }
+  ],
+  "controlRule": "fix commits 2025-06..2026-04, 30-400 changed lines, no later commit mentions the SHA or PR/ticket number, >=90% of added source lines unchanged at HEAD (git blame)"
+}

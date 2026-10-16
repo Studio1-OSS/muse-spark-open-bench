@@ -184,5 +184,20 @@
       "15,003",
       "354,215"
     ]
-  ]
+  ],
+  "visual": {
+    "cases": 10,
+    "caught": 8,
+    "partial": 1,
+    "missed": 1,
+    "strictCaught": 8,
+    "interval": [
+      0.49015684672072335,
+      0.9433190520193067
+    ],
+    "totalCost": 5.77333425,
+    "calls": 102,
+    "medianSeconds": 52.1195,
+    "repos": 5
+  }
 }

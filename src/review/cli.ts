@@ -1,5 +1,5 @@
 // PR Review Bench CLI: run reviews, combine runs into results/, and run the memory probe.
-// Usage: npm run bench -- run [CASE_IDS...] | export BENCHMARK_ID... | probe
+// Usage: npm run bench -- run [CASE_IDS...] | export [--visual] BENCHMARK_ID... | probe
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { config } from '../config.js';
@@ -11,12 +11,15 @@ import { reviewCase, REVIEW_PROMPT, type ReviewRecord } from './runner.js';
 import { probeCase, PROBE_PROMPT, type ProbeRecord } from './probe.js';
 import { hash } from '../domain.js';
 
-const [action, ...args] = process.argv.slice(2);
+const argv = process.argv.slice(2);
+// --watch prints every tool call and model step live.
+if (argv.includes('--watch')) process.env.MUSE_WATCH = '1';
+const [action, ...args] = argv.filter((a) => a !== '--watch');
 const store = new Store();
 const selection = loadSelection();
 
 // Combines one or more benchmark runs (same prompt and config) into results/.
-function exportResults(benchmarkIds: string[]) {
+function exportResults(benchmarkIds: string[], track: 'text' | 'visual' = 'text') {
   const runs = store.all<Run>('run').filter((r) => benchmarkIds.includes(r.benchmarkId));
   const hashes = new Set(benchmarkIds.map((b) => store.get<Benchmark>('benchmark', b)?.configHash));
   if (hashes.size !== 1)
@@ -24,7 +27,8 @@ function exportResults(benchmarkIds: string[]) {
   const ids = new Set(runs.filter((r) => r.outcome !== 'interrupted').map((r) => r.id));
   const reviews = store.all<ReviewRecord>('review-result').filter((r) => ids.has(r.id));
   const requests = store.all<RequestRecord>('request').filter((r) => ids.has(r.runId));
-  const out = join(config.root, 'results');
+  // Visual cases are a separate track with their own results folder.
+  const out = join(config.root, 'results', ...(track === 'visual' ? ['visual'] : []));
   mkdirSync(out, { recursive: true });
   // One completed review per case.
   const primary = runs.filter((r) => r.outcome !== 'interrupted');
@@ -59,7 +63,15 @@ function exportResults(benchmarkIds: string[]) {
     requests.map((r) => JSON.stringify(r)).join('\n') + '\n',
   );
   writeFileSync(join(out, 'runs.json'), JSON.stringify(perRun, null, 2));
-  writeFileSync(join(out, 'cases.json'), JSON.stringify(selection, null, 2));
+  const kinds = track === 'visual' ? ['visual'] : ['bug', 'control'];
+  writeFileSync(
+    join(out, 'cases.json'),
+    JSON.stringify(
+      { ...selection, cases: selection.cases.filter((c) => kinds.includes(c.kind)) },
+      null,
+      2,
+    ),
+  );
   writeFileSync(
     join(out, 'usage.json'),
     JSON.stringify(
@@ -120,7 +132,8 @@ try {
     else console.log(`Saved ${exportResults([benchmark.id])}`);
   } else if (action === 'export') {
     if (!args.length) throw new Error('Usage: npm run bench -- export BENCHMARK_ID...');
-    console.log(exportResults(args));
+    const visual = args[0] === '--visual';
+    console.log(exportResults(visual ? args.slice(1) : args, visual ? 'visual' : 'text'));
   } else if (action === 'probe') {
     const cases = selection.cases.filter(
       (c) => c.kind === 'bug' && (!args.length || args.includes(c.id)),
@@ -174,7 +187,10 @@ try {
       ),
     );
     console.log(`Saved probe answers for ${all.length} cases`);
-  } else console.log('Usage: npm run bench -- run [CASE_IDS...] | export BENCHMARK_ID... | probe');
+  } else
+    console.log(
+      'Usage: npm run bench -- run [CASE_IDS...] | export [--visual] BENCHMARK_ID... | probe',
+    );
 } catch (error) {
   console.error(error instanceof Error ? error.message : String(error));
   process.exitCode = 1;

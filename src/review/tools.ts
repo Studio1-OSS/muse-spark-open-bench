@@ -6,6 +6,7 @@ import { join, relative, resolve, sep } from 'node:path';
 import { promisify } from 'node:util';
 import type { Store } from '../store.js';
 import { id } from '../domain.js';
+import { watchResult, watchTool } from './watch.js';
 
 const run = promisify(execFile);
 
@@ -26,10 +27,12 @@ export function reviewTools(store: Store, runId: string, root: string) {
   const wrap = async (name: string, args: Record<string, unknown>, fn: () => Promise<unknown>) => {
     const callId = id();
     store.event(runId, 'tool.started', { callId, name, args });
+    watchTool(name, args);
     const start = Date.now();
     try {
       const result = await fn();
       store.event(runId, 'tool.finished', { callId, name, result, durationMs: Date.now() - start });
+      watchResult(result);
       return result;
     } catch (error) {
       store.event(runId, 'tool.failed', {
