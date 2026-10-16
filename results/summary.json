@@ -51,7 +51,8 @@
     "output": 354215,
     "reasoning": 298214,
     "cached": 9006592,
-    "calls": 451
+    "calls": 451,
+    "tools": 795
   },
   "usageComplete": true,
   "costComplete": true,
@@ -197,6 +198,7 @@
     ],
     "totalCost": 5.77333425,
     "calls": 102,
+    "tools": 155,
     "medianSeconds": 52.1195,
     "repos": 5
   }

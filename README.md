@@ -61,6 +61,7 @@ It does not test writing fixes, running code, or how Muse compares with other mo
 | Median time / average cost per review | 58 s / $0.29 |
 | Visual bugs caught, with the screenshot | **8 / 10** (80%), see [Visual bugs](#visual-bugs) |
 | Total cost | $14.52 for the 50 reviews and the memory probe, $5.77 for the 10 visual reviews |
+| Model and tool calls | 451 model calls and 795 tool calls for the 50 reviews, 102 and 155 for the 10 visual reviews, 25 model calls for the probe: 578 model calls and 950 tool calls in all |
 
 ### Repositories tested
 
@@ -104,7 +105,7 @@ Muse Spark Open is a vision model, so 10 more bug PRs come with a picture. Each 
 | Visual bugs caught | **8 / 10** (80%, Wilson 95% interval 49–94%) |
 | Strict count | 8 / 10 (80%) |
 | Partial / missed | 1 / 1 |
-| Median time / total cost | 52 s / $5.77 for 10 reviews (102 model calls) |
+| Median time / total cost | 52 s / $5.77 for 10 reviews (102 model calls, 155 tool calls) |
 
 | Repository | What broke (from the screenshot) | Cause PR | Muse | Cost |
 | --- | --- | --- | --- | --- |
@@ -197,8 +198,8 @@ The other four catches (tldraw, two in Ant Design, Mantine) need a running app, 
 Use **Node.js 24+**, **Git** and **Python 3.12+** (for the Django reproductions):
 
 ```sh
-git clone https://github.com/Studio1-OSS/muse-spark-open-tests.git
-cd muse-spark-open-tests
+git clone https://github.com/Studio1-OSS/muse-spark-open-bench.git
+cd muse-spark-open-bench
 npm ci
 cp .env.example .env      # add NEBIUS_API_KEY to run new reviews
 npm run site && npm run preview

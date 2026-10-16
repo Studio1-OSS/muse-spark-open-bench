@@ -229,6 +229,7 @@ const summary = {
     reasoning: usage.reasoning,
     cached: usage.cached,
     calls: usage.calls,
+    tools: cases.reduce((s, c) => s + c.tools, 0),
   },
   usageComplete: usage.usageComplete,
   costComplete: usage.costComplete,
@@ -424,6 +425,7 @@ if (existsSync(join(vdir, 'runs.json'))) {
     interval: wilson(n('caught'), visualCases.length),
     totalCost: Number(vusage.cost),
     calls: vusage.calls,
+    tools: visualCases.reduce((s, c) => s + (c.tools as number), 0),
     medianSeconds: median(visualCases.map((c) => c.seconds as number)),
     repos: new Set(visualCases.map((c) => c.repo)).size,
   };
