@@ -8,7 +8,7 @@
 
 **An open benchmark for Meta's [Muse Spark Open](https://dev.meta.ai/models/muse-spark-open) on [Nebius Token Factory](https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open). Muse reviews 50 real merged pull requests from popular open-source projects. 25 of them were later reverted or fixed because they broke something. Every review is graded against the fix the maintainers actually shipped, and the catches are checked by running the code.**
 
-Built with [Nebius Token Factory](https://dub.sh/aistudio) on **[Muse Spark Open](https://dev.meta.ai/models/muse-spark-open)** · [Results](#results) · [Repositories](#repositories-tested) · [How it works](#how-it-works) · [Proof](#proof-by-running-code) · [Get started](#get-started) · [Reproduce](#reproduce-the-benchmark) · [Limits](#limits)
+Built with [Nebius Token Factory](https://dub.sh/aistudio) on **[Muse Spark Open](https://dev.meta.ai/models/muse-spark-open)** · [What this tests](#what-this-tests) · [Results](#results) · [Repositories](#repositories-tested) · [How it works](#how-it-works) · [Proof](#proof-by-running-code) · [Get started](#get-started) · [Reproduce](#reproduce-the-benchmark) · [Limits](#limits)
 
 [![Muse Spark Open](https://img.shields.io/badge/model-Muse%20Spark%20Open-1a3a3a)](https://dev.meta.ai/models/muse-spark-open)
 [![Nebius Token Factory](https://img.shields.io/badge/runs%20on-Nebius%20Token%20Factory-e0ff4f?labelColor=052b42)](https://tokenfactory.nebius.com/?modals=endpoint-details&model-id=meta-models/muse-spark-open)
@@ -33,6 +33,17 @@ Every review, grade, reproduction log and per-request token record is in this re
 </div>
 
 _The results page, built from the files in [`results/`](results/). Every number on it comes from the saved run._
+
+## What this tests
+
+Muse Spark Open as an AI code reviewer, on real changes from real projects:
+
+- **Finding real bugs.** Does it spot the defect a change introduces, before anyone has reported it? (25 bug PRs)
+- **Staying quiet on good code.** Does it approve changes that were fine? (25 clean PRs)
+- **Working in an unfamiliar codebase.** Each review starts from a large real repository; Muse finds the relevant code itself by searching and reading files.
+- **Being precise.** A catch only counts if it names the actual cause, specifically enough to turn into a failing test.
+
+It does not test writing fixes, running code, or how Muse compares with other models.
 
 ## Results
 
